@@ -1,11 +1,16 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
+  <MainView />
 </template>
 
 <script>
+import MainView from './components/MainView.vue'
 
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    MainView
+  }
 }
 </script>
 
