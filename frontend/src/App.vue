@@ -14,6 +14,7 @@ export default {
 </script>
 
 <style>
+@import "https://unpkg.com/98.css";
 #app {
   
 }
