@@ -6,7 +6,6 @@
             <p>내 컴퓨터</p>
         </button>
     </div>
-
 </div>
 </template>
 
@@ -22,23 +21,17 @@ function iconClick(event) {
 </script>
 
 <style>
-    html {
-        height: 100%;
-        background-color: #008080;
-    }
+
     body {
         height: 100%;
         margin: 0;
         overflow: hidden;
+        background-color: #008080;
     }
+    
     .windows-icon-btn {
         background-color: transparent;
         border: none;
     }
-    .transparent-div {
-        width: 100%;
-        height: 100vh;
-        position: absolute;
-        z-index: -1;
-    }
+
 </style>
