@@ -1,21 +1,25 @@
 <template>
-  <MainView />
+  <div>
+    <MainView />
+    <FooterView />
+  </div>
 </template>
 
 <script>
-import MainView from './components/MainView.vue'
+import MainView from '@/components/MainView.vue'
+import FooterView from '@/components/common/FooterView.vue'
 
 export default {
   name: 'App',
   components: {
-    MainView
+    MainView,
+    FooterView
   }
 }
 </script>
 
 <style>
-@import "https://unpkg.com/98.css";
-#app {
-  
-}
+  #app {
+
+  }
 </style>
