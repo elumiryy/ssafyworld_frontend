@@ -1,21 +1,35 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <div>
+    <MainView />
+    <div class="setting-footer">
+      <SettingView />
+      <FooterView />
+    </div>
+  </div>
 </template>
 
 <script>
+import MainView from '@/components/MainView.vue'
+import FooterView from '@/components/common/FooterView.vue'
+import SettingView from '@/components/common/SettingView.vue'
 
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    MainView,
+    FooterView,
+    SettingView
+  }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
+  .setting-footer {
+    width: 100%;
+    /* 하단에 고정 */
+    position: absolute;
+    bottom: 0;
+  }
+  
 </style>
