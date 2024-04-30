@@ -1,22 +1,25 @@
 <template>
   <div>
-    <MainView />
+    
+    <!-- router 설정 -->
+    <router-view></router-view>
+
+    <!-- Footer -->
     <div class="setting-footer">
       <SettingView />
       <FooterView />
     </div>
+
   </div>
 </template>
 
 <script>
-import MainView from '@/components/MainView.vue'
 import FooterView from '@/components/common/FooterView.vue'
 import SettingView from '@/components/common/SettingView.vue'
 
 export default {
   name: 'App',
   components: {
-    MainView,
     FooterView,
     SettingView
   }
@@ -24,6 +27,10 @@ export default {
 </script>
 
 <style>
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
 
   .setting-footer {
     width: 100%;
