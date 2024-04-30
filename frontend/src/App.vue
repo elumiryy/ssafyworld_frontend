@@ -6,7 +6,6 @@
 
     <!-- Footer -->
     <div class="setting-footer">
-      <SettingView />
       <FooterView />
     </div>
 
@@ -15,13 +14,11 @@
 
 <script>
 import FooterView from '@/components/common/FooterView.vue'
-import SettingView from '@/components/common/SettingView.vue'
 
 export default {
   name: 'App',
   components: {
-    FooterView,
-    SettingView
+    FooterView
   }
 }
 </script>
