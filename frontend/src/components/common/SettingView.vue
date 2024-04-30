@@ -2,19 +2,19 @@
     <div class="setting">
         <img src="@/assets/windows-98-logo.png" alt="windows-icon-img" width="15">
         <div class="start-menu">
-            <div>
+            <router-link to="/">
                 <img src="@/assets/windowsIcon/recycle_bin_full_cool-0.png" alt="windows-icon-img" width="40" height="40">
                 <p v-on:click="print">회원 탈퇴</p>
-            </div>
-            <div>
+            </router-link>
+            <router-link to="/signup">
                 <img src="@/assets/windowsIcon/users_key-4.png" alt="windows-icon-img" width="40" height="40">
                 <p>내 정보 수정</p>
-            </div>
+            </router-link>
             <hr />
-            <div>
+            <router-link to="/ssafyworld">
                 <img src="@/assets/windowsIcon/ac_plug-0.png" alt="windows-icon-img" width="40" height="40">
                 <p>로그아웃</p>
-            </div>
+            </router-link>
         </div>
     </div>
 </template>
@@ -43,19 +43,22 @@ export default {
         width: 95%;
     }
 
-    .start-menu > div {
+    .start-menu > a {
         padding: 3px 10px;
+        text-decoration: none;
+        color: black;
+        outline: none;
         display: flex;
         flex-direction: row;
         align-items: center;
     }
 
-    .start-menu > div:hover {
+    .start-menu > a:hover {
         background-color: #000078;
         color: #F8FCF8;
     }
 
-    .start-menu > div > p {
+    .start-menu > a > p {
         margin: 0;
         padding: 0 20px;
         font-size: medium;
