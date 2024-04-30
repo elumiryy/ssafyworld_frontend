@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <!-- 드래그 금지 설정 -->
+  <div ondragstart = "return false">
     
     <!-- router 설정 -->
     <router-view></router-view>
