@@ -3,7 +3,7 @@
         <div class="window">
 
             <div class="title-bar">
-                <div class="title-bar-text">ssafyworld 사용자 설정</div>
+                <div class="title-bar-text">싸피월드 가입 마법사</div>
                 <div class="title-bar-controls">
                     <button aria-label="Minimize"></button>
                     <button aria-label="Maximize"></button>
@@ -16,21 +16,19 @@
                 <div class="user-info-div">
                     <!-- <h3>사용자 정보</h3>
                     <h4>사용자의 이름과 기수, 지역, 반을 입력하여 주십시오.</h4> -->
-                    <h3>User Info</h3>
-                    <h4>Please enter your name, grade, region, and class.</h4>
+                    <h3>사용자 정보</h3>
+                    <h4>사용자 정보를 입력해 주시기 바랍니다.</h4>
                     <br>
                     <form>
                         <div class="user-info-form">
 
                             <div>
-                                <!-- <label for="name">이름 : </label> -->
-                                <label for="name">name</label>
+                                <label for="name">이름</label>
                                 <input type="text" id="name" name="name" />
                             </div>
 
                             <div>
-                                <!-- <label for="ordinal">기수 : </label> -->
-                                <label for="ordinal">grade</label>
+                                <label for="ordinal">기수</label>
                                 <select id="ordinal" name="ordinal">
                                     <option value="9">9기</option>
                                     <option value="10">10기</option>
@@ -40,7 +38,7 @@
                             </div>
 
                             <div>
-                                <label for="region">지역 : </label>
+                                <label for="region">지역</label>
                                 <select id="region" name="region">
                                     <option value="서울">서울</option>
                                     <option value="대전">대전</option>
@@ -51,7 +49,7 @@
                             </div>
 
                             <div>
-                                <label for="ban">반&nbsp;&nbsp;&nbsp; : </label>
+                                <label for="ban">반</label>
                                 <select id="ban" name="ban">
                                     <option value="1반">1반</option>
                                     <option value="2반">2반</option>
@@ -98,13 +96,12 @@ export default {
         background-color: #000060;
         display: flex;
         justify-content: center;
-        /* SettingView에 가려져서 버튼 클릭 안됨 문제 일시 해결한 것. 추후 주석 해제 필요 */
-        /* align-items: center; */
+        align-items: center;
     }
 
     .window {
         width: 900px; 
-        height:600px;
+        height: 600px;
         padding-bottom: 10px;
         border: 1px solid white;
         position: relative;
@@ -125,7 +122,7 @@ export default {
     }
 
     .title-bar-text {
-        font-size: small;
+        font-size: medium;
         padding: 0 10px;
     }
 
@@ -147,7 +144,7 @@ export default {
     }
 
     .user-info-form > div > label {
-        width: 50px;
+        width: 80px;
         padding: 5px 10px;
         font-size: large;
         font-weight: bold;

@@ -3,7 +3,7 @@
         <div class="window">
 
             <div class="title-bar">
-                <div class="title-bar-text">ssafyworld 사용자 설정</div>
+                <div class="title-bar-text">싸피월드 가입 마법사</div>
                 <div class="title-bar-controls">
                     <button aria-label="Minimize"></button>
                     <button aria-label="Maximize"></button>
@@ -16,15 +16,14 @@
                 <div class="user-info-div">
                     <!-- <h3>사용자 정보</h3>
                     <h4>사용자의 이름과 기수, 지역, 반을 입력하여 주십시오.</h4> -->
-                    <h3>User Info</h3>
+                    <h3>사용자 정보</h3>
                     <h4>사용자 확인용 질문과 답을 입력하여 주십시오.</h4>
                     <br>
                     <form>
                         <div class="user-info-form">
 
                             <div>
-                                <!-- <label for="question">질문 : </label> -->
-                                <label for="question">question</label>
+                                <label for="question">질문</label>
                                 <select id="question" name="question">
                                     <option value="a">아버지 성함은?</option>
                                     <option value="b">어렸을 적 살던 동네는?</option>
@@ -34,8 +33,7 @@
                             </div>
 
                             <div>
-                                <!-- <label for="answer">답 : </label> -->
-                                <label for="answer">answer</label>
+                                <label for="answer">답</label>
                                 <input type="text" id="answer" name="answer" />
                             </div>
 
@@ -80,8 +78,7 @@ export default {
         background-color: #000060;
         display: flex;
         justify-content: center;
-        /* SettingView에 가려져서 버튼 클릭 안됨 문제 일시 해결한 것. 추후 주석 해제 필요 */
-        /* align-items: center; */
+        align-items: center;
     }
 
     .window {
@@ -92,7 +89,7 @@ export default {
         position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: spacee-between;
+        justify-content: space-between;
     }
 
     .window-body {
@@ -107,7 +104,7 @@ export default {
     }
 
     .title-bar-text {
-        font-size: small;
+        font-size: medium;
         padding: 0 10px;
     }
 

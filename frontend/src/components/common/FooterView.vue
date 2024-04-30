@@ -1,24 +1,34 @@
 <template>
-<div class="footer">
-    <button class="footer-start-btn">
-        <img src="@/assets/windowsIcon/windows.png" alt="windows-icon-img" width="30" height="30">
-        <p class="footer-start-p">시작</p>
-    </button>
-    <button class="footer-time-div">
-        <p class="footer-time-p">{{ampm}}</p>
-        <p class="footer-time-p">{{time}}</p>
-    </button>
-</div>
+    <div>
+        <SettingView v-if="isSettingVisible" />
+
+        <div id="footer">
+            <button class="footer-start-btn" v-on:click="startBtnClick">
+                <img src="@/assets/windowsIcon/windows.png" alt="windows-icon-img" width="30" height="30">
+                <p class="footer-start-p">시작</p>
+            </button>
+            <button class="footer-time-div">
+                <p class="footer-time-p">{{ampm}}</p>
+                <p class="footer-time-p">{{time}}</p>
+            </button>
+        </div>
+    </div>
 </template>
 
 <script>
+import SettingView from '@/components/common/SettingView.vue'
+
 export default {
     name: 'FooterView',
+    components: {
+        SettingView
+    },
     data() {
         return {
             ampm: '',
-            time: ''
-        }
+            time: '',
+            isSettingVisible: false
+        };
     },
     created() {
         setInterval(() => this.getNow(), 1000)
@@ -34,16 +44,20 @@ export default {
             this.time = `${String(date.getHours() % 12 || 12).padStart(2, '0')}:${String(
                 date.getMinutes()
             ).padStart(2, '0')}`  
+        },
+        startBtnClick() {
+            this.isSettingVisible = !this.isSettingVisible
+            console.log(this.isSettingVisible)
         }
-    }
-}
+    },
+};
 </script>
 
 <style scoped>
 
     @import "https://unpkg.com/98.css";
 
-    .footer {
+    #footer {
         width: 100%;
         height: 40px;
         padding: 0;
@@ -72,6 +86,10 @@ export default {
     .footer-time-p {
         margin: 0;
         font-size: small;
+    }
+
+    .text-decorate {
+        display: none;
     }
 
 </style>

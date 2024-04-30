@@ -47,7 +47,7 @@ export default {
         padding: 3px 10px;
         text-decoration: none;
         color: black;
-        outline: none;
+        outline: none !important;
         display: flex;
         flex-direction: row;
         align-items: center;
