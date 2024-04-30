@@ -3,7 +3,7 @@
         <div class="window">
 
             <div class="title-bar">
-                <div class="title-bar-text">Windows 98 설치 마법사</div>
+                <div class="title-bar-text">ssafyworld 사용자 설정</div>
                 <div class="title-bar-controls">
                     <button aria-label="Minimize"></button>
                     <button aria-label="Maximize"></button>
@@ -14,19 +14,23 @@
             <div class="window-body">
                 <img src="@/assets/windows-wizard.png" alt=""> <!-- 이미지 -->
                 <div class="user-info-div">
-                    <h3>사용자 정보</h3>
-                    <h4>사용자의 이름과 기수, 지역, 반을 입력하여 주십시오.</h4>
+                    <!-- <h3>사용자 정보</h3>
+                    <h4>사용자의 이름과 기수, 지역, 반을 입력하여 주십시오.</h4> -->
+                    <h3>User Info</h3>
+                    <h4>Please enter your name, grade, region, and class.</h4>
                     <br>
                     <form>
                         <div class="user-info-form">
 
                             <div>
-                                <label for="name">이름 : </label>
+                                <!-- <label for="name">이름 : </label> -->
+                                <label for="name">name</label>
                                 <input type="text" id="name" name="name" />
                             </div>
 
                             <div>
-                                <label for="ordinal">기수 : </label>
+                                <!-- <label for="ordinal">기수 : </label> -->
+                                <label for="ordinal">grade</label>
                                 <select id="ordinal" name="ordinal">
                                     <option value="9">9기</option>
                                     <option value="10">10기</option>
@@ -67,9 +71,8 @@
             </div>
 
             <div class="page-btn-div">
-                <button onclick="prevStep()">&lt; 뒤로(B)</button>
-                <button onclick="nextStep()">다음 &gt; </button>
-                <button onclick="cancel()">취소</button>
+                <button v-on:click="nextStep">다음 &gt; </button>
+                <button v-on:click="cancel">취소</button>
             </div>
 
         </div>
@@ -78,7 +81,14 @@
 
 <script>
 export default {
-    
+    methods: {
+        nextStep() {
+            this.$router.push('/signupqa')
+        },
+        cancel() {
+            this.$router.push('/ssafyworld')
+        }
+    },
 }
 </script>
 
@@ -88,7 +98,8 @@ export default {
         background-color: #000060;
         display: flex;
         justify-content: center;
-        align-items: center;
+        /* SettingView에 가려져서 버튼 클릭 안됨 문제 일시 해결한 것. 추후 주석 해제 필요 */
+        /* align-items: center; */
     }
 
     .window {
@@ -121,6 +132,14 @@ export default {
     .page-btn-div {
         display: flex;
         justify-content: flex-end;
+    }
+
+    .page-btn-div > button {
+        color: black;
+    }
+
+    .user-info-div {
+        width: 60%;
     }
     
     .user-info-form > div {
