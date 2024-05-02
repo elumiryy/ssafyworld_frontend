@@ -6,10 +6,10 @@
                 <img src="@/assets/windowsIcon/recycle_bin_full_cool-0.png" alt="windows-icon-img" width="40" height="40">
                 <p v-on:click="print">회원 탈퇴</p>
             </router-link>
-            <router-link to="/mypage">
+            <div class="gotomypage-div" v-on:click="goToMypage()">
                 <img src="@/assets/windowsIcon/users_key-4.png" alt="windows-icon-img" width="40" height="40">
                 <p>내 정보 수정</p>
-            </router-link>
+            </div>
             <hr />
             <router-link to="/ssafyworld">
                 <img src="@/assets/windowsIcon/ac_plug-0.png" alt="windows-icon-img" width="40" height="40">
@@ -21,7 +21,11 @@
 
 <script>
 export default {
-
+    methods: {
+        goToMypage() {
+            window.open("/mypage", "_blank", "width=480, height=300, left=550, top=250");
+        }
+    },
 }
 </script>
 
@@ -43,7 +47,7 @@ export default {
         width: 95%;
     }
 
-    .start-menu > a {
+    .start-menu > a, .gotomypage-div {
         padding: 3px 10px;
         text-decoration: none;
         color: black;
@@ -53,12 +57,12 @@ export default {
         align-items: center;
     }
 
-    .start-menu > a:hover {
+    .start-menu > a:hover, .gotomypage-div:hover {
         background-color: #000078;
         color: #F8FCF8;
     }
 
-    .start-menu > a > p {
+    .start-menu > a > p, .gotomypage-div > p {
         margin: 0;
         padding: 0 20px;
         font-size: medium;
