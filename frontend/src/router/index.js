@@ -3,6 +3,7 @@ import MainView from '@/views/MainView.vue'
 import SignupView from '@/views/member/SignupView.vue'
 import SignupViewQA from '@/views/member/SignupViewQA.vue'
 import LoginView from '@/views/member/LoginView.vue'
+import MypageView from '@/views/member/MypageView.vue'
 
 const routes = [
   {
@@ -24,7 +25,12 @@ const routes = [
     path:"/login",
     name: "LoginView",
     component: LoginView
-  }
+  },
+  {
+    path:"/mypage",
+    name: "MypageView",
+    component: MypageView
+  },
 ];
 
 const router = createRouter({

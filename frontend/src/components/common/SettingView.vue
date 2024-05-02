@@ -2,11 +2,11 @@
     <div class="setting">
         <img src="@/assets/windows-98-logo.png" alt="windows-icon-img" width="15">
         <div class="start-menu">
-            <router-link to="/signupqa">
+            <router-link to="/signup">
                 <img src="@/assets/windowsIcon/recycle_bin_full_cool-0.png" alt="windows-icon-img" width="40" height="40">
                 <p v-on:click="print">회원 탈퇴</p>
             </router-link>
-            <router-link to="/signup">
+            <router-link to="/mypage">
                 <img src="@/assets/windowsIcon/users_key-4.png" alt="windows-icon-img" width="40" height="40">
                 <p>내 정보 수정</p>
             </router-link>
