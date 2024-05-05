@@ -5,18 +5,16 @@
                 <div class="title-bar-text">내 정보</div>
                 <div class="title-bar-controls">
                     <button aria-label="Help"></button>
-                    <button aria-label="Close"></button>
+                    <button aria-label="Close" v-on:click="closwMypage()"></button>
                 </div>
             </div>
             <div class="window-body">
-                <menu role="tablist">
-                    <li role="tab" aria-selected="true"><a href="#tabs">Desktop</a></li>
-                    <li role="tab"><a href="#tabs">My computer</a></li>
-                    <li role="tab"><a href="#tabs">Control panel</a></li>
-                    <li role="tab"><a href="#tabs">Devices manager</a></li>
-                    <li role="tab"><a href="#tabs">Hardware profiles</a></li>
-                    <li role="tab"><a href="#tabs">Performance</a></li>
-                </menu>
+                <div>
+                    <menu role="tablist">
+                        <li role="tab" aria-selected="true">내 정보</li>
+                        <li role="tab">메시지</li>
+                    </menu>
+                </div>
                 <div class="window" role="tabpanel">
                     <div class="window-body">
                     <p>the tab content</p>
@@ -24,17 +22,19 @@
                 </div>
                 <div class="page-btn-div">
                     <button>확인</button>
-                    <button class="cancel-btn">취소</button>
+                    <button class="cancel-btn" v-on:click="closwMypage()">취소</button>
                 </div>
             </div>
         </div>
     </div>
 </template>
-<script>
-export default {
-    
+
+<script setup>
+function closwMypage() {
+    window.close()
 }
 </script>
+
 <style scoped>
     .mypage {
         background-color: #C3C2C3;
@@ -54,6 +54,10 @@ export default {
 
     .window-body > .window {
         height: 100%;
+    }
+
+    .window-body li {
+        padding: 5px;
     }
 
     .page-btn-div {
