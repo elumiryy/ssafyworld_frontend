@@ -16,9 +16,7 @@
                     </menu>
                 </div>
                 <div class="window" role="tabpanel">
-                    <div class="window-body">
-                    <p>the tab content</p>
-                    </div>
+                    <MyInfo />
                 </div>
                 <div class="page-btn-div">
                     <button>확인</button>
@@ -30,6 +28,8 @@
 </template>
 
 <script setup>
+import MyInfo from '@/components/member/MyInfo.vue'
+
 function closwMypage() {
     window.close()
 }
@@ -54,6 +54,9 @@ function closwMypage() {
 
     .window-body > .window {
         height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .window-body li {
