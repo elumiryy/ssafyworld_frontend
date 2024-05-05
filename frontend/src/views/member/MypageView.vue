@@ -58,6 +58,7 @@ function closwMypage() {
 
     .window-body li {
         padding: 5px;
+        cursor : default;
     }
 
     .page-btn-div {
