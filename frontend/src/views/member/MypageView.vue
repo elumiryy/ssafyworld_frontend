@@ -11,12 +11,12 @@
             <div class="window-body">
                 <div>
                     <menu role="tablist">
-                        <li role="tab" aria-selected="true">내 정보</li>
-                        <li role="tab">메시지</li>
+                        <li role="tab" aria-selected="true" @click="tabMyInfo()">내 정보</li>
+                        <li role="tab" @click="tabMessage()">메시지</li>
                     </menu>
                 </div>
                 <div class="window" role="tabpanel">
-                    <MyInfo />
+                    <MyInfo v-if="isSelectedMyInfo" />
                 </div>
                 <div class="page-btn-div">
                     <button>확인</button>
@@ -29,9 +29,23 @@
 
 <script setup>
 import MyInfo from '@/components/member/MyInfo.vue'
+import { ref } from 'vue'
+
+const isSelectedMyInfo = ref(true)
+const isSelectedMessage = ref(false)
 
 function closwMypage() {
     window.close()
+}
+
+function tabMyInfo() {
+    isSelectedMyInfo.value = true
+    isSelectedMessage.value = false
+}
+
+function tabMessage() {
+    isSelectedMyInfo.value = false
+    isSelectedMessage.value = true
 }
 </script>
 
