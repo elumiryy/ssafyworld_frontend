@@ -32,7 +32,7 @@
     }
 
     .myinfo-div {
-        width: 180px;
+        width: 250px;
         padding: 5px 0;
         margin: 0;
         display: flex;
@@ -41,5 +41,9 @@
 
     .myinfo-div > label, .myinfo-div > input {
         font-size: small;
+    }
+
+    .myinfo-div > input {
+        width: 200px;
     }
 </style>

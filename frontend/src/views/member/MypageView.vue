@@ -11,12 +11,15 @@
             <div class="window-body">
                 <div>
                     <menu role="tablist">
-                        <li role="tab" aria-selected="true" @click="tabMyInfo()">내 정보</li>
+                        <!-- aria-selected="true" 왜 이 속성은 aria-selected="isSelectedMyInfo" 이게 안될까? -->
+                        <li role="tab" @click="tabMyInfo()">내 정보</li>
+                        <li role="tab" @click="tabMyInfoModify()">내 정보 수정</li>
                         <li role="tab" @click="tabMessage()">메시지</li>
                     </menu>
                 </div>
                 <div class="window" role="tabpanel">
                     <MyInfo v-if="isSelectedMyInfo" />
+                    <MyInfoModify v-if="isSelectedMyInfoModify" />
                 </div>
                 <div class="page-btn-div">
                     <button>확인</button>
@@ -29,9 +32,11 @@
 
 <script setup>
 import MyInfo from '@/components/member/MyInfo.vue'
+import MyInfoModify from '@/components/member/MyInfoModify.vue'
 import { ref } from 'vue'
 
 const isSelectedMyInfo = ref(true)
+const isSelectedMyInfoModify = ref(false)
 const isSelectedMessage = ref(false)
 
 function closwMypage() {
@@ -40,11 +45,19 @@ function closwMypage() {
 
 function tabMyInfo() {
     isSelectedMyInfo.value = true
+    isSelectedMyInfoModify.value = false
+    isSelectedMessage.value = false
+}
+
+function tabMyInfoModify() {
+    isSelectedMyInfo.value = false
+    isSelectedMyInfoModify.value = true
     isSelectedMessage.value = false
 }
 
 function tabMessage() {
     isSelectedMyInfo.value = false
+    isSelectedMyInfoModify.value = false
     isSelectedMessage.value = true
 }
 </script>
