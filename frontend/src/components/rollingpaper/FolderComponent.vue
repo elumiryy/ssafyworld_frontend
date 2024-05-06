@@ -1,7 +1,7 @@
 <template>
   <div style="margin: 0; width: 55px;">
     <div style="display: flex; justify-content: center;">
-      <img src="@/assets/windowsIcon/directory_closed-4.png" style="width: calc(100% - 20px); padding: 0 10px;" />
+      <img :src="getImageSource" style="width: calc(100% - 20px); padding: 0 10px;" />
     </div>
     <div style="display: flex; justify-content: center; width: 100%;">
       <p style="width: calc(100% + 10px); text-align: center; margin: 0; font-size: 13px; word-wrap: break-word; padding: 0 5px;">
@@ -14,11 +14,28 @@
 <script>
 export default {
   props: {
+    imageType: {
+      type: String,
+      default: 'folder'
+    },
     folderName: {
       type: String,
       default: 'folderName'
     }
-  }
+  },
+  computed: {
+    getImageSource() {
+      //imageType이 folder이면 folder모양 이미지, 그 외는 편지모양 이미지 출력
+      return this.imageType === 'folder' ?
+             require('@/assets/windowsIcon/directory_closed-4.png') : 
+             require('@/assets/windowsIcon/message_envelope_open.png');
+    }
+  },
+  // methods: { //부모에게 데이터 전달
+  //   clickHandler() {
+  //     this.$emit('click', "value");
+  //   },
+  // }
 }
 </script>
 

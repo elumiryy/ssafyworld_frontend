@@ -2,7 +2,7 @@
   <div style="display: inline-block">
     <div class="grid-container">
       <div class="grid-item" v-for="(item, index) in items" :key="index" style="border: none">
-        <FolderComponent :folderName="item"></FolderComponent>
+        <FolderComponent :folderName="item" imageType="message"></FolderComponent>
       </div>
     </div>
   </div>
