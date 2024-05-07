@@ -1,11 +1,10 @@
 <template>
+
   <!-- 드래그 금지 설정 -->
   <div ondragstart = "return false">
     <nav>
-            <router-link :to="{ name: 'FolderView' }">FolderView</router-link>
-
+      <router-link :to="{ name: 'LetterView' }">LetterView</router-link>
     </nav>
-    
     <!-- router 설정 -->
     <router-view></router-view>
 

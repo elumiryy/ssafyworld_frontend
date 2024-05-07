@@ -7,6 +7,9 @@ import FolderView from '@/views/letter/FolderView.vue'
 import ChatView from '@/views/chat/ChatView.vue'
 import ChatRoomView from '@/views/chat/ChatRoom.vue'
 import MypageView from '@/views/member/MypageView.vue'
+import LetterView from '@/views/letter/LetterView.vue'
+import PageLove from '@/PageLove.vue'
+
 
 const routes = [
   {
@@ -47,6 +50,16 @@ const routes = [
     path:"/mypage",
     name: "MypageView",
     component: MypageView
+  },
+  {
+    path:"/PageLove",
+    name: "PageLove",
+    component: PageLove
+  },
+  {
+    path:"/LetterView",
+    name: "LetterView",
+    component: LetterView
   },
 ];
 
