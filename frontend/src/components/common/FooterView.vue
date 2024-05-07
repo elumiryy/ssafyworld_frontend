@@ -1,9 +1,10 @@
 <template>
     <div>
-        <SettingView v-if="isSettingVisible" />
+        <!-- <SettingView v-if="isSettingVisible" /> -->
 
         <div id="footer">
-            <button class="footer-start-btn" v-on:click="startBtnClick">
+            <!-- <button class="footer-start-btn" v-on:click="startBtnClick"> -->
+            <button class="footer-start-btn" @click="$emit('openStartModal')">
                 <img src="@/assets/windowsIcon/windows.png" alt="windows-icon-img" width="30" height="30">
                 <p class="footer-start-p">시작</p>
             </button>
@@ -16,18 +17,18 @@
 </template>
 
 <script>
-import SettingView from '@/components/common/SettingView.vue'
+// import SettingView from '@/components/common/SettingView.vue'
 
 export default {
     name: 'FooterView',
-    components: {
-        SettingView
-    },
+    // components: {
+    //     SettingView
+    // },
     data() {
         return {
             ampm: '',
             time: '',
-            isSettingVisible: false
+            // isSettingVisible: false
         };
     },
     created() {
@@ -44,10 +45,6 @@ export default {
             this.time = `${String(date.getHours() % 12 || 12).padStart(2, '0')}:${String(
                 date.getMinutes()
             ).padStart(2, '0')}`  
-        },
-        startBtnClick() {
-            this.isSettingVisible = !this.isSettingVisible
-            console.log(this.isSettingVisible)
         }
     },
 };
