@@ -6,6 +6,13 @@
                 <p>내 컴퓨터</p>
             </div>
         </router-link>
+
+        <router-link to="/chat">
+            <div class="windows-icon-div">
+                <img src="@/assets/windowsIcon/windows.png" alt="windows-icon-img" width="50" height="50">
+                <p>채팅방 이동</p>
+            </div>
+        </router-link>
     </div>
 </template>
 
