@@ -23,7 +23,7 @@
 export default {
     methods: {
         goToMypage() {
-            window.open("/mypage", "_blank", "width=480, height=300, left=550, top=250");
+            window.open("/mypage", "_blank", "width=550, height=400, left=550, top=250");
         }
     },
 }
