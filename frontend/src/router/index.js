@@ -4,6 +4,9 @@ import SignupView from '@/views/member/SignupView.vue'
 import SignupViewQA from '@/views/member/SignupViewQA.vue'
 import LoginView from '@/views/member/LoginView.vue'
 import FolderView from '@/views/letter/FolderView.vue'
+import ChatView from '@/views/chat/ChatView.vue'
+import ChatRoomView from '@/views/chat/ChatRoom.vue'
+import MypageView from '@/views/member/MypageView.vue'
 
 const routes = [
   {
@@ -30,7 +33,21 @@ const routes = [
     path:"/folders",
     name: "FolderView",
     component: FolderView
-  }
+  },
+{    path:"/chat",
+    name: "ChatView",
+    component: ChatView
+  },
+  {
+    path:'/chatroom',
+    name:"chatroom",
+    component : ChatRoomView
+  },
+  {
+    path:"/mypage",
+    name: "MypageView",
+    component: MypageView
+  },
 ];
 
 const router = createRouter({
