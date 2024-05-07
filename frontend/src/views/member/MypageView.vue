@@ -92,10 +92,6 @@ function tabMessage() {
         cursor : default;
     }
 
-    .menu-li {
-        background-color: gray;
-    }
-
     .page-btn-div {
         padding: 10px 0;
         display: flex;
