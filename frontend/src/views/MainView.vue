@@ -34,6 +34,7 @@
 
     .windows-icon-div > a {
         text-decoration: none;
+        outline: none;
         display: flex;
         flex-direction: column;
         align-items: center;
