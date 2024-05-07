@@ -39,21 +39,11 @@
         align-items: center;
     }
 
-     a {
-        /* width: 60px; */
-        /* padding: 5px; */
-        /* background-color: transparent; */
-        /* display: flex; */
-        /* flex-direction: column; */
-        /* align-items: center; */
-    }
-
     .windows-icon-div p {
         margin: 0;
         padding: 1px 0;
         color: #F8FCF8;
         font-size: small;
-        /* text-align: center; */
     }
 
 </style>
