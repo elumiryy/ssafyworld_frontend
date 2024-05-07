@@ -20,6 +20,7 @@
                 <div class="window" role="tabpanel">
                     <MyInfo v-if="isSelectedMyInfo" />
                     <MyInfoModify v-if="isSelectedMyInfoModify" />
+                    <MyMessageSetting v-if="isSelectedMessage" />
                 </div>
                 <div class="page-btn-div">
                     <button>확인</button>
@@ -33,6 +34,7 @@
 <script setup>
 import MyInfo from '@/components/member/MyInfo.vue'
 import MyInfoModify from '@/components/member/MyInfoModify.vue'
+import MyMessageSetting from '@/components/member/MyMessageSetting.vue'
 import { ref } from 'vue'
 
 const isSelectedMyInfo = ref(true)
