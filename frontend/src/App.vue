@@ -1,15 +1,15 @@
 <template>
-  <!-- 드래그 금지 설정 -->
-  <div ondragstart = "return false">
-    
-    <!-- router 설정 -->
-    <router-view></router-view>
+  <div>
+    <!-- 드래그 금지 설정 -->
+    <div ondragstart="return false" @click="closeStartModal">
+      <!-- router 설정 -->
+      <router-view></router-view>
+    </div>
 
     <!-- menu -->
     <div class="menu">
-      <SettingView v-if="isSettingVisible" />
+      <SettingView v-if="isSettingVisible"/>
     </div>
-
     <!-- Footer -->
     <footer>
       <FooterView @open-start-modal="callOpenStartModal" />
@@ -37,6 +37,12 @@ export default {
     callOpenStartModal() {
       this.isSettingVisible = !this.isSettingVisible
       console.log("상태 ", this.isSettingVisible)
+    },
+    closeStartModal() {
+      if (this.isSettingVisible == true) {
+        this.isSettingVisible = !this.isSettingVisible
+        console.log("호출 ", this.isSettingVisible)
+      }
     }
   }
 }
