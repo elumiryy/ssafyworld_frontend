@@ -12,9 +12,9 @@
                 <div>
                     <menu role="tablist">
                         <!-- aria-selected="true" 왜 이 속성은 aria-selected="isSelectedMyInfo" 이게 안될까? -->
-                        <li role="tab" @click="tabMyInfo()">내 정보</li>
-                        <li role="tab" @click="tabMyInfoModify()">내 정보 수정</li>
-                        <li role="tab" @click="tabMessage()">메시지</li>
+                        <li role="tab" @click="tabMyInfo()" :class="{ 'menu-li' : isSelectedMyInfo }">내 정보</li>
+                        <li role="tab" @click="tabMyInfoModify()" :class="{ 'menu-li' : isSelectedMyInfoModify }">내 정보 수정</li>
+                        <li role="tab" @click="tabMessage()" :class="{ 'menu-li' : isSelectedMessage }">메시지</li>
                     </menu>
                 </div>
                 <div class="window" role="tabpanel">
@@ -91,6 +91,10 @@ function tabMessage() {
     .window-body li {
         padding: 5px;
         cursor : default;
+    }
+
+    .menu-li {
+        background-color: gray;
     }
 
     .page-btn-div {
