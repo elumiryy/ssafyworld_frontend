@@ -17,6 +17,10 @@
                 <label for="ban">반</label>
                 <input id="ban" type="text" value="4" disabled/>
             </div>
+            <div class="myinfo-div">
+                <label for="question">질문</label>
+                <input id="question" type="text" value="어렸을 적 살던 동네는?" disabled/>
+            </div>
         </div>
     </div>
 </template>
