@@ -192,12 +192,12 @@ export const Modal = defineComponent({
             }
         }
 
-        const onWrapClick = (e) => {
-            if(!props.maskClosable || !props.mask) return;
-            if( e.target === wrapRef.value) {
-                cancel(name);
-            }
-        }
+        // const onWrapClick = (e) => {
+        //     if(!props.maskClosable || !props.mask) return;
+        //     if( e.target === wrapRef.value) {
+        //         cancel(name);
+        //     }
+        // }
 
         let buttonLoading = reactive({
             value: false,
@@ -314,7 +314,7 @@ export const Modal = defineComponent({
                     h('div', {
                         ref: wrapRef,
                         style: `position:fixed;left:0;right:0;top:0;bottom:0;margin: 0 auto;z-index:${props.zIndex};overflow:auto;outline:0;`,
-                        onclick: (e) => {onWrapClick(e)},
+                        // onclick: (e) => {onWrapClick(e)},
                     }, [
                         h('div', {
                             ref: contentRef,

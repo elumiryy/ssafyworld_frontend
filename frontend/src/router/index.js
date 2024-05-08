@@ -8,7 +8,6 @@ import ChatView from '@/views/chat/ChatView.vue'
 import ChatRoomView from '@/views/chat/ChatRoom.vue'
 import MypageView from '@/views/member/MypageView.vue'
 import LetterView from '@/views/letter/LetterView.vue'
-import PageLove from '@/PageLove.vue'
 
 
 const routes = [
@@ -52,9 +51,9 @@ const routes = [
     component: MypageView
   },
   {
-    path:"/PageLove",
-    name: "PageLove",
-    component: PageLove
+    path:"/letterWrite",
+    name: "LetterWriteView",
+    component: () => import('@/views/letter/LetterWriteView.vue')
   },
   {
     path:"/LetterView",
