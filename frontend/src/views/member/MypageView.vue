@@ -19,12 +19,8 @@
                 </div>
                 <div class="window" role="tabpanel">
                     <MyInfo v-if="isSelectedMyInfo" />
-                    <MyInfoModify v-if="isSelectedMyInfoModify" />
+                    <MyInfoModify v-if="isSelectedMyInfoModify"/>
                     <MyMessageSetting v-if="isSelectedMessage" />
-                </div>
-                <div class="page-btn-div">
-                    <button>확인</button>
-                    <button class="cancel-btn" v-on:click="closwMypage()">취소</button>
                 </div>
             </div>
         </div>
