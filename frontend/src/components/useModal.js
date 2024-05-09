@@ -101,7 +101,7 @@ export const Modal = defineComponent({
         },
         title: {
             type: String,
-            default: 'Title'
+            default: '편지 관리자'
         },
         animation: {
             type: Boolean,
@@ -134,6 +134,11 @@ export const Modal = defineComponent({
                     loading: false
                 }
             },
+        },
+        //사용자 정보
+        userInfo: {
+            type: Array,
+            default: () => []
         }
     },
     setup(props, { slots, emit }) {
@@ -143,6 +148,7 @@ export const Modal = defineComponent({
         const offsetTop = typeof props.offsetTop === 'string' ?  props.offsetTop : `${props.offsetTop}px`;
         const wrapRef = ref(null);
         const contentRef = ref(null);
+        const userInfo = ref(props.userInfo)
 
         let currName = null;
         let visibalName = null;
@@ -305,11 +311,12 @@ export const Modal = defineComponent({
                     }
                 }
                 return visible ? h('div', {
-                    class: props.modalClass
+                    class: props.modalClass,
                 }, [
                     props.mask ? h('div', {
                         class: 'modal-vue3-mask',
-                        style: `width:100%;height:100%;position:fixed;left:0;top:0;background-color:rgba(0, 0, 0, 0.25);z-index:${props.zIndex - 1};`,
+                        // style: `width:100%;height:100%;position:fixed;left:0;top:0;background-color:rgba(0, 0, 0, 0.25);z-index:${props.zIndex - 1};`,
+                        style: `width:100%;height:100%;position:fixed;left:0;top:0;background-color:rgba(0, 0, 0, 0);z-index:${props.zIndex - 1};`,
                     }) : null,
                     h('div', {
                         ref: wrapRef,
@@ -318,62 +325,180 @@ export const Modal = defineComponent({
                     }, [
                         h('div', {
                             ref: contentRef,
-                            class: 'modal-vue3-content',
-                            style: `width:${width};position:relative;top:${isNumber(cententPosition.top) ? cententPosition.top+'px' : offsetTop};left:${cententPosition.left ? cententPosition.left+'px' : '' };margin: ${isNumber(cententPosition.left) ? '0' : '0 auto'}; ${props.type != 'clean' ? 'border:1px solid #f0f0f0;' : ''}overflow:auto;outline:0;box-sizing:border-box; ${props.type != 'clean' ? 'background-color:#fff;' : ''}border-radius:2px;transform:translateY(${scale.value}px);`
+                            // class: 'modal-vue3-content',
+                            class: 'window',
+                            //스크롤 없애기
+                            // style: `width:${width};position:relative;top:${isNumber(cententPosition.top) ? cententPosition.top+'px' : offsetTop};left:${cententPosition.left ? cententPosition.left+'px' : '' };margin: ${isNumber(cententPosition.left) ? '0' : '0 auto'}; ${props.type != 'clean' ? 'border:1px solid #f0f0f0;' : ''}overflow:auto;outline:0;box-sizing:border-box; ${props.type != 'clean' ? 'background-color:#fff;' : ''}border-radius:2px;transform:translateY(${scale.value}px);`
+                            style: `width:${width};position:relative;top:${isNumber(cententPosition.top) ? cententPosition.top+'px' : offsetTop};left:${cententPosition.left ? cententPosition.left+'px' : '' };margin: ${isNumber(cententPosition.left) ? '0' : '0 auto'}; ${props.type != 'clean' ? 'border:1px solid #f0f0f0;' : ''} outline:0; box-sizing:border-box; ${props.type != 'clean' ? 'background-color:#fff;' : ''}border-radius:2px;transform:translateY(${scale.value}px); padding: 0px`
                         },[
                             props.type != 'clean' ? h('div', {
-                                class:"modal-vue3-header",
-                                style: `padding:12px 22px;border-bottom:1px solid #f0f0f0;position:relative;${props.draggable && isBool(props.draggable) ? 'cursor:move;' : ''}`,
+                                // class:"modal-vue3-header",
+                                class:"window",
+                                // style: `padding:12px 22px;border-bottom:1px solid #f0f0f0;position:relative;${props.draggable && isBool(props.draggable) ? 'cursor:move;' : ''}`,
+                                style: `padding: 0px; border-bottom:1px solid #f0f0f0;position:relative;${props.draggable && isBool(props.draggable) ? 'cursor:move;' : ''}`,
                                 onpointerdown: props.draggable && isBool(props.draggable) ? start : null,
                             }, [
-                                h('div', null, props.title),
+                                // h('div', null, props.title),
+                                //상단바
+                                h('div', {
+                                    class:"title-bar",
+                                    style: "margin: 0px; padding: 0px; height: 25px"
+                                }, [
+                                    h('div', {
+                                        class:"title-bar-text",
+                                    }, props.title),
+                                    h('div', {
+                                        class:"title-bar-controls",
+                                    }, [
+                                        h('button', {"aria-label": "Minimize"}),
+                                        h('button', {"aria-label": "Maximize"}),
+                                        // h('button', {"aria-label": "Close"}),
+                                        h('button', {
+                                            "aria-label": "Close",
+                                            onclick:() => {onButton(props, 'okButton')},
+                                        }),
+                                    ]),
+                                ]),
+
                                 props.closable ? h('div', {
                                     style: 'width:20px;height:16px;cursor:pointer;position:absolute;top:15px;right:15px;font-size: 20px;',
                                     onclick: () => {
                                         cancel(name);
                                     },
-                                }, [
-                                    h('div', {
-                                        style: 'width:14px;height:1px;position:absolute;left:0;right:0;top:0;bottom:0;margin:auto;background-color:#999;transform:rotate(45deg);'
-                                    }, ''),
-                                    h('div', {
-                                        style: 'width:14px;height:1px;position:absolute;left:0;right:0;top:0;bottom:0;margin:auto;background-color:#999;transform:rotate(-45deg);'
-                                    }, '')
-                                ]) : null
+                                }
+                                // ,  [
+                                //     h('div', {
+                                //         style: 'width:14px;height:1px;position:absolute;left:0;right:0;top:0;bottom:0;margin:auto;background-color:#999;transform:rotate(45deg);'
+                                //     }, 'sfsaf'),
+                                //     h('div', {
+                                //         style: 'width:14px;height:1px;position:absolute;left:0;right:0;top:0;bottom:0;margin:auto;background-color:#999;transform:rotate(-45deg);'
+                                //     }, '')
+                                // ]
+                            ) : null
                             ]) : null,
+                            h('div', { //file edit view go favorites help
+                                class:"window",
+                                style: "margin: 0px; padding: 0px; height: 25px;"
+                            }, [
+                                h('div', {
+                                    class:"field-col-stacked",
+                                    style: "width: 450px;"
+                                }, [
+                                    h('span', {
+                                        style: "width: 5px; padding: 5px;"
+                                    }, "File"),
+                                    h('span', {
+                                        style: "width: fit-content; padding: 5px"
+                                    }, "Edit"),
+                                    h('span', {
+                                        style: "width: 5px; padding: 5px"
+                                    }, "View"),
+                                    h('span', {
+                                        style: "width: 5px; padding: 5px"
+                                    }, "Go"),
+                                    h('span', {
+                                        style: "width: 5px; padding: 5px"
+                                    }, "Favorites"),
+                                    h('span', {
+                                        style: "width: 5px; padding: 5px"
+                                    }, "Help"),
+                                ])
+                            ]),
+                            h('div', { //back forward
+                                class:"window",
+                                style: "margin: 0px; padding: 0px; height: 30px"
+                            }, [
+                                h('div', {
+                                    class:"field-col-stacked",
+                                    style: "width: 500px"
+                                }, [
+                                    h('span', {
+                                        style: "width: 5px; padding: 5px"
+                                    }, "Back"),
+                                    h('span', {
+                                        style: "width: 5px; padding: 5px"
+                                    }, "Forward"),
+                                    h('span', {
+                                        style: "width: 5px; padding: 5px"
+                                    }, "up"),
+                                ]),
+
+                            ]),
+                            h('div', { //경로표시
+                                class:"window",
+                                style: "margin: 0px; padding: 0px; height: 25px"
+                            }, [
+                                h('div', {
+                                    class:"field-col-stacked",
+                                    style: "width: 500px"
+                                }, [
+                                    h('label', {
+                                        "for":"text19",
+                                        style: "color: black; margin: 5px; width: 40px"
+                                    }, "Adress"),
+                                    h('select', {
+                                        "id":"text19",
+                                        "type": "text",
+                                        "disabled": "disabled",
+                                        style: "width: 440px; background-color: white;",
+                                    },[
+                                        h('option', {
+                                            "value": "",
+                                            "selected": "selected",
+                                            "disabled": "disabled"
+                                        },
+                                        userInfo.value.ordinal? 
+                                            "C:\\" + userInfo.value.ordinal+"기\\" + (
+                                                userInfo.value.region?
+                                                    userInfo.value.region+"\\" +
+                                                        (userInfo.value.ban?
+                                                            userInfo.value.ban+"반\\"
+                                                        : "")
+                                                : "")
+                                        : "C:\\"
+                                        ), 
+                                    ]),
+                                ]),
+                                // <div class="" style=>
+                                //     <label for="text19">Address (Line 2)</label>
+                                //     <input id="text19" type="text" />
+                                // </div>
+                            ]),
                             h('div', {
                                 class:"modal-vue3-body",
                                 style: props.type != 'clean' ? 'padding: 14px 22px' : ''
                             }, slots.default()),
-                            props.type != 'clean' ? h('div', {
-                                class:"modal-vue3-footer",
-                                style: 'padding: 12px 22px;display:flex;justify-content:flex-end;align-items:center;border-top:1px solid #f0f0f0;'
-                            },[
-                                h('div', {
-                                    class: 'modal-vue3-footer-cancel',
-                                    style: `margin-right: 20px;height:30px;padding:0 8px;border-radius:2px;border: 1px solid #d9d9d9;display:flex;justify-content:center;align-items:center;cursor:pointer;position:relative;${buttonLoading.value && buttonLoading.target === 'cancelButton' ? 'opacity:.6;' : ''}`,
-                                    onclick:() => {onButton(props, 'cancelButton')},
-                                }, [
-                                    buttonLoading.value && buttonLoading.target === 'cancelButton' ? h('span', {
-                                        style: `width: 10px;height:10px;margin-right:5px;border:1px solid #666;border-radius:50%;border-top:1px solid transparent; transform:rotate(${rotateVal.value}deg);`
-                                    }) : null,
-                                    h('div',{
-                                       style: 'min-width:44px;text-align:center;'
-                                    }, props.cancelButton.text || 'cancel')
-                                ]),
-                                h('div', {
-                                    class: 'modal-vue3-footer-ok',
-                                    style: `height:30px;padding: 0 8px;border-radius:2px;display:flex;justify-content:center;align-items:center;background-color:#4395ff;color:#fff;cursor:pointer;position:relative;${buttonLoading.value && buttonLoading.target === 'okButton' ? 'opacity:.6;' : ''}`,
-                                    onclick:() => {onButton(props, 'okButton')},
-                                }, [
-                                    buttonLoading.value && buttonLoading.target === 'okButton' ? h('span', {
-                                        style: `width: 10px;height:10px;margin-right:5px;border:1px solid #fff;border-radius:50%;border-top:1px solid transparent; transform:rotate(${rotateVal.value}deg);`
-                                    }) : null,
-                                    h('div',{
-                                       style: 'min-width:44px;text-align:center;'
-                                    }, props.okButton.text || 'ok')
-                                ])
-                            ]) : null,
+                            // props.type != 'clean' ? h('div', {
+                            //     class:"modal-vue3-footer",
+                            //     style: 'padding: 12px 22px;display:flex;justify-content:flex-end;align-items:center;border-top:1px solid #f0f0f0;'
+                            // }
+                            // ,[
+                                // h('div', {
+                                //     class: 'modal-vue3-footer-cancel',
+                                //     style: `margin-right: 20px;height:30px;padding:0 8px;border-radius:2px;border: 1px solid #d9d9d9;display:flex;justify-content:center;align-items:center;cursor:pointer;position:relative;${buttonLoading.value && buttonLoading.target === 'cancelButton' ? 'opacity:.6;' : ''}`,
+                                //     onclick:() => {onButton(props, 'cancelButton')},
+                                // }, [
+                                //     buttonLoading.value && buttonLoading.target === 'cancelButton' ? h('span', {
+                                //         style: `width: 10px;height:10px;margin-right:5px;border:1px solid #666;border-radius:50%;border-top:1px solid transparent; transform:rotate(${rotateVal.value}deg);`
+                                //     }) : null,
+                                //     h('div',{
+                                //        style: 'min-width:44px;text-align:center;'
+                                //     }, props.cancelButton.text || 'cancel')
+                                // ]),
+                                // h('div', {
+                                //     class: 'modal-vue3-footer-ok',
+                                //     style: `height:30px;padding: 0 8px;border-radius:2px;display:flex;justify-content:center;align-items:center;background-color:#4395ff;color:#fff;cursor:pointer;position:relative;${buttonLoading.value && buttonLoading.target === 'okButton' ? 'opacity:.6;' : ''}`,
+                                //     onclick:() => {onButton(props, 'okButton')},
+                                // }, [
+                                //     buttonLoading.value && buttonLoading.target === 'okButton' ? h('span', {
+                                //         style: `width: 10px;height:10px;margin-right:5px;border:1px solid #fff;border-radius:50%;border-top:1px solid transparent; transform:rotate(${rotateVal.value}deg);`
+                                //     }) : null,
+                                //     h('div',{
+                                //        style: 'min-width:44px;text-align:center;'
+                                //     }, props.okButton.text || 'ok')
+                                // ])
+                            // ]
+                            // ) : null,
                         ]
                         ),
                     ])

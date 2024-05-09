@@ -130,8 +130,8 @@
     // 동적으로 불러올 컴포넌트를 저장할 변수
     let dynamicComponent = ref(null);
 
-    const inputs = ref([])
-    const valueList = ref([])
+    const inputs = ref([]) //유저정보
+    const valueList = ref([]) //필요한 값
     const imageType = ref('folder')
     const types = ref('ordinal');
     const componentKey = ref(0);
@@ -142,7 +142,6 @@
       <div @click="showSend">
         <h3>편지쓰러 가기</h3>
       </div>
-
       <Modal name="sendLetter" 
         v-model:visible="modalVisible"
         :animation="true"
@@ -153,6 +152,7 @@
           onclick: okfnSend,
           loading: true
         }"
+        :userInfo="inputs"
         >
         <div>
             <component :is="dynamicComponent" 
@@ -162,7 +162,6 @@
                        :key="componentKey"/>
         </div>
       </Modal>
-    
     </div>
 
 

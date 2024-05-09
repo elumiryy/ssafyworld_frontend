@@ -12,6 +12,12 @@
                 <p>채팅방</p>
             </router-link>
         </div>
+        <div class="windows-icon-div">
+            <router-link to="/LetterView">
+                <img src="@/assets/windowsIcon/directory_closed-4.png" alt="windows-icon-img" width="50" height="50">
+                <p>편지쓰기</p>
+            </router-link>
+        </div>
     </div>
 </template>
 
