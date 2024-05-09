@@ -40,7 +40,7 @@
         inputs.value.names = item
         showWriteView();
       }
-      console.log("@@@" + inputs.value)
+      tmpQueue.value = []
 
       if (inputs.value.ordinal == null) {
         getOridnal()
@@ -59,11 +59,15 @@
             valueList.value =  [10, 11]
             imageType.value = 'folder'
             types.value = 'ordinal'
+            suffix.value = '기'
  
             const module = await import('@/views/letter/FolderView.vue')
 
             // 불러온 컴포넌트를 변수에 할당
             dynamicComponent= ref(module.default);
+
+            // 컴포넌트 강제 재생성을 위해 key 갱신
+            componentKey.value++;
         } catch (error) {
             console.error(error);
         }
@@ -75,6 +79,7 @@
             valueList.value =  ["구미", "서울", "부울경", "광주", "대전"]
             imageType.value = 'folder'
             types.value = 'region'
+            suffix.value = ''
             
             // 컴포넌트 강제 재생성을 위해 key 갱신
             componentKey.value++;
@@ -96,6 +101,7 @@
 
             imageType.value = 'folder'
             types.value = 'ban'
+            suffix.value = '반'
             
             // 컴포넌트 강제 재생성을 위해 key 갱신
             componentKey.value++;
@@ -110,6 +116,7 @@
           valueList.value =  ["주효림", "김민종", "이지언", "이예찬"]
           imageType.value = 'message'
           types.value = 'names'
+          suffix.value = ''
           
           //컴포넌트 강제 재생성을 위해 key 갱신
           componentKey.value++;
@@ -120,6 +127,47 @@
   
     function okfnSend() {
         modalVisible = setModal('sendLetter', false);
+    }
+
+    function goBack() {
+      if (inputs.value.ban != null) {
+        tmpQueue.value.ban = inputs.value.ban
+        inputs.value.ban = null
+        getBan()
+      } else if (inputs.value.region != null) {
+        tmpQueue.value.region = inputs.value.region
+        inputs.value.region = null
+        getRegion()
+      } else if (inputs.value.ordinal != null){
+        tmpQueue.value.ordinal = inputs.value.ordinal
+        inputs.value.ordinal = null
+        getOridnal()
+      }
+    }
+
+    const tmpQueue = ref([])
+
+    function goForward() {
+      // console.log("forward")
+      if (inputs.value.ordinal == null) {
+        if (tmpQueue.value.ordinal != null) {
+          inputs.value.ordinal = tmpQueue.value.ordinal;
+          tmpQueue.value.ordinal = null;
+          getRegion()
+        }
+      } else if (inputs.value.region == null){
+        if (tmpQueue.value.region != null) {
+          inputs.value.region = tmpQueue.value.region;
+          tmpQueue.value.region = null;
+          getBan()
+        }
+      } else if (inputs.value.ban == null) {
+        if (tmpQueue.value.ban != null) {
+          inputs.value.ban = tmpQueue.value.ban;
+          tmpQueue.value.ban = null;
+          getNames()
+        }
+      } 
     }
 
     onUnmounted(() => {
@@ -135,6 +183,7 @@
     const imageType = ref('folder')
     const types = ref('ordinal');
     const componentKey = ref(0);
+    const suffix = ref('');
   </script>
     
   <template>
@@ -153,12 +202,15 @@
           loading: true
         }"
         :userInfo="inputs"
+        @goBack="goBack"
+        @goForward="goForward"
         >
         <div>
             <component :is="dynamicComponent" 
                        :folderName="valueList" 
                        :imageType="imageType" 
                        @clicked="clicked"
+                       :suffix="suffix"
                        :key="componentKey"/>
         </div>
       </Modal>
