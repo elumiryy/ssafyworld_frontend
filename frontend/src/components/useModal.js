@@ -198,6 +198,14 @@ export const Modal = defineComponent({
             }
         }
 
+        const goForward = () => {
+            emit('goForward')
+        }
+
+        const goBack = () => {
+            emit('goBack');
+        }
+
         // const onWrapClick = (e) => {
         //     if(!props.maskClosable || !props.mask) return;
         //     if( e.target === wrapRef.value) {
@@ -382,7 +390,7 @@ export const Modal = defineComponent({
                             }, [
                                 h('div', {
                                     class:"field-col-stacked",
-                                    style: "width: 450px;"
+                                    style: "width: 450px; display: inline"
                                 }, [
                                     h('span', {
                                         style: "width: 5px; padding: 5px;"
@@ -410,19 +418,24 @@ export const Modal = defineComponent({
                             }, [
                                 h('div', {
                                     class:"field-col-stacked",
-                                    style: "width: 500px"
+                                    style: "width: 500px; height: 30px;margin:0px; padding: 0px"
                                 }, [
-                                    h('span', {
-                                        style: "width: 5px; padding: 5px"
+                                    h('button', {
+                                        style: "width: 5px; height: 30px; padding: 0px;",
+                                        onclick: () => {
+                                            goBack();
+                                        },
                                     }, "Back"),
-                                    h('span', {
-                                        style: "width: 5px; padding: 5px"
+                                    h('button', {
+                                        style: "width: 5px; height: 30px; padding: 0px",
+                                        onclick: () => {
+                                            goForward();
+                                        },
                                     }, "Forward"),
                                     h('span', {
-                                        style: "width: 5px; padding: 5px"
+                                        style: "width: 5px; height: 30px;padding: 5px"
                                     }, "up"),
-                                ]),
-
+                                ])
                             ]),
                             h('div', { //경로표시
                                 class:"window",
@@ -434,8 +447,8 @@ export const Modal = defineComponent({
                                 }, [
                                     h('label', {
                                         "for":"text19",
-                                        style: "color: black; margin: 5px; width: 40px"
-                                    }, "Adress"),
+                                        style: "color: black; margin-left: 5px; width: 40px"
+                                    }, "Address"),
                                     h('select', {
                                         "id":"text19",
                                         "type": "text",

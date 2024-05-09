@@ -1,10 +1,9 @@
 <template>
-  <div style="display: inline-block">
+  <div id="folderView" style="display: inline-block;">
     <div class="grid-container">
       <div class="grid-item" v-for="(item, index) in items" :key="index" style="border: none">
         <div class="button-like" @click="onClick(item)">
-
-          <FolderComponent :folderName="item" :imageType="imageType"></FolderComponent>
+          <FolderComponent :folderName="fullName(item)" :imageType="imageType"></FolderComponent>
         </div>
       </div>
     </div>
@@ -24,6 +23,10 @@ export default {
     },
     folderName: {
       type: Object
+    },
+    suffix: {
+      type: String,
+      default: ''
     }
   },
   components: {
@@ -39,6 +42,9 @@ export default {
   methods: {
     onClick(item) {
       this.$emit('clicked', item);
+    },
+    fullName(folderName) {
+      return folderName + this.suffix
     }
   }
 }
