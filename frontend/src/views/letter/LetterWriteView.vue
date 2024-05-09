@@ -1,10 +1,5 @@
 <template>
   <div class="letterWrite">
-    <!--
-      <div style="display: inline">
-        
-      </div> -->
-
       <div class="window">
         <div class="title-bar">
           <div class="title-bar-text">
