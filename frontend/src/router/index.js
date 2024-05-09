@@ -3,9 +3,12 @@ import MainView from '@/views/MainView.vue'
 import SignupView from '@/views/member/SignupView.vue'
 import SignupViewQA from '@/views/member/SignupViewQA.vue'
 import LoginView from '@/views/member/LoginView.vue'
+import FolderView from '@/views/letter/FolderView.vue'
 import ChatView from '@/views/chat/ChatView.vue'
 import ChatRoomView from '@/views/chat/ChatRoom.vue'
 import MypageView from '@/views/member/MypageView.vue'
+import LetterView from '@/views/letter/LetterView.vue'
+
 
 const routes = [
   {
@@ -29,7 +32,11 @@ const routes = [
     component: LoginView
   },
   {
-    path:"/chat",
+    path:"/folders",
+    name: "FolderView",
+    component: FolderView
+  },
+{    path:"/chat",
     name: "ChatView",
     component: ChatView
   },
@@ -42,6 +49,16 @@ const routes = [
     path:"/mypage",
     name: "MypageView",
     component: MypageView
+  },
+  {
+    path:"/letterWrite",
+    name: "LetterWriteView",
+    component: () => import('@/views/letter/LetterWriteView.vue')
+  },
+  {
+    path:"/LetterView",
+    name: "LetterView",
+    component: LetterView
   },
 ];
 
