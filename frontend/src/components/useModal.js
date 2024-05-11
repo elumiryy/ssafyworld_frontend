@@ -89,7 +89,7 @@ export const Modal = defineComponent({
         },
         width: {
             type: [String, Number],
-            default: 500
+            default: 550
         },
         offsetTop: {
             type: [String, Number],
@@ -206,12 +206,12 @@ export const Modal = defineComponent({
             emit('goBack');
         }
 
-        // const onWrapClick = (e) => {
-        //     if(!props.maskClosable || !props.mask) return;
-        //     if( e.target === wrapRef.value) {
-        //         cancel(name);
-        //     }
-        // }
+        const onWrapClick = (e) => {
+            if(!props.maskClosable || !props.mask) return;
+            if( e.target === wrapRef.value) {
+                // cancel(name);
+            }
+        }
 
         let buttonLoading = reactive({
             value: false,
@@ -324,12 +324,13 @@ export const Modal = defineComponent({
                     props.mask ? h('div', {
                         class: 'modal-vue3-mask',
                         // style: `width:100%;height:100%;position:fixed;left:0;top:0;background-color:rgba(0, 0, 0, 0.25);z-index:${props.zIndex - 1};`,
-                        style: `width:100%;height:100%;position:fixed;left:0;top:0;background-color:rgba(0, 0, 0, 0);z-index:${props.zIndex - 1};`,
+                        style: `width:100px;height:100px;position:fixed;left:0;top:0;background-color:rgba(0, 0, 0, 0);z-index:${props.zIndex - 1};`,
                     }) : null,
                     h('div', {
                         ref: wrapRef,
-                        style: `position:fixed;left:0;right:0;top:0;bottom:0;margin: 0 auto;z-index:${props.zIndex};overflow:auto;outline:0;`,
-                        // onclick: (e) => {onWrapClick(e)},
+                        style: `width:100%;height:100%;position:fixed; left:0;right:0;top:0;bottom:0;margin: 0 auto;outline:0;`,
+                        // style: `position:fixed; left:0;right:0;top:0;bottom:0;margin: 0 auto;z-index:${props.zIndex};overflow:auto;outline:0;`,
+                        onclick: (e) => {onWrapClick(e)},
                     }, [
                         h('div', {
                             ref: contentRef,
@@ -354,6 +355,7 @@ export const Modal = defineComponent({
                                 }, [
                                     h('div', {
                                         class:"title-bar-text",
+                                        style: "margin-left: 8px"
                                     }, props.title),
                                     h('div', {
                                         class:"title-bar-controls",
@@ -479,7 +481,7 @@ export const Modal = defineComponent({
                             ]),
                             h('div', {
                                 class:"modal-vue3-body",
-                                style: props.type != 'clean' ? 'padding: 14px 22px' : ''
+                                // style: props.type != 'clean' ? 'padding: 14px 22px' : ''
                             }, slots.default()),
                             // props.type != 'clean' ? h('div', {
                             //     class:"modal-vue3-footer",
