@@ -8,7 +8,8 @@ import ChatView from '@/views/chat/ChatView.vue'
 import ChatRoomView from '@/views/chat/ChatRoom.vue'
 import MypageView from '@/views/member/MypageView.vue'
 import LetterView from '@/views/letter/LetterView.vue'
-
+import ReceivedLetterView from '@/views/letter/ReceivedLetterView.vue'
+import LoadingComponent from '@/components/rollingpaper/LoadingComponent.vue'
 
 const routes = [
   {
@@ -60,6 +61,16 @@ const routes = [
     name: "LetterView",
     component: LetterView
   },
+  {
+    path:"/loading",
+    name: "LoadingComponent",
+    component: LoadingComponent
+  },
+  {
+    path: '/ReceivedLetter',
+    name: 'ReceivedLetterView',
+    component: ReceivedLetterView,
+  }
 ];
 
 const router = createRouter({
