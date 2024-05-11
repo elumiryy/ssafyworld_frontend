@@ -127,6 +127,7 @@
   
     function okfnSend() {
         modalVisible = setModal('sendLetter', false);
+        inputs.value = []
     }
 
     function goBack() {
@@ -197,7 +198,7 @@
       :closable="false"
       :draggable= "true"
 
-      :okButton="{
+      :closeButton="{
         onclick: okfnSend,
         loading: true
       }"
