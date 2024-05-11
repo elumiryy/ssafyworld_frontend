@@ -10,11 +10,15 @@
 <script>
 import { googleSdkLoaded } from "vue3-google-login";
 import axios from "axios";
+import { useRouter } from 'vue-router';
+
 
 export default {
  data() {
+    const router = useRouter();
     return {
-      userDetails: null
+      userDetails: null,
+      router : router
     };
   },
   name: "YourComponent",
@@ -36,6 +40,7 @@ export default {
       });
     },
     async sendCodeToBackend(code) {
+
       try {
         const response = await axios.post(
           "https://oauth2.googleapis.com/token",
@@ -61,8 +66,10 @@ export default {
         );
 
         const sub = userResponse.data.sub
-        const provider = 'google'
+        this.$store.commit('setUserSub', sub);
 
+        const provider = 'google'
+        //서버로보내는거네
         const serverResponse = await axios.post(
             "/member/login",
             {
@@ -70,17 +77,28 @@ export default {
                 provider
             }
         );
-
+        console.log(serverResponse)
         if(serverResponse.code === 404) {
-            //route code
-            console.log(serverResponse.data);
+            console.log("ASDsdasd")
+            this.router.push({ name: 'SignupView', params: { sub: sub } });
+            console.log(sub)
+
         } else {
             const jwt = serverResponse.data;
+            console.log(jwt)
             localStorage.setItem("accessToken", jwt);
+            this.router.push({name : 'MainView'})
         }
 
       } catch (error) {
-        console.error("Token exchange failed:", error.response.data);
+        if(error.response.data.code === 'MEMBER-001') {
+      
+          const sub = error.response.config.data.sub
+          console.log(sub)
+
+          this.router.push('/signup');
+        }
+        console.error("Token exchange failed:", error);
       }
     }
   }

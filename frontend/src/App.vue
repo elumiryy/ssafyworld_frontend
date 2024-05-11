@@ -5,7 +5,7 @@
       <!-- router 설정 -->
       <router-view></router-view>
     </div>
-
+    
     <!-- menu -->
     <div class="menu">
       <SettingView v-if="isSettingVisible"/>
@@ -22,6 +22,7 @@
 import FooterView from '@/components/common/FooterView.vue'
 import SettingView from '@/components/common/SettingView.vue';
 
+
 export default {
   name: 'App',
   data() {
@@ -31,7 +32,7 @@ export default {
   },
   components: {
     FooterView,
-    SettingView
+    SettingView,
   },
   methods: {
     callOpenStartModal() {
