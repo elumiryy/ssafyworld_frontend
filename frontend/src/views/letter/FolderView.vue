@@ -1,7 +1,7 @@
 <template>
-  <div id="folderView" style="display: inline-block;">
-    <div class="grid-container">
-      <div class="grid-item" v-for="(item, index) in items" :key="index" style="border: none">
+  <div id="folderView">
+    <div class="grid-container" style="margin: 10px">
+      <div class="grid-item" v-for="(item, index) in items" :key="index" style="border: none; padding: 10px">
         <div class="button-like" @click="onClick(item)">
           <FolderComponent :folderName="fullName(item)" :imageType="imageType"></FolderComponent>
         </div>
@@ -51,6 +51,15 @@ export default {
 </script>
 
 <style scoped>
+#folderView {
+  display: inline-block;
+  width: 100%; 
+  height: 300px; 
+  overflow-y:auto; 
+  max-height: 400px;
+
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -72,7 +81,8 @@ export default {
 
 .button-like {
   display: inline-block;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
+  width: 100%;
   background-color: transparent;
   border: none;
   cursor: pointer;

@@ -89,7 +89,7 @@ export const Modal = defineComponent({
         },
         width: {
             type: [String, Number],
-            default: 500
+            default: 550
         },
         offsetTop: {
             type: [String, Number],
@@ -355,6 +355,7 @@ export const Modal = defineComponent({
                                 }, [
                                     h('div', {
                                         class:"title-bar-text",
+                                        style: "margin-left: 8px"
                                     }, props.title),
                                     h('div', {
                                         class:"title-bar-controls",
@@ -480,7 +481,7 @@ export const Modal = defineComponent({
                             ]),
                             h('div', {
                                 class:"modal-vue3-body",
-                                style: props.type != 'clean' ? 'padding: 14px 22px' : ''
+                                // style: props.type != 'clean' ? 'padding: 14px 22px' : ''
                             }, slots.default()),
                             // props.type != 'clean' ? h('div', {
                             //     class:"modal-vue3-footer",
