@@ -13,6 +13,12 @@
             </router-link>
         </div>
         <div class="windows-icon-div">
+            <div @click="goToChatRoom">
+                <img src="@/assets/windowsIcon/windows.png" alt="windows-icon-img" width="50" height="50">
+                <p>채팅방 입장</p>
+            </div>
+        </div>
+        <div class="windows-icon-div">
             <router-link to="/LetterView">
                 <img src="@/assets/windowsIcon/directory_closed-4.png" alt="windows-icon-img" width="50" height="50">
                 <p>편지쓰기</p>
@@ -22,7 +28,9 @@
 </template>
 
 <script setup>
-
+const goToChatRoom = () => {
+    window.open("/chatroom", "_blank", "width=550, height=400, left=550, top=250");
+}
 
 </script>
 
