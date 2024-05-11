@@ -18,7 +18,7 @@
         getOridnal()
       } 
     }
-
+    
     function showWriteView() {
         const queryParams = new URLSearchParams({ 
           ordinal: inputs.value.ordinal,
@@ -113,7 +113,7 @@
     async function getNames() {
         try {
           // import() 함수를 사용하여 동적으로 컴포넌트를 불러옵니다
-          valueList.value =  ["주효림", "김민종", "이지언", "이예찬"]
+          valueList.value =  ["강인수", "김민종", "김의근", "남궁효림", "이지언", "이예찬", "이예림", "이예림페어", "조민기", "주효림", "프론트왕", "백엔드", "스프링"]
           imageType.value = 'message'
           types.value = 'names'
           suffix.value = ''
@@ -189,7 +189,7 @@
   <template>
     <div>
       <div @click="showSend">
-        <h3>편지쓰러 가기</h3>
+        <img src="@/assets/windowsIcon/directory_closed-4.png" alt="windows-icon-img" width="50" height="50">
       </div>
       <Modal name="sendLetter" 
         v-model:visible="modalVisible"
@@ -216,6 +216,6 @@
       </Modal>
     </div>
 
-
+    
   </template>
     
