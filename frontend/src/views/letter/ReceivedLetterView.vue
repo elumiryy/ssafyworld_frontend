@@ -9,6 +9,7 @@ defineProps({
   isOpen: Boolean,
 });
 
+axios.defaults.baseURL = process.env.VITE_APP_API_URL;
 const emit = defineEmits(["closeModal"]);
 
 const closeModal = () => {
@@ -18,37 +19,49 @@ const closeModal = () => {
 const showReceived = ref(true);
 const showSent = ref(false);
 
+const receivedLetters = ref([]);
+const sentLetters = ref([]);
+
 const showReceivedList = () => {
+  axios.get("/letter/receive", {
+        headers: {
+          Authorization: window.localStorage.getItem("accessToken"),
+      }
+    }
+  ).then((response) => {
+    receivedLetters.value = response.data;
+    receivedLetters.value.forEach((letter) => {
+      letter.fromUser = "익명";
+      letter.createdAt = letter.createdAt.replace("T", " ");
+    });
+  }).catch((error) => {
+    console.error("Failed to fetch received letters:", error);
+    receivedLetters.value = [];
+  });
+
   showReceived.value = true;
   showSent.value = false;
 };
 
 const showSentList = () => {
+  axios.get("/letter/send", {
+    headers: {
+      Authorization: window.localStorage.getItem("accessToken"),
+    },
+  }).then((response) => {
+    sentLetters.value = response.data;
+    sentLetters.value.forEach((letter) => {
+      letter.toUserOrdinal += '기'
+      letter.toUserBan += '반'
+      letter.createdAt = letter.createdAt.replace("T", " ");
+    });
+  }).catch((error) => {
+  console.error("Failed to fetch sent letters:", error);
+  sentLetters.value = [];
+  });
+
   showReceived.value = false;
   showSent.value = true;
-};
-
-const receivedLetters = ref([]);
-const sentLetters = ref([]);
-
-async () => {
-  try {
-    const response = await axios.get("/letter/received");
-    receivedLetters.value = response.data;
-  } catch (error) {
-    console.error("Failed to fetch received letters:", error);
-    receivedLetters.value = [];
-  }
-};
-
-async () => {
-  try {
-    const response = await axios.get("/letter/sent");
-    sentLetters.value = response.data;
-  } catch (error) {
-    console.error("Failed to fetch sent letters:", error);
-    sentLetters.value = [];
-  }
 };
 
 const router = useRouter();

@@ -58,7 +58,7 @@ async function update() {
     console.log(answer.value, name.value, questionId.value, accessToken)
 
     await axios.put(
-        '/member'
+        '/member/name'
         ,{
             name : name.value,
             questionId : questionId.value,
