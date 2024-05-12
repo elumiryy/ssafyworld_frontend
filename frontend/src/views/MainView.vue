@@ -40,19 +40,19 @@
       </div>
     </div>
 
-    <div
-      class="windows-icon-div received"
-      @click="openModal"
-      @mouseenter="handleMouseEnter"
-      @mouseleave="handleMouseLeave"
-    >
-      <img
-        src="@/assets/windowsIcon/directory_open_file_mydocs-5.png"
-        alt="windows-icon-img"
-        width="50"
-        height="50"
-      />
-      <p>받은 편지 보기</p>
+    <div class="windows-icon-div received">
+      <div
+        @click="openModal"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave">
+        <img
+          src="@/assets/windowsIcon/directory_open_file_mydocs-5.png"
+          alt="windows-icon-img"
+          width="50"
+          height="50"
+        />
+        <p>받은 편지 보기</p>
+      </div>
     </div>
     <ReceivedLetterView :isOpen="isOpen" @close-modal="closeModal" />
   </div>

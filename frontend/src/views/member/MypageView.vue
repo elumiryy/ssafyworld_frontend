@@ -14,13 +14,11 @@
                         <!-- aria-selected="true" 왜 이 속성은 aria-selected="isSelectedMyInfo" 이게 안될까? -->
                         <li role="tab" :aria-selected="isSelectedMyInfo" @click="tabMyInfo()">내 정보</li>
                         <li role="tab" :aria-selected="isSelectedMyInfoModify" @click="tabMyInfoModify()">내 정보 수정</li>
-                        <li role="tab" :aria-selected="isSelectedMessage" @click="tabMessage()">메시지</li>
                     </menu>
                 </div>
                 <div class="window" role="tabpanel">
                     <MyInfo v-if="isSelectedMyInfo" />
                     <MyInfoModify v-if="isSelectedMyInfoModify"/>
-                    <MyMessageSetting v-if="isSelectedMessage" />
                 </div>
             </div>
         </div>
@@ -30,12 +28,10 @@
 <script setup>
 import MyInfo from '@/components/member/MyInfo.vue'
 import MyInfoModify from '@/components/member/MyInfoModify.vue'
-import MyMessageSetting from '@/components/member/MyMessageSetting.vue'
 import { ref } from 'vue'
 
 const isSelectedMyInfo = ref(true)
 const isSelectedMyInfoModify = ref(false)
-const isSelectedMessage = ref(false)
 
 function closwMypage() {
     window.close()
@@ -44,20 +40,13 @@ function closwMypage() {
 function tabMyInfo() {
     isSelectedMyInfo.value = true
     isSelectedMyInfoModify.value = false
-    isSelectedMessage.value = false
 }
 
 function tabMyInfoModify() {
     isSelectedMyInfo.value = false
     isSelectedMyInfoModify.value = true
-    isSelectedMessage.value = false
 }
 
-function tabMessage() {
-    isSelectedMyInfo.value = false
-    isSelectedMyInfoModify.value = false
-    isSelectedMessage.value = true
-}
 </script>
 
 <style scoped>

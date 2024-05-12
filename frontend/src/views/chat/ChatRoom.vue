@@ -29,10 +29,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="t in temp" :key='t.time'>
-                            <td class="chat-name-td">{{t.name}}</td>
-                            <td class="chat-time-td">{{t.time}}</td>
-                            <td class="chat-content-td">{{t.content}}</td>
+                        <tr v-for="chat in chatData" :key='chat.time'>
+                            <td class="chat-name-td">{{chat.sender}}</td>
+                            <td class="chat-time-td">{{chat.time}}</td>
+                            <td class="chat-content-td">{{chat.content}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -40,7 +40,7 @@
 
             <div class="mycontent-div">
                 <label for="mycontent">채팅 입력 : </label>
-                <input id="mycontent" type="text" v-model="inputText" />
+                <input id="mycontent" type="text" @keyup.enter = "sendChat" v-model="inputText" />
                 <button @click="sendChat">전송</button>
             </div>
         </div>
@@ -50,60 +50,27 @@
 
 <script setup>    
 import axios from 'axios';
-import {ref} from 'vue';
-
-// 임시 데이터
-const temp = [
-        { name: 'User1', time: '12:30 PM', content: '안녕하세요!' },
-        { name: 'User2', time: '12:31 PM', content: '안녕하세요! 반가워요!안녕하세요! 반가워요!안녕하세요! 반가워요!안녕하세요! 반가워요!안녕하세요! 반가워요!안녕하세요! 반가워요!' },
-        { name: 'User3', time: '12:32 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User2', time: '12:33 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User1', time: '12:35 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User3', time: '12:36 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User4', time: '12:37 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User3', time: '12:38 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User2', time: '12:39 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User3', time: '12:40 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User6', time: '12:41 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User2', time: '12:42 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User3', time: '12:43 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User2', time: '12:44 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User1', time: '12:45 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User3', time: '12:47 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User2', time: '12:48 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User4', time: '12:49 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User5', time: '12:50 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User4', time: '12:51 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User2', time: '12:52 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User3', time: '12:53 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User1', time: '12:45 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User3', time: '12:47 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User2', time: '12:48 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User4', time: '12:49 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User5', time: '12:50 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User4', time: '12:51 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User2', time: '12:52 PM', content: '안녕하세요! 반가워요!' },
-        { name: 'User3', time: '12:53 PM', content: '안녕하세요! 반가워요!' },
-    ];
-
+import {ref, onBeforeMount} from 'vue';
+import {onBeforeRouteLeave} from 'vue-router'
 
 function closwMypage() {
     window.close()
 }
 
-function Chat(sender, content) {
+function Chat(sender, content,time) {
     this.sender = sender;
-    this.content = content
+    this.content = content;
+    this.time = time;
 }
 
 const searchParams = new URLSearchParams(window.location.search);
 const chatRoomId = searchParams.get('chatRoomId')
 const accessToken = localStorage.getItem('accessToken');
-const chatData = ref(getChattingData());
+const chatData = ref([]);
 
 async function setChatData(response) {
     chatData.value = response.data
-    .map(data => new Chat(data.senderName, data.content));
+    .map(data => new Chat(data.senderName, data.content,data.createdAt));
 }
 
 async function getChattingData() {
@@ -117,49 +84,32 @@ async function getChattingData() {
     ).then(response => setChatData(response));
 }
 
-var clientWebSocket = new WebSocket(process.env.VUE_APP_WEB_SOCKET_URL + chatRoomId);
+var clientWebSocket = undefined;
 
-clientWebSocket.onopen = function() {
-    console.log("clientWebSocket.onopen", clientWebSocket);
-    console.log("clientWebSocket.readyState", "websocketstatus");
-}
+onBeforeMount(() => {
+  getChattingData();
+  clientWebSocket = new WebSocket(process.env.VUE_APP_WEB_SOCKET_URL + chatRoomId);
 
-clientWebSocket.onclose = function(error) {
-    console.log("clientWebSocket.onclose", clientWebSocket, error);
-    events("Closing connection");
-}
+  clientWebSocket.onmessage = function(message) {
+      const arr = message.data.split(':');
+      chatData.value.push(new Chat(arr[0], arr[1], arr[2]));
+  }
+})
 
-clientWebSocket.onerror = function(error) {
-    console.log("clientWebSocket.onerror", clientWebSocket, error);
-    events("An error occured");
-}
-    
-clientWebSocket.onmessage = function(message) {
-    console.log("clientWebSocket.onmessage", clientWebSocket, message);
-    events(message.data);
-    const arr = message.data.split(':');
-    chatData.value.push(new Chat(arr[0], arr[1]));
-}
-
-function events(responseEvent) {
-    console.log(responseEvent);
-}
+onBeforeRouteLeave(async (to,from) => {
+  clientWebSocket.close();
+  to,from;
+})
 
 const inputText = ref('');
 
 const sendChat = () => {
     clientWebSocket.send(JSON.stringify({
         "groupInfoId" : chatRoomId,
-        "memberId" : 10002,
-        "sender" : "vue js",
-        "content" : inputText.value
+        "token" : accessToken,
+        "content" : inputText.value,
     }));
     inputText.value = '';
-}
-
-const tmp = false;
-if(tmp) {
-    sendChat();
 }
 
 </script>

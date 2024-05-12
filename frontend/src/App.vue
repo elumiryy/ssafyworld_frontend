@@ -5,7 +5,10 @@
       <!-- router 설정 -->
       <router-view></router-view>
     </div>
-    
+
+    <div>
+      <LoginView/>
+    </div>
     <!-- menu -->
     <div class="menu">
       <SettingView v-if="isSettingVisible"/>
@@ -21,6 +24,7 @@
 <script>
 import FooterView from '@/components/common/FooterView.vue'
 import SettingView from '@/components/common/SettingView.vue';
+import LoginView from './views/member/LoginView.vue';
 
 
 export default {
@@ -33,6 +37,7 @@ export default {
   components: {
     FooterView,
     SettingView,
+    LoginView,
   },
   methods: {
     callOpenStartModal() {

@@ -312,11 +312,11 @@ export const Modal = defineComponent({
                     props.mask ? h('div', {
                         class: 'modal-vue3-mask',
                         // style: `width:100%;height:100%;position:fixed;left:0;top:0;background-color:rgba(0, 0, 0, 0.25);z-index:${props.zIndex - 1};`,
-                        style: `width:100px;height:100px;position:fixed;left:0;top:0;background-color:rgba(0, 0, 0, 0);z-index:${props.zIndex - 1};`,
+                        style: `width:10px;height:0;position:absolute;z-index: 0;left:0;top:0;background-color:rgba(0, 0, 0, 0);z-index:${props.zIndex - 1};`,
                     }) : null,
                     h('div', {
                         ref: wrapRef,
-                        style: `width:100%;height:100%;position:fixed; left:0;right:0;top:0;bottom:0;margin: 0 auto;outline:0;`,
+                        style: `width:50%;height:0;position:fixed; left:0;right:0;top:0;bottom:0;margin: 0 auto;outline:0;`,
                         // style: `position:fixed; left:0;right:0;top:0;bottom:0;margin: 0 auto;z-index:${props.zIndex};overflow:auto;outline:0;`,
                         onclick: (e) => {onWrapClick(e)},
                     }, [
