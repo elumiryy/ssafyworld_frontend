@@ -77,8 +77,8 @@ export default {
   }
 
   .mypage-modal {
-    width: 550px;
-    height: 350px;
+    /* width: 550px;
+    height: 350px; */
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%); /* 모달 정중앙 정렬 */
