@@ -24,17 +24,21 @@
 
                             <div>
                                 <label for="question">질문</label>
-                                <select id="question" name="question">
-                                    <option value="a">아버지 성함은?</option>
-                                    <option value="b">어렸을 적 살던 동네는?</option>
-                                    <option value="d">졸업한 초등학교 이름은?</option>
-                                    <option value="c">가장 친한 친구 이름은?</option>
+                                <select id="question" name="question" v-model="question">
+                                    <option value="1">당신이 어릴적 살던 동네는</option>
+                                    <option value="2">당신의 초등학교 담임 선생님 이름은?</option>
+                                    <option value="3">당신의 보물 1호는?</option>
+                                    <option value="4">당신의 1학기 첫 페어는?</option>
+                                    <option value="5">싸근피에서 제일 친해진 친구 이름은?</option>
+                                    <option value="6">가장 가고 싶은 회사는?</option>
+                                    <option value="7">현재 교육받는 장소 말고 가보고 싶은 교육 장소는?</option>
+                                    <option value="8">지금 가장 생각나는 음식은?</option>
                                 </select>
                             </div>
 
                             <div>
                                 <label for="answer">답</label>
-                                <input type="text" id="answer" name="answer" />
+                                <input type="text" id="answer" name="answer" v-model="answer" />
                             </div>
 
                         </div>
@@ -45,6 +49,7 @@
             <div class="signup-hr">
                 <hr />
             </div>
+          
 
             <div class="page-btn-div">
                 <button v-on:click="prevStep">&lt; 뒤로(B)</button>
@@ -57,19 +62,82 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { mapGetters } from 'vuex';
+
 export default {
-    methods: {
-        prevStep() {
-            this.$router.push('/signup')
-        },
-        cancel() {
-            this.$router.push('/ssafyworld')
-        },
-        finish() {
-            this.$router.push('/ssafyworld')
-        }
+  data() {
+    return {
+      question: '',
+      answer: '',
+      groupInfoId: null
+    };
+  },
+  computed: {
+    ...mapGetters({
+      userInfo: 'getUserInfo',
+      sub: 'getUserSub'
+    })
+  },
+  created() {
+  console.log("sub from Vuex in SignupViewQA:", this.sub); // 컴포넌트 생성 시 sub 로깅
+},
+  methods: {
+    logSub() {
+    console.log(this.sub);  // 여기에서 `this.sub`은 계산된 속성의 값을 로그합니다.
+  },
+    prevStep() {
+      this.$router.push('/signup');
+    },
+    cancel() {
+      this.$router.push('/ssafyworld');
+    },
+    extractNumberFromBan(ban) {
+      const matches = ban.match(/\d+/);
+      return matches ? parseInt(matches[0], 10) : null;
+    },
+    async finish() {
+      this.logSub();
+      try {
+        const numericBan = this.extractNumberFromBan(this.userInfo.ban);
+        const groupInfoResponse = await axios.get('/groupInfo', {
+          params: {
+            ordinal: this.userInfo.ordinal,
+            region: this.userInfo.region,
+            ban: numericBan
+          }
+        });
+
+        if (groupInfoResponse.data) {
+          this.groupInfoId = groupInfoResponse.data;
+          console.log("Fetched groupInfoId:", this.groupInfoId);
+        } 
+
+        const now = new Date().toISOString();
+
+        const registrationData = {
+          sub: this.sub,
+          provider: 'google',
+          name: this.userInfo.name,
+          serialNumber: 'adssda',
+          questionId: this.question,
+          answer: this.answer,
+          groupInfoId: this.groupInfoId,
+          createdAt: now,  // createdAt에 현재 시간 설정
+          updatedAt: now   // updatedAt에 현재 시간 설정
+        };
+
+        console.log("Registration data:", registrationData);
+
+        const registerResponse = await axios.post('/member/register', registrationData);
+        console.log('Registration successful', registerResponse);
+        this.$router.push({ name: 'LoginView' });
+      } catch (error) {
+        console.error('Error in registration or fetching group info:', error);
+      }
     }
-}
+  }
+};
 </script>
 
 <style scoped>

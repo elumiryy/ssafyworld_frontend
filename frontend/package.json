@@ -11,11 +11,11 @@
     "axios": "^1.6.8",
     "core-js": "^3.8.3",
     "json-server": "^0.16.2",
-
     "usemodal-vue3": "^0.3.6",
     "vue": "^3.2.13",
     "vue-router": "^4.3.2",
-    "vue3-google-login": "^2.0.26"
+    "vue3-google-login": "^2.0.26",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
