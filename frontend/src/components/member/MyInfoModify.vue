@@ -23,7 +23,9 @@
                 <input class="answer-input" id="answer" type="text" v-model="answer"/>
             </div>
         </div>
-        <button @click="update">수정</button>
+        <div class="btn-div">
+            <button @click="update">수정</button>
+        </div>
     </div>
 </template>
 
@@ -118,5 +120,12 @@ async function update() {
 
     .answer-input, select {
         width: 90%;
+    }
+
+    .btn-div {
+        width: 100%;
+        padding: 20px 0;
+        display: flex;
+        justify-content: flex-end;
     }
 </style>
