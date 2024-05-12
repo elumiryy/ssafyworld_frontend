@@ -27,9 +27,9 @@
   <div class="letter-detail">
     <div class="letter-info" v-if="selectedLetter">
       <span>
-        <b>보낸 사람</b> : {{ selectedLetter.toUserOrdinal }}기
+        <b>보낸 사람</b> : {{ selectedLetter.toUserOrdinal }} 
         {{ selectedLetter.toUserRegion }}
-        {{ selectedLetter.toUserBan }}반
+        {{ selectedLetter.toUserBan }} 
         {{ selectedLetter.toUserName }}
       </span>
 
@@ -51,15 +51,7 @@ defineProps({
   letters: Array,
 });
 
-const selectedLetter = ref({
-  toUserOrdinal: 11,
-  toUserRegion: "구미",
-  toUserBan: 4,
-  toUserName: "이지언",
-  title: "보낸 테스트 제목입니다.",
-  content: "보낸 테스트 내용입니다.",
-  createdAt: "2024-05-20",
-});
+const selectedLetter = ref({});
 
 const showLetterDetail = (letter) => {
   selectedLetter.value = letter;

@@ -40,8 +40,7 @@
 
             <div class="mycontent-div">
                 <label for="mycontent">채팅 입력 : </label>
-                <input id="mycontent" type="text" @keyup.enter = "sendChat" v-model="inputText" />
-                <button @click="sendChat">전송</button>
+                <input id="mycontent" type="text" @keypress.enter = "sendChat" v-model="inputText" />
             </div>
         </div>
     </div>
@@ -50,8 +49,9 @@
 
 <script setup>    
 import axios from 'axios';
-import {ref, onBeforeMount} from 'vue';
+import {ref, onBeforeMount, onUpdated} from 'vue';
 import {onBeforeRouteLeave} from 'vue-router'
+import moment from 'moment';
 
 function closwMypage() {
     window.close()
@@ -86,13 +86,18 @@ async function getChattingData() {
 
 var clientWebSocket = undefined;
 
+onUpdated(() => {
+  const bottom = document.querySelector('.sunken-panel');
+  bottom.scrollTop =  bottom.scrollHeight;
+})
+
 onBeforeMount(() => {
   getChattingData();
   clientWebSocket = new WebSocket(process.env.VUE_APP_WEB_SOCKET_URL + chatRoomId);
-
   clientWebSocket.onmessage = function(message) {
-      const arr = message.data.split(':');
-      chatData.value.push(new Chat(arr[0], arr[1], arr[2]));
+      chatData.value.push(JSON.parse(message.data));
+      const bottom = document.querySelector('.sunken-panel');
+      bottom.scrollTop =  bottom.scrollHeight;
   }
 })
 
@@ -104,9 +109,22 @@ onBeforeRouteLeave(async (to,from) => {
 const inputText = ref('');
 
 const sendChat = () => {
+    inputText.value = inputText.value.trim();
+  
+    if(inputText.value.length < 2) {
+      window.alert("글자 수가 너무 적습니다." , inputText.value);
+      return;
+    }
+
+    if(inputText.value.length > 50) {
+      window.alert("글자 수가 50자를 초과하였습니다.");
+      return;
+    }
+
     clientWebSocket.send(JSON.stringify({
         "groupInfoId" : chatRoomId,
-        "token" : accessToken,
+        "accessToken" : accessToken,
+        "createdAt" : moment().format('yyyy-MM-DD HH:mm:ss'),
         "content" : inputText.value,
     }));
     inputText.value = '';
@@ -131,11 +149,12 @@ const sendChat = () => {
     background-color: #314CA5;
   }
 
+
   .sunken-panel {
     width: 100%;
     height: 85%;
+    background-color: #314CA5;
   }
-
   /* 스크롤바 숨기기(마우스 휠로 스크롤 가능) */
   .sunken-panel::-webkit-scrollbar {
     display: none;
@@ -153,13 +172,18 @@ const sendChat = () => {
   th {
     background-color: #314CA5;
     color: #E6F5FF;
-    font-size: small;
+    font-size: large;
     box-shadow: none;
   }
 
   td {
     color: #E6F5FF;
-    font-size: small;
+    font-size: large;
+  }
+
+  table {
+    border-collapse: separate;
+    border-spacing: 5px;
   }
   
   .chat-name-td {
@@ -178,7 +202,6 @@ const sendChat = () => {
   .mycontent-div {
     padding: 10px 0;
     display: flex;
-    justify-content: space-between
   }
 
   label {
@@ -187,7 +210,7 @@ const sendChat = () => {
   }
 
   input {
-    width: 70%;
+    width: 95%;
     font-size: small;
   }
 </style>

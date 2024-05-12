@@ -58,7 +58,7 @@ function tabMyInfoModify() {
 <style scoped>
     .mypage {
         background-color: #C3C2C3;
-        height: 100%;
+        height: 350px;
         position: relative;
         z-index: 1;
     }
