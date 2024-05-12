@@ -15,6 +15,10 @@ import LoadingComponent from '@/components/rollingpaper/LoadingComponent.vue'
 
 const routes = [
   {
+    path: '/',
+    redirect: '/ssafyworld' 
+  },
+  {
     path:"/ssafyworld",
     name: "MainView",
     component: MainView
@@ -81,36 +85,34 @@ const router = createRouter({
 });
 
 
-router.beforeEach(async  (to,from) => {
-  if(to.name !== "LoginView") {
-    if (to.name !== "SignupView") {
-      if (to.name !== "SignupViewQA") {
-        let isAuthentication = false;
+router.beforeEach(async (to, from, next) => {
+  const openRoutes = ["LoginView", "SignupView", "SignupViewQA"];
 
-        const setAuthentication = (flag) => {
-          isAuthentication = flag;
-        }
-      
-        const accessToken = localStorage.getItem('accessToken');
-        to,from;
-      
-        await axios.get(
-          '/token',
-          {
-            headers : {
-              Authorization : `Bearer ${accessToken}`
-            }
+  if (!openRoutes.includes(to.name)) {
+    let isAuthenticated = false;
+
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (accessToken) {
+      try {
+        await axios.get('/token', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
           }
-        )
-        .then(() => setAuthentication(true))
-        .catch(() => setAuthentication(false))
-      
-        if(!isAuthentication) {
-          return {name : 'LoginView'}
-        }
+        });
+        isAuthenticated = true; 
+      } catch (error) {
+        isAuthenticated = false; 
       }
     }
-  } 
-})
+
+    if (!isAuthenticated) {
+      return next({ name: 'LoginView' });
+    }
+  }
+
+  next();
+});
+
 
 export {router}
