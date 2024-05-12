@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, onUnmounted, ref } from "vue";
 import { useModal, Modal } from "@/components/useModal";
+// import axios from 'axios'
 
 const setModal = useModal({
   sendLetter: 4,
@@ -11,6 +12,9 @@ let modalVisible = reactive({});
 modalVisible = setModal("sendLetter", false);
 
 function showSend() {
+  //TODO 나중에 로그인 후 삭제@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  localStorage.setItem("accessToken", "Bearer eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDAwMSIsImlhdCI6MTcxNTQ5MDM0NSwiZXhwIjoxNzMzNDkwMzQ1LCJyb2xlcyI6IlJPTEVfVVNFUiJ9.NEgW3sxiMUilhYyFa_gFd469OrsRQHxKhy9W7ryYlos");
+
   modalVisible = setModal("sendLetter", true);
 
   if (inputs.value.ordinal == null) {
@@ -24,7 +28,8 @@ function showWriteView() {
     ordinal: inputs.value.ordinal,
     region: inputs.value.region,
     ban: inputs.value.ban,
-    names: inputs.value.names,
+    names: inputs.value.name,
+    upk: inputs.value.upk //userPk
   }).toString();
   window.open(
     `/letterWrite?${queryParams}`,
@@ -57,9 +62,35 @@ function clicked(item) {
   }
 }
 
+//서버통신
+// async function serverGetCommunication(url) {
+//   // import() 함수를 사용하여 동적으로 컴포넌트를 불러옵니다
+//   await axios.get(
+//     url, 
+//     {
+//       headers: {
+//         Authorization: localStorage.getItem("accessToken"),
+//         withCredentials: true, // default
+//         Accept: "application/json",
+//         // Authorization: 'Bearer eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNzE1NDQ5MzI2LCJleHAiOjE3MTU0NTExMjYsInJvbGVzIjoiUk9MRV9VU0VSIn0.vbQkrwetQ5b__DE2arDoeox4AcfME3EyycIBPlNEQ3s'
+//       }
+//     }
+//   )
+//   .then(function (response) {
+//     valueList.value = response.data
+//   })
+//   .catch(function (error) {
+//     alert("통신 실패: " + error)
+//     console.log(error);
+//   });
+// }
+
 async function getOridnal() {
   try {
-    // import() 함수를 사용하여 동적으로 컴포넌트를 불러옵니다
+    //(1)서버통신
+    // await serverGetCommunication('http://localhost:80/groupInfo');
+    
+    //(2)서버통신x
     valueList.value = [10, 11];
     imageType.value = "folder";
     types.value = "ordinal";
@@ -79,7 +110,10 @@ async function getOridnal() {
 
 async function getRegion() {
   try {
-    // import() 함수를 사용하여 동적으로 컴포넌트를 불러옵니다
+    //(1)서버통신
+    // await serverGetCommunication('http://localhost:80/groupInfo?ordinal=' + inputs.value.ordinal);
+    
+    //(2)서버통신x
     valueList.value = ["구미", "서울", "부울경", "광주", "대전"];
     imageType.value = "folder";
     types.value = "region";
@@ -94,14 +128,11 @@ async function getRegion() {
 
 async function getBan() {
   try {
-    // import() 함수를 사용하여 동적으로 컴포넌트를 불러옵니다
+    //(1)서버통신
+    // await serverGetCommunication('http://localhost:80/groupInfo?ordinal=' + inputs.value.ordinal + "&region=" + inputs.value.region);
+    
+    //(2)서버통신x
     valueList.value = ["1", "2", "3", "4", "5", "6"];
-
-    //서버에서 받는 코드
-    // await fetch('http://localhost:3000/ban')
-    //   .then(res => res.json())
-    //   .then(data => valueList.value = data)
-    //   .catch(err => console.log(err.message))
 
     imageType.value = "folder";
     types.value = "ban";
@@ -116,7 +147,48 @@ async function getBan() {
 
 async function getNames() {
   try {
-    // import() 함수를 사용하여 동적으로 컴포넌트를 불러옵니다
+    
+    //(1)서버통신
+    // let groupInfoId = 0;
+    // await axios.get(
+    //   'http://localhost:80/groupInfo?ordinal=' + inputs.value.ordinal + "&region=" + inputs.value.region + "&ban=" + inputs.value.ban, 
+    //   {
+    //     headers: {
+    //       Authorization: localStorage.getItem("accessToken"),
+    //       withCredentials: true, // default
+    //       Accept: "application/json",
+    //       // Authorization: 'Bearer eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNzE1NDQ5MzI2LCJleHAiOjE3MTU0NTExMjYsInJvbGVzIjoiUk9MRV9VU0VSIn0.vbQkrwetQ5b__DE2arDoeox4AcfME3EyycIBPlNEQ3s'
+    //     }
+    //   }
+    // )
+    // .then(function (response) {
+    //   groupInfoId = response.data
+    // })
+    // .catch(function (error) {
+    //   alert("통신 실패: " + error)
+    //   console.log(error);
+    // });
+
+    // await axios.get(
+    //   'http://localhost:80/member?groupInfoId=' + groupInfoId, 
+    //   {
+    //     headers: {
+    //       Authorization: localStorage.getItem("accessToken"),
+    //       withCredentials: true, // default
+    //       Accept: "application/json",
+    //     }
+    //   }
+    // )
+    // .then(function (response) {
+    //   valueList.value = response.data
+    // })
+    // .catch(function (error) {
+    //   alert("통신 실패: " + error)
+    //   console.log(error);
+    // });
+    
+    // valueList.value = []
+    //(2)서버통신x
     valueList.value = [
       "강인수",
       "김재웅강사님",
@@ -143,8 +215,8 @@ async function getNames() {
       "안녕",
       "제발",
       "스크롤",
-      "생겨라",
-    ];
+      "생겨라", ];
+
     imageType.value = "message";
     types.value = "names";
     suffix.value = "";
@@ -158,6 +230,7 @@ async function getNames() {
 
 function okfnSend() {
   modalVisible = setModal("sendLetter", false);
+  inputs.value = []
 }
 
 function goBack() {
@@ -233,7 +306,7 @@ const suffix = ref("");
       :animation="true"
       :closable="false"
       :draggable="true"
-      :okButton="{
+      :closeButton="{
         onclick: okfnSend,
         loading: true,
       }"

@@ -158,6 +158,10 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+
+        /* Footer 가리기용 */
+        position: relative;
+        z-index: 1;
     }
 
     .window {

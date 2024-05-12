@@ -3,7 +3,12 @@
     <div class="grid-container" style="margin: 10px">
       <div class="grid-item" v-for="(item, index) in items" :key="index" style="border: none; padding: 10px">
         <div class="button-like" @click="onClick(item)">
-          <FolderComponent :folderName="fullName(item)" :imageType="imageType"></FolderComponent>
+          <div v-if="item.memberId == null"> <!-- 기수, 지역, 반 출력 -->
+            <FolderComponent :folderName="fullName(item)" :imageType="imageType"></FolderComponent>
+          </div>
+          <div v-else> <!-- 사용자 이름 출력 -->
+            <FolderComponent :folderName="fullName(item.name)" :imageType="imageType"></FolderComponent>
+          </div>
         </div>
       </div>
     </div>
