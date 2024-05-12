@@ -83,28 +83,32 @@ const router = createRouter({
 
 router.beforeEach(async  (to,from) => {
   if(to.name !== "LoginView") {
-    let isAuthentication = false;
+    if (to.name !== "SignupView") {
+      if (to.name !== "SignupViewQA") {
+        let isAuthentication = false;
 
-    const setAuthentication = (flag) => {
-      isAuthentication = flag;
-    }
-  
-    const accessToken = localStorage.getItem('accessToken');
-    to,from;
-  
-    await axios.get(
-      '/token',
-      {
-        headers : {
-          Authorization : `Bearer ${accessToken}`
+        const setAuthentication = (flag) => {
+          isAuthentication = flag;
+        }
+      
+        const accessToken = localStorage.getItem('accessToken');
+        to,from;
+      
+        await axios.get(
+          '/token',
+          {
+            headers : {
+              Authorization : `Bearer ${accessToken}`
+            }
+          }
+        )
+        .then(() => setAuthentication(true))
+        .catch(() => setAuthentication(false))
+      
+        if(!isAuthentication) {
+          return {name : 'LoginView'}
         }
       }
-    )
-    .then(() => setAuthentication(true))
-    .catch(() => setAuthentication(false))
-  
-    if(!isAuthentication) {
-      return {name : 'LoginView'}
     }
   } 
 })
