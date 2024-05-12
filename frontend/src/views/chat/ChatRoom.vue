@@ -116,8 +116,8 @@ const sendChat = () => {
       return;
     }
 
-    if(inputText.value.length > 50) {
-      window.alert("글자 수가 50자를 초과하였습니다.");
+    if(inputText.value.length > 200) {
+      window.alert("글자 수 제한을 초과하였습니다.");
       return;
     }
 
