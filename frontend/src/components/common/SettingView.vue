@@ -6,7 +6,7 @@
                 <img src="@/assets/windowsIcon/recycle_bin_full_cool-0.png" alt="windows-icon-img" width="40" height="40">
                 <p v-on:click="print">회원 탈퇴</p>
             </router-link>
-            <div class="gotomypage-div" v-on:click="goToMypage()">
+            <div class="gotomypage-div" @click="openMypage">
                 <img src="@/assets/windowsIcon/users_key-4.png" alt="windows-icon-img" width="40" height="40">
                 <p>내 정보 수정</p>
             </div>
@@ -19,14 +19,15 @@
     </div>
 </template>
 
-<script>
-export default {
-    methods: {
-        goToMypage() {
-            window.open("/mypage", "_blank", "width=550, height=400, left=550, top=250");
-        }
-    },
-}
+<script setup>
+    import { defineEmits } from "vue";
+
+    const emit = defineEmits(["openMypage"]);
+
+    const openMypage = () => {
+        emit("openMypage");
+    };
+    
 </script>
 
 <style>
