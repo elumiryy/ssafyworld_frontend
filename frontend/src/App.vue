@@ -6,6 +6,10 @@
       <router-view></router-view>
     </div>
 
+    <div class="mypage-modal">
+      <MypageView :isOpenMypage="isOpenMypage" @close-mypage="closeMypage"/>
+    </div>
+
     <!-- menu -->
     <div class="menu">
       <SettingView v-if="isSettingVisible" @open-mypage="openMypage"/>
@@ -21,6 +25,7 @@
 <script>
 import FooterView from '@/components/common/FooterView.vue'
 import SettingView from '@/components/common/SettingView.vue';
+import MypageView from '@/views/member/MypageView.vue';
 
 export default {
   name: 'App',
@@ -33,6 +38,7 @@ export default {
   components: {
     FooterView,
     SettingView,
+    MypageView,
   },
   methods: {
     callOpenStartModal() {
