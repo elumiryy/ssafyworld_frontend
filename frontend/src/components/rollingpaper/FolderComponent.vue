@@ -1,10 +1,11 @@
 <template>
-  <div style="margin: 0; width: 55px;">
+  <div style="margin: 0; padding: 0, width: 100%">
     <div style="display: flex; justify-content: center;">
-      <img :src="getImageSource" style="width: calc(100% - 20px); padding: 0 10px;" />
+      <!-- <img :src="getImageSource" style="width: calc(100% - 20px); padding: 0;" /> -->
+      <img :src="getImageSource" style="width: 30%; padding: 0;" />
     </div>
     <div style="display: flex; justify-content: center; width: 100%;">
-      <p style="width: calc(100% + 10px); text-align: center; margin: 0; font-size: 13px; word-wrap: break-word; padding: 0 5px;">
+      <p style="width: calc(100%); text-align: center; margin: 0; font-size: 13px; word-wrap: break-word; padding: 0 5px;">
         {{ folderName }}
       </p>
     </div>

@@ -1,4 +1,3 @@
-
 <template>
     <div class="login">
         <img class="background-img" src="@/assets/loginImg/login-background-2.png" alt="login-background-img">
@@ -112,6 +111,10 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        
+        /* Footer 가리기용 */
+        position: relative;
+        z-index: 1;
     }   
 
     .background-img {

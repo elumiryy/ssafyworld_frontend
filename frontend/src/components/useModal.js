@@ -79,17 +79,13 @@ export const Modal = defineComponent({
             type: Boolean,
             default: true
         },
-        type: {
-            type: String,
-            default: ''
-        },
         modalClass: {
             type: String,
             default: 'modal-vue3-wrap'
         },
         width: {
             type: [String, Number],
-            default: 500
+            default: 550
         },
         offsetTop: {
             type: [String, Number],
@@ -101,7 +97,7 @@ export const Modal = defineComponent({
         },
         title: {
             type: String,
-            default: '편지 관리자'
+            default: '편지 탐색기(C:)'
         },
         animation: {
             type: Boolean,
@@ -115,21 +111,11 @@ export const Modal = defineComponent({
             type: [Boolean,Object],
             default: false
         },
-        cancelButton: {
+        closeButton: {
             type: Object,
             default: () => {
                 return {
-                    text: 'cancel',
-                    onclick: null,
-                    loading: false
-                }
-            },
-        },
-        okButton: {
-            type: Object,
-            default: () => {
-                return {
-                    text: 'ok',
+                    text: 'close',
                     onclick: null,
                     loading: false
                 }
@@ -206,12 +192,12 @@ export const Modal = defineComponent({
             emit('goBack');
         }
 
-        // const onWrapClick = (e) => {
-        //     if(!props.maskClosable || !props.mask) return;
-        //     if( e.target === wrapRef.value) {
-        //         cancel(name);
-        //     }
-        // }
+        const onWrapClick = (e) => {
+            if(!props.maskClosable || !props.mask) return;
+            if( e.target === wrapRef.value) {
+                // cancel(name);
+            }
+        }
 
         let buttonLoading = reactive({
             value: false,
@@ -318,18 +304,21 @@ export const Modal = defineComponent({
                         }
                     }
                 }
+
+                //HTML 시작
                 return visible ? h('div', {
                     class: props.modalClass,
                 }, [
                     props.mask ? h('div', {
                         class: 'modal-vue3-mask',
                         // style: `width:100%;height:100%;position:fixed;left:0;top:0;background-color:rgba(0, 0, 0, 0.25);z-index:${props.zIndex - 1};`,
-                        style: `width:100%;height:100%;position:fixed;left:0;top:0;background-color:rgba(0, 0, 0, 0);z-index:${props.zIndex - 1};`,
+                        style: `width:10px;height:0;position:absolute;z-index: 0;left:0;top:0;background-color:rgba(0, 0, 0, 0);z-index:${props.zIndex - 1};`,
                     }) : null,
                     h('div', {
                         ref: wrapRef,
-                        style: `position:fixed;left:0;right:0;top:0;bottom:0;margin: 0 auto;z-index:${props.zIndex};overflow:auto;outline:0;`,
-                        // onclick: (e) => {onWrapClick(e)},
+                        style: `width:50%;height:0;position:fixed; left:0;right:0;top:0;bottom:0;margin: 0 auto;outline:0;`,
+                        // style: `position:fixed; left:0;right:0;top:0;bottom:0;margin: 0 auto;z-index:${props.zIndex};overflow:auto;outline:0;`,
+                        onclick: (e) => {onWrapClick(e)},
                     }, [
                         h('div', {
                             ref: contentRef,
@@ -337,9 +326,9 @@ export const Modal = defineComponent({
                             class: 'window',
                             //스크롤 없애기
                             // style: `width:${width};position:relative;top:${isNumber(cententPosition.top) ? cententPosition.top+'px' : offsetTop};left:${cententPosition.left ? cententPosition.left+'px' : '' };margin: ${isNumber(cententPosition.left) ? '0' : '0 auto'}; ${props.type != 'clean' ? 'border:1px solid #f0f0f0;' : ''}overflow:auto;outline:0;box-sizing:border-box; ${props.type != 'clean' ? 'background-color:#fff;' : ''}border-radius:2px;transform:translateY(${scale.value}px);`
-                            style: `width:${width};position:relative;top:${isNumber(cententPosition.top) ? cententPosition.top+'px' : offsetTop};left:${cententPosition.left ? cententPosition.left+'px' : '' };margin: ${isNumber(cententPosition.left) ? '0' : '0 auto'}; ${props.type != 'clean' ? 'border:1px solid #f0f0f0;' : ''} outline:0; box-sizing:border-box; ${props.type != 'clean' ? 'background-color:#fff;' : ''}border-radius:2px;transform:translateY(${scale.value}px); padding: 0px`
+                            style: `width:${width};position:relative;top:${isNumber(cententPosition.top) ? cententPosition.top+'px' : offsetTop};left:${cententPosition.left ? cententPosition.left+'px' : '' };margin: ${isNumber(cententPosition.left) ? '0' : '0 auto'}; border:1px solid #f0f0f0; outline:0; box-sizing:border-box; background-color:#fff; border-radius:1px;transform:translateY(${scale.value}px); padding: 0px`
                         },[
-                            props.type != 'clean' ? h('div', {
+                            h('div', {
                                 // class:"modal-vue3-header",
                                 class:"window",
                                 // style: `padding:12px 22px;border-bottom:1px solid #f0f0f0;position:relative;${props.draggable && isBool(props.draggable) ? 'cursor:move;' : ''}`,
@@ -354,6 +343,7 @@ export const Modal = defineComponent({
                                 }, [
                                     h('div', {
                                         class:"title-bar-text",
+                                        style: "margin-left: 8px"
                                     }, props.title),
                                     h('div', {
                                         class:"title-bar-controls",
@@ -363,7 +353,7 @@ export const Modal = defineComponent({
                                         // h('button', {"aria-label": "Close"}),
                                         h('button', {
                                             "aria-label": "Close",
-                                            onclick:() => {onButton(props, 'okButton')},
+                                            onclick:() => {onButton(props, 'closeButton')},
                                         }),
                                     ]),
                                 ]),
@@ -374,42 +364,30 @@ export const Modal = defineComponent({
                                         cancel(name);
                                     },
                                 }
-                                // ,  [
-                                //     h('div', {
-                                //         style: 'width:14px;height:1px;position:absolute;left:0;right:0;top:0;bottom:0;margin:auto;background-color:#999;transform:rotate(45deg);'
-                                //     }, 'sfsaf'),
-                                //     h('div', {
-                                //         style: 'width:14px;height:1px;position:absolute;left:0;right:0;top:0;bottom:0;margin:auto;background-color:#999;transform:rotate(-45deg);'
-                                //     }, '')
-                                // ]
                             ) : null
-                            ]) : null,
+                            ]),
                             h('div', { //file edit view go favorites help
                                 class:"window",
                                 style: "margin: 0px; padding: 0px; height: 25px;"
                             }, [
                                 h('div', {
-                                    class:"field-col-stacked",
-                                    style: "width: 450px; display: inline"
+                                    // class:"field-col-stacked",
+                                    // style: "width: 450px; display: inline"
+                                    style: "display: flex; align-items: center; text-align: left; gap: 10px;"
                                 }, [
                                     h('span', {
-                                        style: "width: 5px; padding: 5px;"
-                                    }, "File"),
+                                        style: "display: flex; align-items: center; padding: 5px; margin-left: 5px"
+                                    }, h('p', {style: "margin: 0; text-align: center;"}, "파일(F)")),
                                     h('span', {
-                                        style: "width: fit-content; padding: 5px"
-                                    }, "Edit"),
+                                    }, h('p', {style: "margin: 0; text-align: center;"}, "편집(E)")),
                                     h('span', {
-                                        style: "width: 5px; padding: 5px"
-                                    }, "View"),
+                                    }, h('p', {style: "margin: 0; text-align: center;"}, "보기(V)")),
                                     h('span', {
-                                        style: "width: 5px; padding: 5px"
-                                    }, "Go"),
+                                    }, h('p', {style: "margin: 0; text-align: center;"}, "이동(G)")),
                                     h('span', {
-                                        style: "width: 5px; padding: 5px"
-                                    }, "Favorites"),
+                                    }, h('p', {style: "margin: 0; text-align: center;"}, "즐겨찾기(A)")),
                                     h('span', {
-                                        style: "width: 5px; padding: 5px"
-                                    }, "Help"),
+                                    }, h('p', {style: "margin: 0; text-align: center;"}, "도움말(H)")),
                                 ])
                             ]),
                             h('div', { //back forward
@@ -417,24 +395,24 @@ export const Modal = defineComponent({
                                 style: "margin: 0px; padding: 0px; height: 30px"
                             }, [
                                 h('div', {
-                                    class:"field-col-stacked",
-                                    style: "width: 500px; height: 30px;margin:0px; padding: 0px"
+                                    // class:"field-col-stacked",
+                                    style: "width: 500px; height: 30px;margin:0px; padding: 0 0 0 3px; display: flex; align-items: center;align-items: center; "
                                 }, [
                                     h('button', {
-                                        style: "width: 5px; height: 30px; padding: 0px;",
+                                        style: "width: 50px; padding: 10px;height: 15px;display: flex; align-items: center;padding: 0px; min-width: 50px;justify-content: center; box-shadow:none",
                                         onclick: () => {
                                             goBack();
                                         },
-                                    }, "Back"),
+                                    }, "뒤로"),
                                     h('button', {
-                                        style: "width: 5px; height: 30px; padding: 0px",
+                                        style: "width: 50px; padding: 10px;height: 15px;display: flex; align-items: center;padding: 0px; min-width: 50px; justify-content: center;box-shadow:none",
                                         onclick: () => {
                                             goForward();
                                         },
-                                    }, "Forward"),
-                                    h('span', {
-                                        style: "width: 5px; height: 30px;padding: 5px"
-                                    }, "up"),
+                                    }, "앞으로"),
+                                    h('button', {
+                                        style: "width: 50px;padding: 10px; height: 15px; display: flex;align-items: center;padding: 5px; min-width: 50px; justify-content: center; box-shadow:none"
+                                    }, "위로"),
                                 ])
                             ]),
                             h('div', { //경로표시
@@ -443,17 +421,17 @@ export const Modal = defineComponent({
                             }, [
                                 h('div', {
                                     class:"field-col-stacked",
-                                    style: "width: 500px"
+                                    style: "width: 550px"
                                 }, [
                                     h('label', {
                                         "for":"text19",
                                         style: "color: black; margin-left: 5px; width: 40px"
-                                    }, "Address"),
+                                    }, "주소(D)"),
                                     h('select', {
                                         "id":"text19",
                                         "type": "text",
                                         "disabled": "disabled",
-                                        style: "width: 440px; background-color: white;",
+                                        style: "width: 490px; background-color: white;",
                                     },[
                                         h('option', {
                                             "value": "",
@@ -472,14 +450,10 @@ export const Modal = defineComponent({
                                         ), 
                                     ]),
                                 ]),
-                                // <div class="" style=>
-                                //     <label for="text19">Address (Line 2)</label>
-                                //     <input id="text19" type="text" />
-                                // </div>
                             ]),
                             h('div', {
                                 class:"modal-vue3-body",
-                                style: props.type != 'clean' ? 'padding: 14px 22px' : ''
+                                // style: props.type != 'clean' ? 'padding: 14px 22px' : ''
                             }, slots.default()),
                             // props.type != 'clean' ? h('div', {
                             //     class:"modal-vue3-footer",
@@ -500,15 +474,15 @@ export const Modal = defineComponent({
                                 // ]),
                                 // h('div', {
                                 //     class: 'modal-vue3-footer-ok',
-                                //     style: `height:30px;padding: 0 8px;border-radius:2px;display:flex;justify-content:center;align-items:center;background-color:#4395ff;color:#fff;cursor:pointer;position:relative;${buttonLoading.value && buttonLoading.target === 'okButton' ? 'opacity:.6;' : ''}`,
-                                //     onclick:() => {onButton(props, 'okButton')},
+                                //     style: `height:30px;padding: 0 8px;border-radius:2px;display:flex;justify-content:center;align-items:center;background-color:#4395ff;color:#fff;cursor:pointer;position:relative;${buttonLoading.value && buttonLoading.target === 'closeButton' ? 'opacity:.6;' : ''}`,
+                                //     onclick:() => {onButton(props, 'closeButton')},
                                 // }, [
-                                //     buttonLoading.value && buttonLoading.target === 'okButton' ? h('span', {
+                                //     buttonLoading.value && buttonLoading.target === 'closeButton' ? h('span', {
                                 //         style: `width: 10px;height:10px;margin-right:5px;border:1px solid #fff;border-radius:50%;border-top:1px solid transparent; transform:rotate(${rotateVal.value}deg);`
                                 //     }) : null,
                                 //     h('div',{
                                 //        style: 'min-width:44px;text-align:center;'
-                                //     }, props.okButton.text || 'ok')
+                                //     }, props.closeButton.text || 'ok')
                                 // ])
                             // ]
                             // ) : null,

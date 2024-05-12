@@ -10,7 +10,8 @@ import ChatView from '@/views/chat/ChatView.vue'
 import ChatRoomView from '@/views/chat/ChatRoom.vue'
 import MypageView from '@/views/member/MypageView.vue'
 import LetterView from '@/views/letter/LetterView.vue'
-
+import ReceivedLetterView from '@/views/letter/ReceivedLetterView.vue'
+import LoadingComponent from '@/components/rollingpaper/LoadingComponent.vue'
 
 const routes = [
   {
@@ -62,6 +63,16 @@ const routes = [
     name: "LetterView",
     component: LetterView
   },
+  {
+    path:"/loading",
+    name: "LoadingComponent",
+    component: LoadingComponent
+  },
+  {
+    path: '/ReceivedLetter',
+    name: 'ReceivedLetterView',
+    component: ReceivedLetterView,
+  }
 ];
 
 const router = createRouter({
@@ -72,28 +83,32 @@ const router = createRouter({
 
 router.beforeEach(async  (to,from) => {
   if(to.name !== "LoginView") {
-    let isAuthentication = false;
+    if (to.name !== "SignupView") {
+      if (to.name !== "SignupViewQA") {
+        let isAuthentication = false;
 
-    const setAuthentication = (flag) => {
-      isAuthentication = flag;
-    }
-  
-    const accessToken = localStorage.getItem('accessToken');
-    to,from;
-  
-    await axios.get(
-      '/token',
-      {
-        headers : {
-          Authorization : `Bearer ${accessToken}`
+        const setAuthentication = (flag) => {
+          isAuthentication = flag;
+        }
+      
+        const accessToken = localStorage.getItem('accessToken');
+        to,from;
+      
+        await axios.get(
+          '/token',
+          {
+            headers : {
+              Authorization : `Bearer ${accessToken}`
+            }
+          }
+        )
+        .then(() => setAuthentication(true))
+        .catch(() => setAuthentication(false))
+      
+        if(!isAuthentication) {
+          return {name : 'LoginView'}
         }
       }
-    )
-    .then(() => setAuthentication(true))
-    .catch(() => setAuthentication(false))
-  
-    if(!isAuthentication) {
-      return {name : 'LoginView'}
     }
   } 
 })

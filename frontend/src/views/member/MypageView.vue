@@ -1,11 +1,11 @@
 <template>
-    <div class="mypage">
+    <div class="mypage" v-if="isOpenMypage">
         <div class="window">
             <div class="title-bar">
                 <div class="title-bar-text">내 정보</div>
                 <div class="title-bar-controls">
                     <button aria-label="Help"></button>
-                    <button aria-label="Close" v-on:click="closwMypage()"></button>
+                    <button aria-label="Close" @click="closeMypage"></button>
                 </div>
             </div>
             <div class="window-body">
@@ -14,13 +14,11 @@
                         <!-- aria-selected="true" 왜 이 속성은 aria-selected="isSelectedMyInfo" 이게 안될까? -->
                         <li role="tab" :aria-selected="isSelectedMyInfo" @click="tabMyInfo()">내 정보</li>
                         <li role="tab" :aria-selected="isSelectedMyInfoModify" @click="tabMyInfoModify()">내 정보 수정</li>
-                        <li role="tab" :aria-selected="isSelectedMessage" @click="tabMessage()">메시지</li>
                     </menu>
                 </div>
                 <div class="window" role="tabpanel">
                     <MyInfo v-if="isSelectedMyInfo" />
                     <MyInfoModify v-if="isSelectedMyInfoModify"/>
-                    <MyMessageSetting v-if="isSelectedMessage" />
                 </div>
             </div>
         </div>
@@ -30,40 +28,37 @@
 <script setup>
 import MyInfo from '@/components/member/MyInfo.vue'
 import MyInfoModify from '@/components/member/MyInfoModify.vue'
-import MyMessageSetting from '@/components/member/MyMessageSetting.vue'
-import { ref } from 'vue'
+import { defineProps, defineEmits, ref } from "vue";
+
+defineProps({
+    isOpenMypage: Boolean,
+});
+
+const emit = defineEmits(["closeMypage"]);
+
+const closeMypage = () => {
+  emit("closeMypage");
+};
 
 const isSelectedMyInfo = ref(true)
 const isSelectedMyInfoModify = ref(false)
-const isSelectedMessage = ref(false)
-
-function closwMypage() {
-    window.close()
-}
 
 function tabMyInfo() {
     isSelectedMyInfo.value = true
     isSelectedMyInfoModify.value = false
-    isSelectedMessage.value = false
 }
 
 function tabMyInfoModify() {
     isSelectedMyInfo.value = false
     isSelectedMyInfoModify.value = true
-    isSelectedMessage.value = false
 }
 
-function tabMessage() {
-    isSelectedMyInfo.value = false
-    isSelectedMyInfoModify.value = false
-    isSelectedMessage.value = true
-}
 </script>
 
 <style scoped>
     .mypage {
         background-color: #C3C2C3;
-        height: 100vh;
+        height: 100%;
         position: relative;
         z-index: 1;
     }
