@@ -7,30 +7,66 @@
         <div class="field-row">
             <div class="myinfo-div">
                 <label for="name">이름:</label>
-                <input id="name" type="text" value="이예림" disabled/>
+                <input id="name" type="text" :value="memberInfo.name" disabled/>
             </div>
             <div class="myinfo-div">
                 <label for="ordinal">기수:</label>
-                <input id="ordinal" type="text" value="11" disabled/>
+                <input id="ordinal" type="text" :value="memberInfo.ordinal" disabled/>
             </div>
             <div class="myinfo-div">
                 <label for="region">지역:</label>
-                <input id="region" type="text" value="구미" disabled/>
+                <input id="region" type="text" :value="memberInfo.region" disabled/>
             </div>
             <div class="myinfo-div">
                 <label for="ban">반:</label>
-                <input id="ban" type="text" value="4" disabled/>
-            </div>
-            <div class="myinfo-div">
-                <label for="question">질문:</label>
-                <input class="question-input" id="question" type="text" value="어렸을 적 살던 동네는?" disabled/>
+                <input id="ban" type="text" :value="memberInfo.ban" disabled/>
             </div>
         </div>
     </div>
 </template>
 
-<script setup>
 
+<script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+const accessToken = localStorage.getItem('accessToken');
+
+
+const memberInfo = ref({
+  name: '',
+  ordinal: '',
+  region: '',
+  ban: '',
+  question: ''
+});
+
+// 회원 정보를 가져오는 함수
+async function fetchMemberInfo() {
+  try {
+    const response = await axios.get(
+        '/member/info',
+        {
+            headers : {
+                Authorization : `Bearer ${accessToken}`
+            }
+        }
+
+    );  
+    const data = response.data;
+    memberInfo.value = {
+      name: data.memberInfo.name,
+      ordinal: data.groupInfo.ordinal,
+      region: data.groupInfo.region,
+      ban: data.groupInfo.ban,
+    };
+  } catch (error) {
+    console.error('Failed to fetch member information:', error);
+  }
+}
+
+// 컴포넌트가 마운트될 때 회원 정보를 가져옴
+onMounted(fetchMemberInfo);
 </script>
 
 <style scoped>
