@@ -1,4 +1,6 @@
 import {createRouter, createWebHistory} from "vue-router";
+import axios from 'axios';
+
 import MainView from '@/views/MainView.vue'
 import SignupView from '@/views/member/SignupView.vue'
 import SignupViewQA from '@/views/member/SignupViewQA.vue'
@@ -66,5 +68,34 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 });
+
+
+router.beforeEach(async  (to,from) => {
+  if(to.name !== "LoginView") {
+    let isAuthentication = false;
+
+    const setAuthentication = (flag) => {
+      isAuthentication = flag;
+    }
+  
+    const accessToken = localStorage.getItem('accessToken');
+    to,from;
+  
+    await axios.get(
+      '/token',
+      {
+        headers : {
+          Authorization : `Bearer ${accessToken}`
+        }
+      }
+    )
+    .then(() => setAuthentication(true))
+    .catch(() => setAuthentication(false))
+  
+    if(!isAuthentication) {
+      return {name : 'LoginView'}
+    }
+  } 
+})
 
 export {router}
