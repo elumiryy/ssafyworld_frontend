@@ -26,10 +26,7 @@
 
   <div class="letter-detail">
     <div class="letter-info" v-if="selectedLetter">
-      <span><b>보낸 사람</b> : {{ selectedLetter.fromUser }}</span>
-      <span style="margin-left: 20%"
-        ><b>받는 사람</b> : {{ selectedLetter.toUser }}</span
-      >
+      <span><b>보낸 사람</b> : {{ selectedLetter.fromUser }} </span>
       <p>
         <span><b>제목</b> : {{ selectedLetter.title }}</span>
         <span style="margin-left: 20%"
@@ -48,17 +45,12 @@ defineProps({
   letters: Array,
 });
 
-const selectedLetter = ref({
-  fromUser: "익명",
-  toUser: "이지언",
-  title: "받은 테스트 제목입니다.",
-  content: "받은 테스트 내용입니다.",
-  createdAt: "2024-05-20",
-});
+const selectedLetter = ref({});
 
 const showLetterDetail = (letter) => {
   selectedLetter.value = letter;
-};
+  selectedLetter.value.createdAt = selectedLetter.value.createdAt.replace("T", " ");
+};  
 </script>
 
 <style scoped>
@@ -71,8 +63,6 @@ ul {
 }
 table {
   font-size: 14px;
-  /* border-collapse: separate;
-  border-spacing: 0 12px; */
 }
 
 .letter-detail {

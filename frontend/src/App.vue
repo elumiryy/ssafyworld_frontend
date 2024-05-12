@@ -6,10 +6,6 @@
       <router-view></router-view>
     </div>
 
-    <div>
-      <LoginView/>
-    </div>
-
     <div class="mypage-modal">
       <MypageView :isOpenMypage="isOpenMypage" @close-mypage="closeMypage"/>
     </div>
@@ -29,7 +25,6 @@
 <script>
 import FooterView from '@/components/common/FooterView.vue'
 import SettingView from '@/components/common/SettingView.vue';
-import LoginView from './views/member/LoginView.vue';
 import MypageView from '@/views/member/MypageView.vue';
 
 export default {
@@ -43,8 +38,7 @@ export default {
   components: {
     FooterView,
     SettingView,
-    LoginView,
-    MypageView
+    MypageView,
   },
   methods: {
     callOpenStartModal() {
