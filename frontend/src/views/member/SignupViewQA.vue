@@ -127,14 +127,25 @@ export default {
           updatedAt: now   // updatedAt에 현재 시간 설정
         };
 
-        console.log("Registration data:", registrationData);
-
         const registerResponse = await axios.post('/member/register', registrationData);
         console.log('Registration successful', registerResponse);
-        this.$router.push({ name: 'LoginView' });
+
+        this.login();
       } catch (error) {
         console.error('Error in registration or fetching group info:', error);
       }
+    },
+    async login() {
+      const loginResponse = await axios.post(
+            "/member/login",
+            {
+                sub : this.sub,
+                provider : 'google'
+            }
+        );
+      const jwt = loginResponse.data;
+      localStorage.setItem("accessToken", jwt);
+      this.$router.push({ name: 'MainView' });
     }
   }
 };
