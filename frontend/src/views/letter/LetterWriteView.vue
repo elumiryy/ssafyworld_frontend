@@ -18,13 +18,13 @@
           <div class="letter-content-div">
             <div>
               <label for="to">To:</label>
-              <input id="to" type="text" :value="ordinal + '기 ' + region + ' ' + ban + '반 ' + names + '에게..'" disabled />
+              <input id="to" type="text" :value="ordinal + '기 ' + region + ' ' + ban + '반 ' + names + '에게..'" disabled/>
             </div>
             <div>
               <label for="title">Title:</label>
-              <input id="title" type="text" placeholder="input title.." />
+              <input id="title" type="text" placeholder="input title.." v-model="titleField"/>
             </div>
-            <textarea name="content" id="content" placeholder="input text.."></textarea>
+            <textarea name="content" id="content" v-model="contentField" placeholder="input text.."></textarea>
           </div>
           <div class="letter-write-btn">
             <button @click="reset">다시 작성</button>
@@ -50,19 +50,29 @@ export default{
     const ordinal = ref(params.get('ordinal'));
     const region = ref(params.get('region'));
     const ban = ref(params.get('ban'));
+    const toUser = ref(params.get('upk'));
     const names = ref(params.get('names'));
-    const message = ref(''); // textarea 내용을 담을 변수
+    const titleField = ref(''); // title 내용을 담을 변수
+    const contentField = ref(''); // textarea 내용을 담을 변수
 
     const send = () => {
-      axios.post('/api/sendLetterasdf', {
-        ordinal: ordinal.value,
-        region: region.value,
-        ban: ban.value,
-        names: names.value,
-        message: message.value
-      }).then(response => {
+      axios.post('/letter', {
+
+        toUser: toUser.value,
+        title: titleField.value,
+        content: contentField.value
+      },
+       {
+        headers: {
+          Authorization: localStorage.getItem("accessToken"),
+          withCredentials: true, // default
+          Accept: "application/json",
+        }
+       }).then(response => {
         console.log(response.data);
         alert("메시지 전송 성공!");
+        
+        window.close();
       }).catch(error => {
         console.error(error);
         alert("메시지 전송 실패 ㅜㅠ!");
@@ -78,7 +88,6 @@ export default{
       window.close()
     }
 
-    // 반환할 값들을 객체로 묶어서 반환
     return {
       ordinal,
       region,
@@ -86,7 +95,9 @@ export default{
       names,
       send,
       cancel,
-      reset
+      reset,
+      contentField, //TODO마지막 글자가 안들어가는 문제
+      titleField
     };
   }
 }

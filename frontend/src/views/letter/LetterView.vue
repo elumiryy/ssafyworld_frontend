@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, onUnmounted, ref } from "vue";
 import { useModal, Modal } from "@/components/useModal";
-// import axios from 'axios'
+import axios from 'axios'
 
 const setModal = useModal({
   sendLetter: 4,
@@ -25,11 +25,14 @@ function showSend() {
 
 function showWriteView() {
   const queryParams = new URLSearchParams({
+    headers: {
+          Authorization: window.localStorage.getItem("accessToken"),
+      },
     ordinal: inputs.value.ordinal,
     region: inputs.value.region,
     ban: inputs.value.ban,
-    names: inputs.value.name,
-    upk: inputs.value.upk //userPk
+    names: inputs.value.names.name,
+    upk: inputs.value.names.memberId //userPk
   }).toString();
   window.open(
     `/letterWrite?${queryParams}`,
@@ -63,35 +66,35 @@ function clicked(item) {
 }
 
 //서버통신
-// async function serverGetCommunication(url) {
-//   // import() 함수를 사용하여 동적으로 컴포넌트를 불러옵니다
-//   await axios.get(
-//     url, 
-//     {
-//       headers: {
-//         Authorization: localStorage.getItem("accessToken"),
-//         withCredentials: true, // default
-//         Accept: "application/json",
-//         // Authorization: 'Bearer eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNzE1NDQ5MzI2LCJleHAiOjE3MTU0NTExMjYsInJvbGVzIjoiUk9MRV9VU0VSIn0.vbQkrwetQ5b__DE2arDoeox4AcfME3EyycIBPlNEQ3s'
-//       }
-//     }
-//   )
-//   .then(function (response) {
-//     valueList.value = response.data
-//   })
-//   .catch(function (error) {
-//     alert("통신 실패: " + error)
-//     console.log(error);
-//   });
-// }
+async function serverGetCommunication(url) {
+  // import() 함수를 사용하여 동적으로 컴포넌트를 불러옵니다
+  await axios.get(
+    url, 
+    {
+      headers: {
+        Authorization: localStorage.getItem("accessToken"),
+        withCredentials: true, // default
+        Accept: "application/json",
+        // Authorization: 'Bearer eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNzE1NDQ5MzI2LCJleHAiOjE3MTU0NTExMjYsInJvbGVzIjoiUk9MRV9VU0VSIn0.vbQkrwetQ5b__DE2arDoeox4AcfME3EyycIBPlNEQ3s'
+      }
+    }
+  )
+  .then(function (response) {
+    valueList.value = response.data
+  })
+  .catch(function (error) {
+    alert("통신 실패: " + error)
+    console.log(error);
+  });
+}
 
 async function getOridnal() {
   try {
     //(1)서버통신
-    // await serverGetCommunication('http://localhost:80/groupInfo');
+    await serverGetCommunication('http://localhost:8092/groupInfo');
     
     //(2)서버통신x
-    valueList.value = [10, 11];
+    // valueList.value = [10, 11];
     imageType.value = "folder";
     types.value = "ordinal";
     suffix.value = "기";
@@ -111,10 +114,10 @@ async function getOridnal() {
 async function getRegion() {
   try {
     //(1)서버통신
-    // await serverGetCommunication('http://localhost:80/groupInfo?ordinal=' + inputs.value.ordinal);
+    await serverGetCommunication('http://localhost:8092/groupInfo?ordinal=' + inputs.value.ordinal);
     
     //(2)서버통신x
-    valueList.value = ["구미", "서울", "부울경", "광주", "대전"];
+    // valueList.value = ["구미", "서울", "부울경", "광주", "대전"];
     imageType.value = "folder";
     types.value = "region";
     suffix.value = "";
@@ -129,10 +132,10 @@ async function getRegion() {
 async function getBan() {
   try {
     //(1)서버통신
-    // await serverGetCommunication('http://localhost:80/groupInfo?ordinal=' + inputs.value.ordinal + "&region=" + inputs.value.region);
+    await serverGetCommunication('http://localhost:8092/groupInfo?ordinal=' + inputs.value.ordinal + "&region=" + inputs.value.region);
     
     //(2)서버통신x
-    valueList.value = ["1", "2", "3", "4", "5", "6"];
+    // valueList.value = ["1", "2", "3", "4", "5", "6"];
 
     imageType.value = "folder";
     types.value = "ban";
@@ -149,73 +152,75 @@ async function getNames() {
   try {
     
     //(1)서버통신
-    // let groupInfoId = 0;
-    // await axios.get(
-    //   'http://localhost:80/groupInfo?ordinal=' + inputs.value.ordinal + "&region=" + inputs.value.region + "&ban=" + inputs.value.ban, 
-    //   {
-    //     headers: {
-    //       Authorization: localStorage.getItem("accessToken"),
-    //       withCredentials: true, // default
-    //       Accept: "application/json",
-    //       // Authorization: 'Bearer eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNzE1NDQ5MzI2LCJleHAiOjE3MTU0NTExMjYsInJvbGVzIjoiUk9MRV9VU0VSIn0.vbQkrwetQ5b__DE2arDoeox4AcfME3EyycIBPlNEQ3s'
-    //     }
-    //   }
-    // )
-    // .then(function (response) {
-    //   groupInfoId = response.data
-    // })
-    // .catch(function (error) {
-    //   alert("통신 실패: " + error)
-    //   console.log(error);
-    // });
+    let groupInfoId = 0;
+    await axios.get(
+      'http://localhost:8092/groupInfo?ordinal=' + inputs.value.ordinal + "&region=" + inputs.value.region + "&ban=" + inputs.value.ban, 
+      {
+        headers: {
+          Authorization: localStorage.getItem("accessToken"),
+          withCredentials: true, // default
+          Accept: "application/json",
+          // Authorization: 'Bearer eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNzE1NDQ5MzI2LCJleHAiOjE3MTU0NTExMjYsInJvbGVzIjoiUk9MRV9VU0VSIn0.vbQkrwetQ5b__DE2arDoeox4AcfME3EyycIBPlNEQ3s'
+        }
+      }
+    )
+    .then(function (response) {
+      groupInfoId = response.data
+      console.log(groupInfoId)
+    })
+    .catch(function (error) {
+      alert("통신 실패: " + error)
+      console.log(error);
+    });
 
-    // await axios.get(
-    //   'http://localhost:80/member?groupInfoId=' + groupInfoId, 
-    //   {
-    //     headers: {
-    //       Authorization: localStorage.getItem("accessToken"),
-    //       withCredentials: true, // default
-    //       Accept: "application/json",
-    //     }
-    //   }
-    // )
-    // .then(function (response) {
-    //   valueList.value = response.data
-    // })
-    // .catch(function (error) {
-    //   alert("통신 실패: " + error)
-    //   console.log(error);
-    // });
+    await axios.get(
+      'http://localhost:8092/member?groupInfoId=' + groupInfoId, 
+      {
+        headers: {
+          Authorization: localStorage.getItem("accessToken"),
+          withCredentials: true, // default
+          Accept: "application/json",
+        }
+      }
+    )
+    .then(function (response) {
+      valueList.value = response.data
+      console.log(valueList.value)
+    })
+    .catch(function (error) {
+      alert("통신 실패: " + error)
+      console.log(error);
+    });
     
     // valueList.value = []
     //(2)서버통신x
-    valueList.value = [
-      "강인수",
-      "김재웅강사님",
-      "김민종",
-      "김의근",
-      "남궁효림",
-      "이지언",
-      "이예찬",
-      "이예림",
-      "이예림페어",
-      "나는 이예림",
-      "이은영 프로님",
-      "조민기",
-      "주효림",
-      "프론트왕",
-      "백엔드",
-      "스프링",
-      "비타민",
-      "마루❤",
-      "강아지🐷",
-      "고양이",
-      "vue.js",
-      "공부인",
-      "안녕",
-      "제발",
-      "스크롤",
-      "생겨라", ];
+    // valueList.value = [
+    //   "강인수",
+    //   "김재웅강사님",
+    //   "김민종",
+    //   "김의근",
+    //   "남궁효림",
+    //   "이지언",
+    //   "이예찬",
+    //   "이예림",
+    //   "이예림페어",
+    //   "나는 이예림",
+    //   "이은영 프로님",
+    //   "조민기",
+    //   "주효림",
+    //   "프론트왕",
+    //   "백엔드",
+    //   "스프링",
+    //   "비타민",
+    //   "마루❤",
+    //   "강아지🐷",
+    //   "고양이",
+    //   "vue.js",
+    //   "공부인",
+    //   "안녕",
+    //   "제발",
+    //   "스크롤",
+    //   "생겨라", ];
 
     imageType.value = "message";
     types.value = "names";
