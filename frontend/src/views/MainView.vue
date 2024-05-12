@@ -14,7 +14,7 @@
     <div class="windows-icon-div">
       <router-link to="/chat">
         <img
-          src="@/assets/windowsIcon/windows.png"
+          src="@/assets/windowsIcon/address_book_card_users.png"
           alt="windows-icon-img"
           width="50"
           height="50"
@@ -22,36 +22,18 @@
         <p>채팅방</p>
       </router-link>
     </div>
-    <div class="windows-icon-div">
-      <div @click="goToChatRoom">
-        <img
-          src="@/assets/windowsIcon/windows.png"
-          alt="windows-icon-img"
-          width="50"
-          height="50"
-        />
-        <p>채팅방 입장</p>
-      </div>
-    </div>
-    <div class="windows-icon-div">
-      <div class="write-letter">
-        <LetterView></LetterView>
-        <p>편지쓰기</p>
-      </div>
-    </div>
-
     <div class="windows-icon-div received">
       <div
         @click="openModal"
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave">
         <img
-          src="@/assets/windowsIcon/directory_open_file_mydocs-5.png"
+          src="@/assets/windowsIcon/newspaper_mail.png"
           alt="windows-icon-img"
           width="50"
           height="50"
         />
-        <p>받은 편지 보기</p>
+        <p>편지함</p>
       </div>
     </div>
     <ReceivedLetterView :isOpen="isOpen" @close-modal="closeModal" />
@@ -60,8 +42,6 @@
 
 <script setup>
 import { ref } from "vue";
-import LetterView from "@/views/letter/LetterView.vue";
-
 import ReceivedLetterView from "./letter/ReceivedLetterView.vue";
 
 const isOpen = ref(false);
@@ -82,13 +62,6 @@ const handleMouseLeave = () => {
   document.querySelector(".received").style.cursor = "default"; // 마우스를 떼었을 때 커서 원래대로 변경
 };
 
-const goToChatRoom = () => {
-  window.open(
-    "/chatroom",
-    "_blank",
-    "width=550, height=400, left=550, top=250"
-  );
-};
 </script>
 
 <style scoped>
@@ -102,7 +75,7 @@ const goToChatRoom = () => {
   padding: 15px;
 }
 
-.windows-icon-div > a {
+.windows-icon-div > a, .windows-icon-div > div {
   text-decoration: none;
   outline: none;
   display: flex;

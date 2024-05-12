@@ -2,18 +2,26 @@
     <div class="setting">
         <img src="@/assets/windows-98-logo.png" alt="windows-icon-img" width="15">
         <div class="start-menu">
-            <router-link to="/signup">
-                <img src="@/assets/windowsIcon/recycle_bin_full_cool-0.png" alt="windows-icon-img" width="40" height="40">
-                <p v-on:click="print">회원 탈퇴</p>
+            <router-link to="/ssafyworld">
+                <img src="@/assets/windowsIcon/windows.png" alt="windows-icon-img" width="40" height="40">
+                <p>바탕화면</p>
             </router-link>
             <div class="gotomypage-div" @click="openMypage">
-                <img src="@/assets/windowsIcon/users_key-4.png" alt="windows-icon-img" width="40" height="40">
+                <img src="@/assets/windowsIcon/gears_tweakui_a-1.png" alt="windows-icon-img" width="40" height="40">
                 <p>내 정보 수정</p>
             </div>
             <hr />
-            <router-link to="/ssafyworld">
+            <router-link to="/login">
                 <img src="@/assets/windowsIcon/ac_plug-0.png" alt="windows-icon-img" width="40" height="40">
                 <p>로그아웃</p>
+            </router-link>
+            <router-link to="/login">
+                <img src="@/assets/windowsIcon/recycle_bin_full_2k-2.png" alt="windows-icon-img" width="40" height="40">
+                <p v-on:click="print">회원 탈퇴</p>
+            </router-link>
+            <router-link to="/black">
+                <img src="@/assets/windowsIcon/shut_down_normal-2.png" alt="windows-icon-img" width="40" height="40">
+                <p v-on:click="print">시스템 종료</p>
             </router-link>
         </div>
     </div>
@@ -30,10 +38,10 @@
     
 </script>
 
-<style>
+<style scoped>
     .setting {
         width: 300px;
-        height: 200px;
+        height: 250px;
         background-color: #B8BCB8;
         border: 2px outset #DADADA;
         box-shadow: 1px 1px 0 black;
