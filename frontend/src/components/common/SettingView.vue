@@ -19,7 +19,7 @@
                 <img src="@/assets/windowsIcon/recycle_bin_full_2k-2.png" alt="windows-icon-img" width="40" height="40">
                 <p v-on:click="print">회원 탈퇴</p>
             </router-link>
-            <router-link to="/black">
+            <router-link to="/black" replace="">
                 <img src="@/assets/windowsIcon/shut_down_normal-2.png" alt="windows-icon-img" width="40" height="40">
                 <p v-on:click="print">시스템 종료</p>
             </router-link>
