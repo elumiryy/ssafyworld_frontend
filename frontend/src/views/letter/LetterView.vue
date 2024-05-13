@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onUnmounted, ref } from "vue";
+import { reactive, onUnmounted, ref ,defineEmits, onMounted } from "vue";
 import { useModal, Modal } from "@/components/useModal";
 import axios from 'axios'
 
@@ -12,9 +12,6 @@ let modalVisible = reactive({});
 modalVisible = setModal("sendLetter", false);
 
 function showSend() {
-  //TODO 나중에 로그인 후 삭제@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  localStorage.setItem("accessToken", "Bearer eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDAwMSIsImlhdCI6MTcxNTQ5MDM0NSwiZXhwIjoxNzMzNDkwMzQ1LCJyb2xlcyI6IlJPTEVfVVNFUiJ9.NEgW3sxiMUilhYyFa_gFd469OrsRQHxKhy9W7ryYlos");
-
   modalVisible = setModal("sendLetter", true);
 
   if (inputs.value.ordinal == null) {
@@ -67,7 +64,6 @@ function clicked(item) {
 
 //서버통신
 async function serverGetCommunication(url) {
-  // import() 함수를 사용하여 동적으로 컴포넌트를 불러옵니다
   await axios.get(
     url, 
     {
@@ -75,7 +71,6 @@ async function serverGetCommunication(url) {
         Authorization: localStorage.getItem("accessToken"),
         withCredentials: true, // default
         Accept: "application/json",
-        // Authorization: 'Bearer eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNzE1NDQ5MzI2LCJleHAiOjE3MTU0NTExMjYsInJvbGVzIjoiUk9MRV9VU0VSIn0.vbQkrwetQ5b__DE2arDoeox4AcfME3EyycIBPlNEQ3s'
       }
     }
   )
@@ -91,7 +86,7 @@ async function serverGetCommunication(url) {
 async function getOridnal() {
   try {
     //(1)서버통신
-    await serverGetCommunication('http://localhost:8092/groupInfo');
+    await serverGetCommunication('/groupInfo');
     
     //(2)서버통신x
     // valueList.value = [10, 11];
@@ -114,7 +109,7 @@ async function getOridnal() {
 async function getRegion() {
   try {
     //(1)서버통신
-    await serverGetCommunication('http://localhost:8092/groupInfo?ordinal=' + inputs.value.ordinal);
+    await serverGetCommunication('/groupInfo?ordinal=' + inputs.value.ordinal);
     
     //(2)서버통신x
     // valueList.value = ["구미", "서울", "부울경", "광주", "대전"];
@@ -132,7 +127,7 @@ async function getRegion() {
 async function getBan() {
   try {
     //(1)서버통신
-    await serverGetCommunication('http://localhost:8092/groupInfo?ordinal=' + inputs.value.ordinal + "&region=" + inputs.value.region);
+    await serverGetCommunication('/groupInfo?ordinal=' + inputs.value.ordinal + "&region=" + inputs.value.region);
     
     //(2)서버통신x
     // valueList.value = ["1", "2", "3", "4", "5", "6"];
@@ -154,7 +149,7 @@ async function getNames() {
     //(1)서버통신
     let groupInfoId = 0;
     await axios.get(
-      'http://localhost:8092/groupInfo?ordinal=' + inputs.value.ordinal + "&region=" + inputs.value.region + "&ban=" + inputs.value.ban, 
+      '/groupInfo?ordinal=' + inputs.value.ordinal + "&region=" + inputs.value.region + "&ban=" + inputs.value.ban, 
       {
         headers: {
           Authorization: localStorage.getItem("accessToken"),
@@ -174,7 +169,7 @@ async function getNames() {
     });
 
     await axios.get(
-      'http://localhost:8092/member?groupInfoId=' + groupInfoId, 
+      '/member?groupInfoId=' + groupInfoId, 
       {
         headers: {
           Authorization: localStorage.getItem("accessToken"),
@@ -196,31 +191,7 @@ async function getNames() {
     //(2)서버통신x
     // valueList.value = [
     //   "강인수",
-    //   "김재웅강사님",
-    //   "김민종",
-    //   "김의근",
-    //   "남궁효림",
-    //   "이지언",
-    //   "이예찬",
-    //   "이예림",
-    //   "이예림페어",
-    //   "나는 이예림",
-    //   "이은영 프로님",
-    //   "조민기",
-    //   "주효림",
-    //   "프론트왕",
-    //   "백엔드",
-    //   "스프링",
-    //   "비타민",
-    //   "마루❤",
-    //   "강아지🐷",
-    //   "고양이",
-    //   "vue.js",
-    //   "공부인",
-    //   "안녕",
-    //   "제발",
-    //   "스크롤",
-    //   "생겨라", ];
+    //   "김재웅강사님" ];
 
     imageType.value = "message";
     types.value = "names";
@@ -233,9 +204,12 @@ async function getNames() {
   }
 }
 
+const emit = defineEmits(["isColsed"]);
+
 function okfnSend() {
   modalVisible = setModal("sendLetter", false);
   inputs.value = []
+  emit("isColsed")
 }
 
 function goBack() {
@@ -293,18 +267,13 @@ const imageType = ref("folder");
 const types = ref("ordinal");
 const componentKey = ref(0);
 const suffix = ref("");
+
+onMounted(showSend)
 </script>
 
 <template>
   <div>
-    <div @click="showSend">
-      <img
-        src="@/assets/windowsIcon/directory_closed-4.png"
-        alt="windows-icon-img"
-        width="50"
-        height="50"
-      />
-    </div>
+
     <Modal
       name="sendLetter"
       v-model:visible="modalVisible"

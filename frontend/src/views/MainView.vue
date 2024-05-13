@@ -36,7 +36,7 @@
         <p>편지함</p>
       </div>
     </div>
-    <ReceivedLetterView :isOpen="isOpen" @close-modal="closeModal" />
+    <ReceivedLetterView :isOpen="isOpen" @close-modal="closeModal" @goToFolderView="goToFolderView" />
 
     <div class="windows-icon-div received">
       <div
@@ -44,7 +44,7 @@
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave">
         <img
-          src="@/assets/windowsIcon/newspaper_mail.png"
+          src="@/assets/windowsIcon/msg_error.png"
           alt="windows-icon-img"
           width="50"
           height="50"
@@ -53,12 +53,16 @@
       </div>
     </div>
     <ErrorModal v-if="errorModalState" @close="changeErrorModalState" :success="isSuccess" title="에러가 발생하였습니다" message="에러메시지!!원하는 에러메시지 작성"/>
+  
+    <!-- 숨겨놓은 컴포넌트 (letter보낼 사용자 선택 디렉토리) -->
+    <LetterView v-if="folderOpen" :isOpen="folderOpen" @isColsed="closeFolder"></LetterView>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import ReceivedLetterView from "./letter/ReceivedLetterView.vue";
+import LetterView from "./letter/LetterView.vue";
 import ErrorModal from "./error/ErrorModal.vue";
 
 const isOpen = ref(false);
@@ -80,10 +84,23 @@ const handleMouseLeave = () => {
   document.querySelector(".received").style.cursor = "default"; // 마우스를 떼었을 때 커서 원래대로 변경
 };
 
+//에러모달 관련------------------------------
 const errorModalState = ref(false)
 const changeErrorModalState = () => {
   errorModalState.value = !errorModalState.value;
 }
+
+//letter를 보낼 사용자 선택 관련--------------
+const folderOpen = ref(false)
+
+const goToFolderView = () => {
+  folderOpen.value = true;
+}
+
+const closeFolder = () => {
+  folderOpen.value = false;
+}
+//-------------------------------------------
 
 </script>
 
