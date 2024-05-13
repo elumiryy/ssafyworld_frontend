@@ -1,24 +1,23 @@
 <template>
-  <div class="errorModal" style="width:100%; height: 100%;"  @click="handleBackgroundClick">
-  <div class="window" style="width: 300px; min-height: 130px; min-width: 350px;">
-    <div class="title-bar">
-        <div class="title-bar-text">{{ this.title }}</div>
+  <div class="errorModal" style="width:100%; height: 100%;" @click="handleBackgroundClick">
+    <div class="window" style="width: 300px; min-height: 130px; min-width: 350px;">
+      <div class="title-bar">
+        <div class="title-bar-text">{{ title }}</div>
         <div class="title-bar-controls">
-            <button aria-label="Close" @click="$emit('close', false)"></button>
+          <button aria-label="Close" @click="$emit('close')">Close</button>
         </div>
-    </div>
-    <div class="window-body">
+      </div>
+      <div class="window-body">
         <div style="display: flex">
-            <img v-if="success" src="@/assets/windowsIcon/msg_success.png" alt="windows-icon-img">
-            <img v-else src="@/assets/windowsIcon/msg_error.png" alt="windows-icon-img">
-            <p>{{ this.message }}</p>
+          <img v-if="success" src="@/assets/windowsIcon/msg_success.png" alt="success-icon">
+          <img v-else src="@/assets/windowsIcon/msg_error.png" alt="error-icon">
+          <p>{{ message }}</p>
         </div>
         <div>
-            <button ref="closeButton" @click="$emit('close', false)" autofocus>확인</button>
+          <button ref="closeButton" @click="$emit('close')">확인</button>
         </div>
+      </div>
     </div>
-
-  </div>
   </div>
 </template>
 
