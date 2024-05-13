@@ -25,7 +25,7 @@
                             <div>
                                 <label for="question">질문</label>
                                 <select id="question" name="question" v-model="question">
-                                    <option value="1">당신이 어릴적 살던 동네는</option>
+                                    <option value="1">당신이 어릴적 살던 동네는?</option>
                                     <option value="2">당신의 초등학교 담임 선생님 이름은?</option>
                                     <option value="3">당신의 보물 1호는?</option>
                                     <option value="4">당신의 1학기 첫 페어는?</option>
