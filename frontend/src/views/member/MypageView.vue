@@ -1,28 +1,27 @@
 <template>
-    <div class="mypage" v-if="isOpenMypage">
-        <div class="window">
-            <div class="title-bar">
-                <div class="title-bar-text">내 정보</div>
-                <div class="title-bar-controls">
-                    <button aria-label="Help"></button>
-                    <button aria-label="Close" @click="closeMypage"></button>
-                </div>
-            </div>
-            <div class="window-body">
-                <div>
-                    <menu role="tablist">
-                        <!-- aria-selected="true" 왜 이 속성은 aria-selected="isSelectedMyInfo" 이게 안될까? -->
-                        <li role="tab" :aria-selected="isSelectedMyInfo" @click="tabMyInfo()">내 정보</li>
-                        <li role="tab" :aria-selected="isSelectedMyInfoModify" @click="tabMyInfoModify()">내 정보 수정</li>
-                    </menu>
-                </div>
-                <div class="window" role="tabpanel">
-                    <MyInfo v-if="isSelectedMyInfo" />
-                    <MyInfoModify v-if="isSelectedMyInfoModify"/>
-                </div>
-            </div>
+  <div class="mypage" v-if="isOpenMypage">
+    <div class="window">
+      <div class="title-bar">
+        <div class="title-bar-text">내 정보</div>
+        <div class="title-bar-controls">
+          <button aria-label="Help"></button>
+          <button aria-label="Close" @click="closeMypage"></button>
         </div>
+      </div>
+      <div class="window-body">
+        <div>
+          <menu role="tablist">
+            <li role="tab" :aria-selected="isSelectedMyInfo" @click="tabMyInfo()">내 정보</li>
+            <li role="tab" :aria-selected="isSelectedMyInfoModify" @click="tabMyInfoModify()">내 정보 수정</li>
+          </menu>
+        </div>
+        <div class="window" role="tabpanel">
+          <MyInfo v-if="isSelectedMyInfo" />
+          <MyInfoModify v-if="isSelectedMyInfoModify" @closeMypage="closeMypage"/>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script setup>
@@ -40,20 +39,20 @@ const closeMypage = () => {
   emit("closeMypage");
 };
 
-const isSelectedMyInfo = ref(true)
-const isSelectedMyInfoModify = ref(false)
+const isSelectedMyInfo = ref(true);
+const isSelectedMyInfoModify = ref(false);
 
 function tabMyInfo() {
-    isSelectedMyInfo.value = true
-    isSelectedMyInfoModify.value = false
+  isSelectedMyInfo.value = true;
+  isSelectedMyInfoModify.value = false;
 }
 
 function tabMyInfoModify() {
-    isSelectedMyInfo.value = false
-    isSelectedMyInfoModify.value = true
+  isSelectedMyInfo.value = false;
+  isSelectedMyInfoModify.value = true;
 }
-
 </script>
+
 
 <style scoped>
     .mypage {

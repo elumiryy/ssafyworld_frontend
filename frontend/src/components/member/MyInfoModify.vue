@@ -1,5 +1,12 @@
 <template>
     <div class="mymodify">
+        <ErrorModal
+        v-if="showModal"
+        :title="modalTitle"
+        :message="modalMessage"
+        :success="modalSuccess"
+        @close="handleModalClose"
+        />
         <div class="guide">
             <img src="@/assets/windowsIcon/directory_admin_tools-5.png" alt="windows-icon-img" width="40" height="40">
             <p>내 정보 수정은 이름만 변경할 수 있습니다. 변경하고자 하는 사용자 이름과 본인 확인용 질문 그리고 답을 입력해 주십시오.</p>
@@ -30,13 +37,28 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
+import {ref, defineEmits} from 'vue';
 import axios from 'axios';
+import ErrorModal from '@/views/error/ErrorModal.vue';
+
 
 const accessToken = localStorage.getItem('accessToken');
 const answer = ref("");
 const name = ref("");
 const questionId = ref(0);
+
+const showModal = ref(false);
+const modalTitle = ref('');
+const modalMessage = ref('');
+const modalSuccess = ref(false);
+
+const emit = defineEmits(['closeMypage']);
+
+function handleModalClose() {
+  showModal.value = false;
+  emit('closeMypage');
+}
+
 
 const questions = ref([]);
 
@@ -56,28 +78,47 @@ async function getQuestions() {
 getQuestions();
 
 async function update() {
-   
-    console.log(answer.value, name.value, questionId.value, accessToken)
+    try {
+        await axios.put('/member/name', {
+            name: name.value,
+            questionId: questionId.value,
+            answer: answer.value
+        }, {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        });
 
-    await axios.put(
-        '/member/name'
-        ,{
-            name : name.value,
-            questionId : questionId.value,
-            answer : answer.value
-        },{
-            headers : {
-                Authorization : `Bearer ${accessToken}`
-            }
-        }
-    );
-
-    window.close();
+        modalTitle.value = '성공';
+        modalMessage.value = '회원 정보가 수정되었습니다.';
+        modalSuccess.value = true;
+    } catch (error) {
+        modalTitle.value = '실패';
+        modalMessage.value = '회원 정보 수정에 실패했습니다.';
+        modalSuccess.value = false;
+    }
+    showModal.value = true;
 }
+
 
 </script>
 
 <style scoped>
+    .errorModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    z-index: 1000; /* 충분히 높은 값 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    .window {
+    position: relative; /* 부모인 .errorModal에 대해서 위치 지정 */
+    z-index: 1001;
+    }
     .mymodify {
         width: 90%;
     }
