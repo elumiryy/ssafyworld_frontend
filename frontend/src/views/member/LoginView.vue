@@ -70,7 +70,7 @@ export default {
         const provider = 'google'
         //서버로보내는거네
         const serverResponse = await axios.post(
-            "/member/login",
+            process.env.VUE_APP_BASE_API + "/member/login",
             {
                 sub,
                 provider
