@@ -2,7 +2,7 @@
 import ReceivedList from "@/components/rollingpaper/ReceivedListComponent.vue";
 import SentList from "@/components/rollingpaper/SentListComponent.vue";
 import { defineProps, defineEmits, ref } from "vue";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 import axios from "axios";
 
 defineProps({
@@ -10,7 +10,7 @@ defineProps({
 });
 
 axios.defaults.baseURL = process.env.VITE_APP_API_URL;
-const emit = defineEmits(["closeModal"]);
+const emit = defineEmits(["closeModal", "goToFolderView"]);
 
 const closeModal = () => {
   emit("closeModal");
@@ -64,9 +64,11 @@ const showSentList = () => {
   showSent.value = true;
 };
 
-const router = useRouter();
+
+// const router = useRouter();
 const goToFolderView = () => {
-  router.push("/LetterView");
+  // router.push("/LetterView");
+  emit("goToFolderView");
 };
 
 const handleMouseEnter = () => {

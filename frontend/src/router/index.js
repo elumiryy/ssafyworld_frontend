@@ -83,6 +83,10 @@ const routes = [
     name: 'BlackView',
     component: BlackView,
   },
+  {
+    path: '/:catchAll(.*)', //다른 라우터 전부 catch
+    redirect: '/ssafyworld' 
+  },
 ];
 
 const router = createRouter({
