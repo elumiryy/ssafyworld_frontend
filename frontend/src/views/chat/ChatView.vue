@@ -20,14 +20,14 @@
                         <div class="user-info-form">
                             <div>
                                 <label for="ordinal">기수</label>
-                                <select v-model="selectOrdinal">
+                                <select v-model="selectOrdinal" @change="getRegion">
                                     <option v-for="ordinal in ordinals" :value="ordinal" :key="ordinal">{{ordinal}}</option>
                                 </select>
                             </div>
 
                             <div>
                                 <label for="region">지역</label>
-                                <select v-model="selectRegion">
+                                <select v-model="selectRegion" @change="getBan">
                                     <option :value="region" v-for="region in regions" :key="region">{{region}}</option>
                                 </select>
                             </div>
@@ -59,19 +59,53 @@
 
 <script>
 import axios from 'axios';
+import { onMounted, ref } from 'vue';
 
 export default {
+    setup() {
+        const ordinals = ref([]);
+        const getOrdinal = async () => {
+            try {
+                await axios.get(
+                    "/groupInfo", 
+                    {
+                        headers: {
+                            Authorization: localStorage.getItem("accessToken"),
+                            withCredentials: true, // default
+                            Accept: "application/json",
+                        }
+                    }
+                )
+                .then((response) => {
+                    ordinals.value = response.data; // Changing to ordinals instead of this.ordinals
+                })
+                .catch((error) => {
+                    alert("통신 실패: " + error);
+                    console.log(error);
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        onMounted(() => {
+            getOrdinal()
+        })
+
+        return {
+            ordinals, getOrdinal
+        };
+    },
     data() {
-        const ordinals = [11];
-        const regions = ['구미', '광주','대전','부산','서울'];
-        const bans = [1,2,3,4,5,6,7,8,9,10];
+        const regions = [];
+        const bans = [];
 
         const selectOrdinal = '선택해주세요';
         const selectRegion = '선택해주세요';
         const selectBan = '선택해주세요';
 
         return {
-            ordinals,regions,bans, selectOrdinal,selectRegion,selectBan
+            regions,bans, selectOrdinal,selectRegion,selectBan
         }
     },
     methods: {
@@ -82,16 +116,8 @@ export default {
             console.log(this.selectOrdinal, this.selectRegion, this.selectBan);
             this.getChatRoomId();
         },
-        setOrdinal(event) {
-            this.selectOrdinal = event.target.value;
-        },
-        setRegion(event) {
-            this.selectRegion = event.target.value;
-        },
-        setBan(event) {
-            this.selectBan = event.target.value;
-        },
         async getChatRoomId() {
+            //TODO 입력 제대로 안들어왔을 때 에러화면 띄우기, 500말고
             try {
                 const accessToken = localStorage.getItem("accessToken");
                 if(accessToken !== null) {
@@ -119,10 +145,55 @@ export default {
                 console.log('can not find chatroom : ' + error);
             }
         },
-        async enterChatRoom() {
+        async getRegion() {
+            try {
+                await axios.get(
+                    "/groupInfo?ordinal=" + this.selectOrdinal, 
+                    {
+                        headers: {
+                            Authorization: localStorage.getItem("accessToken"),
+                            withCredentials: true, // default
+                            Accept: "application/json",
+                        }
+                    }
+                )
+                .then((response) => {
+                    this.regions = response.data;
+                })
+                .catch((error) => {
+                    alert("통신 실패: " + error);
+                    console.log(error);
+                });
+            } catch (error) {
+                console.error(error);
+            }
 
+            this.selectBan = []
         },
-    }
+        async getBan() {
+            try {
+                await axios.get(
+                    '/groupInfo?ordinal=' + this.selectOrdinal + "&region=" + this.selectRegion, 
+                    {
+                        headers: {
+                            Authorization: localStorage.getItem("accessToken"),
+                            withCredentials: true, // default
+                            Accept: "application/json",
+                        }
+                    }
+                )
+                .then((response) => {
+                    this.bans = response.data;
+                })
+                .catch((error) => {
+                    alert("통신 실패: " + error);
+                    console.log(error);
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        }    
+    },
 }
 
 </script>
