@@ -6,7 +6,7 @@
                 <div class="title-bar-controls">
                     <button aria-label="Minimize"></button>
                     <button aria-label="Maximize"></button>
-                    <button aria-label="Close"></button>
+                    <button aria-label="Close" @click="close"></button>
                 </div>
             </div>
 
@@ -109,6 +109,9 @@ export default {
         }
     },
     methods: {
+        close() {
+            this.$router.push({name : 'MainView'})
+        },
         cancel() {
             this.$router.push('/')
         },
