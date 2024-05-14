@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory} from "vue-router";
-// import axios from 'axios';
+import axios from 'axios';
 
 import MainView from '@/views/MainView.vue'
 import SignupView from '@/views/member/SignupView.vue'
@@ -101,34 +101,33 @@ const router = createRouter({
 });
 
 
-// router.beforeEach(async (to, from, next) => {
-//   const openRoutes = ["LoginView", "SignupView", "SignupViewQA"];
+router.beforeEach(async (to, from, next) => {
+  const openRoutes = ["LoginView", "SignupView", "SignupViewQA"];
 
-//   if (!openRoutes.includes(to.name)) {
-//     let isAuthenticated = false;
+  if (!openRoutes.includes(to.name)) {
+    let isAuthenticated = false;
 
-//     const accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem('accessToken');
 
-//     if (accessToken) {
-//       try {
-//         await axios.get('/token', {
-//           headers: {
-//             Authorization: `Bearer ${accessToken}`
-//           }
-//         });
-//         isAuthenticated = true; 
-//       } catch (error) {
-//         isAuthenticated = false; 
-//       }
-//     }
+    if (accessToken) {
+      try {
+        await axios.get('/token', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+        isAuthenticated = true; 
+      } catch (error) {
+        isAuthenticated = false; 
+      }
+    }
 
-//     if (!isAuthenticated) {
-//       return next({ name: 'LoginView' });
-//     }
-//   }
+    if (!isAuthenticated) {
+      return next({ name: 'LoginView' });
+    }
+  }
 
-//   next();
-// });
-
+  next();
+});
 
 export {router}
