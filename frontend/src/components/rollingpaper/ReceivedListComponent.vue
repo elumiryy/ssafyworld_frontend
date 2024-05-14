@@ -16,8 +16,8 @@
           @click="showLetterDetail(letter)"
         >
           <td>{{ letter.fromUser }}</td>
-          <td>{{ letter.title }}</td>
-          <td>{{ letter.content }}</td>
+          <td>{{ truncate(letter.title) }}</td>
+          <td>{{ truncate(letter.content) }}</td>
           <td>{{ letter.createdAt }}</td>
         </tr>
       </tbody>
@@ -27,6 +27,7 @@
   <div class="letter-detail">
     <div class="letter-info" v-if="selectedLetter">
       <span><b>보낸 사람</b> : {{ selectedLetter.fromUser }} </span>
+      <button @click="hideLetter" style="float: right; margin-top: 2px; margin-right: 2px;">숨기기</button>
       <p>
         <span><b>제목</b> : {{ selectedLetter.title }}</span>
         <span style="margin-left: 20%"
@@ -39,11 +40,13 @@
 </template>
 
 <script setup>
-import { defineProps, ref } from "vue";
+import { defineProps, defineEmits, ref } from "vue";
+import axios from 'axios'
 
 defineProps({
   letters: Array,
 });
+const emit = defineEmits(['hideLetter'])
 
 const selectedLetter = ref({});
 
@@ -51,6 +54,31 @@ const showLetterDetail = (letter) => {
   selectedLetter.value = letter;
   selectedLetter.value.createdAt = selectedLetter.value.createdAt.replace("T", " ");
 };  
+
+const hideLetter = () => {
+  axios.post("/letter/hidden", {
+    letterId: selectedLetter.value.letterId,
+    hidden: true,
+  }, {
+    headers: {
+          Authorization: window.localStorage.getItem("accessToken"),
+      }
+  }
+  ).then(() => {
+    selectedLetter.value = {};
+    emit('hideLetter')
+  }).catch(error => {
+    console.error("Failed to hide letter:", error);
+  });
+}
+
+const MAX_LENGTH = 10
+const truncate = (text) => {
+  if (text.length > MAX_LENGTH) {
+    return text.substring(0, MAX_LENGTH) + ' ...'
+  }
+  return text
+}
 </script>
 
 <style scoped>

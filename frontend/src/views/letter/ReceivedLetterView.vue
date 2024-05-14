@@ -1,6 +1,7 @@
 <script setup>
 import ReceivedList from "@/components/rollingpaper/ReceivedListComponent.vue";
 import SentList from "@/components/rollingpaper/SentListComponent.vue";
+import HiddenListComponent from "@/components/rollingpaper/HiddenListComponent.vue";
 import { defineProps, defineEmits, ref } from "vue";
 // import { useRouter } from "vue-router";
 import axios from "axios";
@@ -75,13 +76,23 @@ const handleMouseEnter = () => {
   document.querySelector(".go-to-write").style.cursor = "pointer"; // 마우스를 올렸을 때 커서 변경
   document.querySelector(".side-bar-receive").style.cursor = "pointer";
   document.querySelector(".side-bar-sent").style.cursor = "pointer";
+  document.querySelector(".side-bar-hidden").style.cursor = "pointer";
 };
 
 const handleMouseLeave = () => {
   document.querySelector(".go-to-write").style.cursor = "default"; // 마우스를 떼었을 때 커서 원래대로 변경
   document.querySelector(".side-bar-receive").style.cursor = "default";
   document.querySelector(".side-bar-sent").style.cursor = "default";
+  document.querySelector(".side-bar-hidden").style.cursor = "default";
 };
+
+const isHiddenOpen = ref(false)
+const openHideModal = () => {
+  isHiddenOpen.value = true;
+}
+const closeHiddenModal = () => {
+  isHiddenOpen.value = false;
+}
 </script>
 
 <template>
@@ -164,7 +175,12 @@ const handleMouseLeave = () => {
                     보낸 편지함
                   </div>
                 </li>
-                <li>
+                <li
+                  class="side-bar-hidden"
+                  @click="openHideModal"
+                  @mouseenter="handleMouseEnter"
+                  @mouseleave="handleMouseLeave"
+                >
                   <div style="display: flex; align-items: center">
                     <img
                       src="@/assets/windowsIcon/recycle_bin_full-4.png"
@@ -177,15 +193,15 @@ const handleMouseLeave = () => {
               </ul>
             </li>
           </ul>
-
           <div class="letter-area">
-            <ReceivedList v-if="showReceived" :letters="receivedLetters" />
+            <ReceivedList v-if="showReceived" :letters="receivedLetters" @hide-letter="showReceivedList"/>
             <SentList v-if="showSent" :letters="sentLetters" />
           </div>
         </div>
       </div>
     </div>
   </div>
+  <HiddenListComponent :showModal="isHiddenOpen" @close-modal="closeHiddenModal"/>
 </template>
 
 <style scoped>
