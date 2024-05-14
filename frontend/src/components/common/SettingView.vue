@@ -11,10 +11,10 @@
                 <p>내 정보 수정</p>
             </div>
             <hr />
-            <router-link to="/login">
+            <div @click="logout">
                 <img src="@/assets/windowsIcon/ac_plug-0.png" alt="windows-icon-img" width="40" height="40">
                 <p>로그아웃</p>
-            </router-link>
+            </div>
             <router-link to="/login">
                 <img src="@/assets/windowsIcon/recycle_bin_full_2k-2.png" alt="windows-icon-img" width="40" height="40">
                 <p v-on:click="print">회원 탈퇴</p>
@@ -29,12 +29,20 @@
 
 <script setup>
     import { defineEmits } from "vue";
+    import {useRouter} from 'vue-router'
 
     const emit = defineEmits(["openMypage"]);
 
     const openMypage = () => {
         emit("openMypage");
     };
+
+    const router = useRouter();
+
+    const logout = () => {
+        localStorage.removeItem("accessToken");
+        router.push({name : 'LoginView'})
+    }
     
 </script>
 
@@ -56,7 +64,7 @@
         width: 95%;
     }
 
-    .start-menu > a, .gotomypage-div {
+    .start-menu > a, .start-menu > div, .gotomypage-div {
         padding: 3px 10px;
         text-decoration: none;
         color: black;
@@ -66,12 +74,12 @@
         align-items: center;
     }
 
-    .start-menu > a:hover, .gotomypage-div:hover {
+    .start-menu > a:hover, .start-menu > div:hover , .gotomypage-div:hover {
         background-color: #000078;
         color: #F8FCF8;
     }
 
-    .start-menu > a > p, .gotomypage-div > p {
+    .start-menu > a > p, .start-menu > div > p, .gotomypage-div > p {
         margin: 0;
         padding: 0 20px;
         font-size: medium;
