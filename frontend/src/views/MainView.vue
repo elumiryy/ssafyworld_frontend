@@ -1,5 +1,8 @@
 <template lang="">
   <div class="main">
+    <!-- ErrorModal을 코드 최상단으로 올려야 전체 화면에 대한 클릭이벤트를 적용할 수 있다 -->
+    <ErrorModal v-if="errorModalState" @close="changeErrorModalState" :success="isSuccess" title="에러가 발생하였습니다" message="에러메시지!!원하는 에러메시지 작성"/>
+
     <div class="windows-icon-div">
       <router-link to="/login">
         <img
@@ -68,7 +71,6 @@
         <p>에러팝업</p>
       </div>
     </div>
-    <ErrorModal v-if="errorModalState" @close="changeErrorModalState" :success="isSuccess" title="에러가 발생하였습니다" message="에러메시지!!원하는 에러메시지 작성"/>
   
     <!-- 숨겨놓은 컴포넌트 (letter보낼 사용자 선택 디렉토리) -->
     <LetterView v-if="folderOpen" :isOpen="folderOpen" @isColsed="closeFolder"></LetterView>

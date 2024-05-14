@@ -1,10 +1,10 @@
 <template>
-  <div class="errorModal" style="width:100%; height: 100%;" @click="handleBackgroundClick">
+  <div class="errorModal" style="width:100%; height: 100vh; position: absolute;" @click="handleBackgroundClick">
     <div class="window" style="width: 300px; min-height: 130px; min-width: 350px;">
       <div class="title-bar">
         <div class="title-bar-text">{{ title }}</div>
         <div class="title-bar-controls">
-          <button aria-label="Close" @click="$emit('close')">Close</button>
+          <button aria-label="Close" @click="$emit('close')"></button>
         </div>
       </div>
       <div class="window-body">
