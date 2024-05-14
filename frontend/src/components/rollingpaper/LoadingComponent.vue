@@ -36,8 +36,11 @@
           전송 :<br />
           RollingPaper.txt(download.ssafy.com)
         </div>
-
-        <div id="progressBarContainer" class="progress-bar-container"></div>
+        
+        <div class="full-contain">
+          <div id="progressBarContainer" class="progress-bar-container"></div>
+          <div class="temp"></div>
+        </div>
 
         <div class="remain-area">
           <span>남은 시간 :</span>
@@ -65,8 +68,8 @@
         </div>
 
         <div class="close-button">
-          <button>받은 편지함</button>
-          <button>편지 확인하기</button>
+          <button disabled>받은 편지함</button>
+          <button disabled>편지 확인하기</button>
           <button @click="closeWindow">창 닫기</button>
         </div>
       </div>
@@ -168,6 +171,10 @@ div {
   }
 }
 
+.full-contain {
+  display: flex;
+}
+
 .progress-bar-container {
   width: 80%;
   height: 20px;
@@ -175,6 +182,12 @@ div {
   position: relative;
   box-shadow: 2px 1px 3px 1px inset;
   margin-top: 2%;
+}
+
+.temp {
+  width: 20%;
+  background-color: #BFBFBF;
+  z-index: 100;
 }
 
 /deep/ .progress-block {
@@ -213,7 +226,7 @@ export default {
     const fillProgressBar = (duration) => {
       const container = document.getElementById("progressBarContainer");
       const containerWidth = container.offsetWidth;
-      const blockWidthIncludingMargin = 11;
+      const blockWidthIncludingMargin = 12;
       const numberOfBlocksToFill = Math.floor(
         containerWidth / blockWidthIncludingMargin
       );
