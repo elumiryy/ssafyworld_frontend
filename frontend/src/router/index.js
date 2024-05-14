@@ -13,6 +13,7 @@ import LetterView from '@/views/letter/LetterView.vue'
 import ReceivedLetterView from '@/views/letter/ReceivedLetterView.vue'
 import LoadingComponent from '@/components/rollingpaper/LoadingComponent.vue'
 import BlackView from '@/views/BlackView.vue'
+import BlueScreenView from '@/views/error/BlueScreen.vue'
 
 const routes = [
   {
@@ -86,6 +87,11 @@ const routes = [
   {
     path: '/:catchAll(.*)', //다른 라우터 전부 catch
     redirect: '/ssafyworld' 
+  },
+  {
+    path: '/blue',
+    name: 'BlueScreen',
+    component: BlueScreenView,
   },
 ];
 
