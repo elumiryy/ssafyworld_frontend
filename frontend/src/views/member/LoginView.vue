@@ -28,7 +28,7 @@ export default {
           .initCodeClient({
             client_id:process.env.VUE_APP_CLIENT_ID,
             scope: "email profile",
-            redirect_uri: "http://localhost:8080/auth/callback",
+            redirect_uri: process.env.VUE_APP_REDIRECT_URL,
             callback: response => {
               if (response.code) {
                 this.sendCodeToBackend(response.code);
