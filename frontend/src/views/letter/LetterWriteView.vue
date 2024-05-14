@@ -73,6 +73,11 @@ export default{
         alert("메시지 전송 성공!");
         
         window.close();
+        // window.open으로 "LoadingComponent"를 정중앙에 띄우고 파라미터로 ordinal, region, ban, names 전달
+
+        window.open(`/loading?ordinal=${ordinal.value}&region=${region.value}&ban=${ban.value}&names=${names.value}`, 
+        "LoadingComponent", "width=600, height=280");
+
       }).catch(error => {
         console.error(error);
         alert("메시지 전송 실패 ㅜㅠ!");
