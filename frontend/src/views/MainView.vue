@@ -40,6 +40,22 @@
 
     <div class="windows-icon-div received">
       <div
+        @click="openHiddenModal"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave">
+        <img
+          src="@/assets/windowsIcon/recycle_bin_full-4.png"
+          alt="windows-icon-img"
+          width="50"
+          height="50"
+        />
+        <p>숨긴 편지함</p>
+      </div>
+    </div>
+    <HiddenListComponent :showModal="isHiddenOpen" @close-modal="closeHiddenModal"/>
+
+    <div class="windows-icon-div received">
+      <div
         @click="changeErrorModalState"
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave">
@@ -62,11 +78,20 @@
 <script setup>
 import { ref } from "vue";
 import ReceivedLetterView from "./letter/ReceivedLetterView.vue";
+import HiddenListComponent from "@/components/rollingpaper/HiddenListComponent.vue";
 import LetterView from "./letter/LetterView.vue";
 import ErrorModal from "./error/ErrorModal.vue";
 
 const isOpen = ref(false);
+const isHiddenOpen = ref(false);
 const isSuccess = ref(false) //에러모달 성공/실패여부
+
+const openHiddenModal = () => {
+  isHiddenOpen.value = true;
+};
+const closeHiddenModal = () => {
+  isHiddenOpen.value = false;
+}
 
 const openModal = () => {
   isOpen.value = true;
