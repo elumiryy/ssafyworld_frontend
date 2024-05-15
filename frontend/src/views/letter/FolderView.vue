@@ -2,7 +2,7 @@
   <div id="folderView">
 
     <!-- 사용자가 한 명이라도 있을 때 -->
-    <div class="grid-container" style="margin: 10px">
+    <div v-if="items" class="grid-container" style="margin: 10px">
       <div class="grid-item" v-for="(item, index) in items" :key="index" style="border: none; padding: 10px">
         <div class="button-like" @click="onClick(item)">
           <div v-if="item.memberId == null"> <!-- 기수, 지역, 반 출력 -->
@@ -16,7 +16,7 @@
     </div>
 
     <!-- 사용자가 한 명도 없을 때 -->
-    <div class="noOne">
+    <div v-else class="noOne">
       아직 등록된 사용자가 없어요 
     </div>
 
