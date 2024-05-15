@@ -14,10 +14,12 @@
           v-for="letter in letters"
           :key="letter.letterId"
           @click="showLetterDetail(letter)"
+          tabindex="0"
+          :class="{ 'selected-row': selectedLetter === letter }"
         >
           <td>{{ letter.toUserName }}</td>
-          <td>{{ letter.title }}</td>
-          <td>{{ letter.content }}</td>
+          <td>{{ truncate(letter.title) }}</td>
+          <td>{{ truncate(letter.content) }}</td>
           <td>{{ letter.createdAt }}</td>
         </tr>
       </tbody>
@@ -56,6 +58,14 @@ const selectedLetter = ref({});
 const showLetterDetail = (letter) => {
   selectedLetter.value = letter;
 };
+
+const MAX_LENGTH = 15
+const truncate = (text) => {
+  if (text.length > MAX_LENGTH) {
+    return text.substring(0, MAX_LENGTH) + ' ...'
+  }
+  return text
+}
 </script>
 
 <style scoped>
@@ -88,5 +98,14 @@ table {
 .letter-content {
   padding: 1px 10px;
   font-size: 15px;
+}
+
+tr > td {
+  cursor: pointer;
+}
+
+.selected-row {
+  background-color: #BFBFBF;
+  color: white;
 }
 </style>

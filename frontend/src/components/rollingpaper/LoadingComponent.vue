@@ -8,7 +8,7 @@
         <div class="title-bar-controls">
           <button aria-label="Minimize"></button>
           <button aria-label="Maximize"></button>
-          <button aria-label="Close"></button>
+          <button aria-label="Close" @click="closeWindow"></button>
         </div>
       </div>
 
@@ -70,7 +70,7 @@
         <div class="close-button">
           <button disabled>받은 편지함</button>
           <button disabled>편지 확인하기</button>
-          <button @click="closeWindow">창 닫기</button>
+          <button @click="closeWindow" :disabled="remainingTime > 0">창 닫기</button>
         </div>
       </div>
     </div>
