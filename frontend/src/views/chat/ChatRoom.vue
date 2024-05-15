@@ -39,7 +39,7 @@
             </div>
 
             <div class="mycontent-div">
-                <label for="mycontent">채팅 입력 : </label>
+                <label for="mycontent">채팅 입력 &nbsp; : &nbsp; </label>
                 <input id="mycontent" type="text" @keypress.enter = "sendChat" v-model="inputText" />
             </div>
         </div>
@@ -137,8 +137,6 @@ const sendChat = () => {
 <style scoped>
   .chatroom {
     height: 100vh;
-    position: relative;
-    z-index: 1;
   }
 
   .window {
@@ -202,17 +200,17 @@ const sendChat = () => {
   }
 
   .mycontent-div {
-    padding: 10px 0;
+    padding: 10px;
     display: flex;
   }
 
   label {
     color: #E6F5FF;
-    font-size: small;
+    font-size: large;
   }
 
   input {
     width: 95%;
-    font-size: small;
+    font-size: large;
   }
 </style>
