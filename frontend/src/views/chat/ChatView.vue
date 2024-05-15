@@ -118,9 +118,24 @@ export default {
             this.getChatRoomId();
         },
         async getChatRoomId() {
-            //TODO 입력 제대로 안들어왔을 때 에러화면 띄우기, 500말고
             try {
+                if(!this.ordinals.includes(this.selectOrdinal)) {
+                    alert("기수를 선택해주세요. ")
+                    return;
+                }
+
+                if(!this.regions.includes(this.selectRegion)) {
+                    alert("지역을 선택해주세요. ")
+                    return;
+                }
+
+                if(!this.bans.includes(this.selectBan)) {
+                    alert("반을 선택해주세요. ")
+                    return;
+                }
+
                 const accessToken = localStorage.getItem("accessToken");
+                
                 if(accessToken !== null) {
                     const response = await axios.get(
                         `/groupInfo?ordinal=${this.selectOrdinal}&region=${this.selectRegion}&ban=${this.selectBan}`,

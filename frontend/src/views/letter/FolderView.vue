@@ -1,6 +1,8 @@
 <template>
   <div id="folderView">
-    <div class="grid-container" style="margin: 10px">
+
+    <!-- 사용자가 한 명이라도 있을 때 -->
+    <div v-if="items" class="grid-container" style="margin: 10px">
       <div class="grid-item" v-for="(item, index) in items" :key="index" style="border: none; padding: 10px">
         <div class="button-like" @click="onClick(item)">
           <div v-if="item.memberId == null"> <!-- 기수, 지역, 반 출력 -->
@@ -12,6 +14,12 @@
         </div>
       </div>
     </div>
+
+    <!-- 사용자가 한 명도 없을 때 -->
+    <div v-else class="noOne">
+      아직 등록된 사용자가 없어요 
+    </div>
+
   </div>
 
 </template>
@@ -91,5 +99,13 @@ export default {
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+.noOne {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* 부모 요소의 너비를 화면 전체로 설정 */
+    height: 90%; /* 부모 요소의 높이를 화면 전체 높이로 설정 */
 }
 </style>
