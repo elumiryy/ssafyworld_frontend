@@ -130,6 +130,11 @@ table {
   height: 70%;
   padding: 0 10px;
   font-size: 15px;
+  overflow-y: auto; /* 세로 스크롤 생성 */
+  overflow-x: hidden;
+  white-space: pre-wrap; /* 연속된 공백 및 줄 바꿈 유지 */
+  width: 100%; /* 예시로 너비를 200px로 설정 */
+  word-wrap: break-word; /* 글자가 너비를 초과할 때 줄 바뜨 */
 }tr > td {
   cursor: pointer;
 }
