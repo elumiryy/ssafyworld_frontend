@@ -62,21 +62,6 @@
       </div>
     </div>
     <HiddenListComponent :showModal="isHiddenOpen" @close-modal="closeHiddenModal"/>
-
-    <div class="windows-icon-div received">
-      <div
-        @click="changeErrorModalState"
-        @mouseenter="handleMouseEnter"
-        @mouseleave="handleMouseLeave">
-        <img
-          src="@/assets/windowsIcon/msg_error.png"
-          alt="windows-icon-img"
-          width="50"
-          height="50"
-        />
-        <p>에러팝업</p>
-      </div>
-    </div>
   
     <!-- 숨겨놓은 컴포넌트 (letter보낼 사용자 선택 디렉토리) -->
     <LetterView v-if="folderOpen" :isOpen="folderOpen" @isColsed="closeFolder"></LetterView>

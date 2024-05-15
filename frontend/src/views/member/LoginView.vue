@@ -76,15 +76,11 @@ export default {
                 provider
             }
         );
-        console.log(serverResponse)
         if(serverResponse.code === 404) {
-            console.log("ASDsdasd")
             this.router.push({ name: 'SignupView', params: { sub: sub } });
-            console.log(sub)
 
         } else {
             const jwt = serverResponse.data;
-            console.log(jwt)
             localStorage.setItem("accessToken", jwt);
             this.router.push({name : 'MainView'})
         }
@@ -92,8 +88,7 @@ export default {
       } catch (error) {
         if(error.response.data.code === 'MEMBER-001') {
       
-          const sub = error.response.config.data.sub
-          console.log(sub)
+          error.response.config.data.sub
 
           this.router.push('/signup');
         }
