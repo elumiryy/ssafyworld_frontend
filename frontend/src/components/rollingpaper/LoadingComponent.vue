@@ -190,7 +190,7 @@ div {
   z-index: 100;
 }
 
-/deep/ .progress-block {
+.progress-block {
   width: 9px;
   height: 15px;
   background-color: #00007f;

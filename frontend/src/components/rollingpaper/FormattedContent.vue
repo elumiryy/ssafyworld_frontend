@@ -20,7 +20,9 @@ export default {
 
 <style scoped>
 .output-content {
-  white-space: pre-wrap; /* Enable line breaks */
-  overflow-y: auto; /* Enable vertical scrolling */
+  width: 100%; /* 예시로 너비를 100px로 설정 */
+  max-width: 630px;
+  white-space: pre-wrap;
+  word-wrap: break-word; /* 글자가 너비를 초과할 때 줄 바꿈 */
 }
 </style>

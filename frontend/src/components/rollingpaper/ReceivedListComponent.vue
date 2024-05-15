@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="sunken-panel letter-content">
-        <FormattedContent :content="selectedLetter.content" />
+        <FormattedContent :content="selectedLetter.content" style="width: 100%"/>
       </div>
     </div>
   </div>
