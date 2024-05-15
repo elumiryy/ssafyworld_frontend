@@ -221,15 +221,17 @@ const closeHiddenModal = () => {
   margin-top: 3px;
   display: flex;
   height: 50vh;
+  width: 100%;
 }
 
 .side-bar {
-  width: 20%;
+  width: 150px;
   background-color: white;
 }
 
 .letter-area {
-  width: 80%;
+  flex: 1;
+  max-width: 100% - 150px;
   margin-left: 5px;
   margin-bottom: 10px;
 }
