@@ -3,6 +3,7 @@
     <div class="window">
         <div class="title-bar">
           <div class="title-bar-text">
+            <img src="@/assets/windowsIcon/desktop-1.png" alt="windows-icon-img" width="10" height="10">
             채팅방 관리자
           </div>
           <div class="title-bar-controls">
@@ -13,20 +14,25 @@
         </div>
 
         <div class="window-body">
+            <!-- <ul>
+                <li v-for="chat in chatData" :key='chat'> {{chat}}</li>
+            </ul> -->
+
+            <!-- 테스트용 코드 -->
             <div class="sunken-panel">
-                <table>
+                <table class="interactive">
                     <thead>
                         <tr>
-                          <th class="th-name">이름</th>
-                          <th class="th-time">날짜</th>
-                          <th class="th-content">내용</th>
+                            <th>이름</th>
+                            <th>날짜</th>
+                            <th>내용</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="chat in chatData" :key='chat.time'>
-                          <td class="chat-name-td"><span>{{chat.sender}}</span></td>
-                            <td class="chat-time-td"><span>{{chat.time}}</span></td>
-                            <td class="chat-content-td"><span>{{chat.content}}</span></td>
+                            <td class="chat-name-td">{{chat.sender}}</td>
+                            <td class="chat-time-td">{{chat.time}}</td>
+                            <td class="chat-content-td">{{chat.content}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -36,7 +42,7 @@
                 <label for="mycontent">채팅 입력 &nbsp; : &nbsp; </label>
                 <input id="mycontent" type="text" @keypress.enter = "sendChat" v-model="inputText" />
             </div>
-            <div style="height: 40px"/> <!-- footer와 겹치지않도록 처리 -->
+            <div style="height: 40px"></div> <!-- footer에 가려지지 않도록 처리 -->
         </div>
     </div>
   </div>
@@ -143,17 +149,18 @@ const sendChat = () => {
   }
 
   .window-body {
-    height: 90%;
+    height: 100%;
     margin: 0;
     background-color: #314CA5;
   }
 
   .sunken-panel {
     width: 100%;
-    height: 90%;
+    bottom: 80px;
+    height: 85%;
     background-color: #314CA5;
+    position: fixed;
   }
-
   /* 스크롤바 숨기기(마우스 휠로 스크롤 가능) */
   .sunken-panel::-webkit-scrollbar {
     display: none;
@@ -162,7 +169,6 @@ const sendChat = () => {
   table {
     width: 100%;
     background-color: #314CA5;
-    table-layout: fixed;
   }
 
   thead {
@@ -174,16 +180,6 @@ const sendChat = () => {
     color: #E6F5FF;
     font-size: large;
     box-shadow: none;
-  }
-
-  .th-name {
-    width: 10%;
-    text-align: center;
-  }
-
-  .th-time {
-    width: 20%;
-    text-align: center
   }
 
   td {
@@ -198,12 +194,10 @@ const sendChat = () => {
   
   .chat-name-td {
     width: 15%;
-    text-align: center
   }
 
   .chat-time-td {
     width: 15%;
-    text-align: center
   }
 
   .chat-content-td {
@@ -211,31 +205,26 @@ const sendChat = () => {
     white-space: normal; /* 자동 줄바꿈 */
   }
 
-  .chat-name-td > span, .chat-time-td > span {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-  }
-
-  .chat-content-td > span {
-    height: 100%;
-    display: flex;
-    align-items: flex-start;
-  }
-
   .mycontent-div {
     padding: 10px;
     display: flex;
+    position: fixed;
+    bottom: 40px;
+    /* width: 100%; */
+    left: 0;
+    right: 0;
   }
 
   label {
+    width: fit-content; /* 내용에 맞게 너비 조절 */
+    min-width: 0; /* 최소 너비 */
     color: #E6F5FF;
     font-size: large;
   }
 
   input {
-    width: 95%;
+    width: 80%;
     font-size: large;
+    flex: 1;
   }
 </style>
