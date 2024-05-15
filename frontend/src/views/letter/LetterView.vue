@@ -15,7 +15,6 @@ function showSend() {
   modalVisible = setModal("sendLetter", true);
 
   if (inputs.value.ordinal == null) {
-    console.log("asdf");
     getOridnal();
   }
 }
@@ -79,7 +78,6 @@ async function serverGetCommunication(url) {
   })
   .catch(function (error) {
     alert("통신 실패: " + error)
-    console.log(error);
   });
 }
 
@@ -161,11 +159,9 @@ async function getNames() {
     )
     .then(function (response) {
       groupInfoId = response.data
-      console.log(groupInfoId)
     })
     .catch(function (error) {
       alert("통신 실패: " + error)
-      console.log(error);
     });
 
     await axios.get(
@@ -180,11 +176,9 @@ async function getNames() {
     )
     .then(function (response) {
       valueList.value = response.data
-      console.log(valueList.value)
     })
     .catch(function (error) {
       alert("통신 실패: " + error)
-      console.log(error);
     });
     
     // valueList.value = []
@@ -231,7 +225,6 @@ function goBack() {
 const tmpQueue = ref([]);
 
 function goForward() {
-  // console.log("forward")
   if (inputs.value.ordinal == null) {
     if (tmpQueue.value.ordinal != null) {
       inputs.value.ordinal = tmpQueue.value.ordinal;
