@@ -60,7 +60,17 @@ export default{
         alert("제목과 내용은 필수값입니다!");
         return;
       }
-      
+
+      if(titleField.value.length > 50){
+        alert("제목은 50자 이내로 작성해주세요!");
+        return;
+      }
+
+      if(contentField.value.length > 5000){
+        alert("내용은 5000자 이내로 작성해주세요!");
+        return;
+      }
+
       axios.post('/letter', {
 
         toUser: toUser.value,
