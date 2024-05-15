@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 드래그 금지 설정 -->
-    <div ondragstart="return false" @click="closeStartModal">
+    <div ondragstart="return false" @click="closeModal">
       <!-- router 설정 -->
       <router-view></router-view>
     </div>
@@ -14,9 +14,15 @@
     <div class="menu">
       <SettingView v-if="isSettingVisible" @open-mypage="openMypage"/>
     </div>
+
+    <!-- time -->
+    <div class="time">
+      <TimeView v-if="isTimeVisible" :date="date" />
+    </div>
+    
     <!-- Footer -->
     <footer>
-      <FooterView @open-start-modal="callOpenStartModal" />
+      <FooterView @open-start-modal="callOpenStartModal" @open-time-modal="callOpenTimeModal" />
     </footer>
 
   </div>
@@ -25,6 +31,7 @@
 <script>
 import FooterView from '@/components/common/FooterView.vue'
 import SettingView from '@/components/common/SettingView.vue';
+import TimeView from '@/components/common/TimeView.vue';
 import MypageView from '@/views/member/MypageView.vue';
 
 export default {
@@ -32,12 +39,19 @@ export default {
   data() {
     return {
       isSettingVisible: false,
-      isOpenMypage: false
+      isTimeVisible: false,
+      isOpenMypage: false,
+      date: {
+        year: '',
+        month: '',
+        day: '',
+      }
     };
   },
   components: {
     FooterView,
     SettingView,
+    TimeView,
     MypageView,
   },
   methods: {
@@ -45,10 +59,23 @@ export default {
       this.isSettingVisible = !this.isSettingVisible
       console.log("상태 ", this.isSettingVisible)
     },
-    closeStartModal() {
+    callOpenTimeModal(year, month, day, dayWeek) {
+      this.isTimeVisible = !this.isTimeVisible
+      console.log("시간 모달 상태 ", this.isTimeVisible)
+      console.log(year, month, day, dayWeek)
+      this.date.year = year
+      this.date.month = month
+      this.date.day = day
+      this.date.dayWeek = dayWeek
+    },
+    closeModal() {
       if (this.isSettingVisible == true) {
         this.isSettingVisible = !this.isSettingVisible
         console.log("호출 ", this.isSettingVisible)
+      }
+      if (this.isTimeVisible == true) {
+        this.isTimeVisible = !this.isTimeVisible
+        console.log("호출 ", this.isTimeVisible)
       }
     },
     openMypage() {
@@ -84,6 +111,12 @@ export default {
   .menu {
     position: absolute;
     bottom: 40px; /* FooterView : #footer css의 height: 40px;랑 같게 */
+  }
+
+  .time {
+    position: absolute;
+    bottom: 20px;
+    right: 0;
   }
 
   footer {

@@ -4,14 +4,39 @@
 
         <div id="footer">
             <!-- <button class="footer-start-btn" v-on:click="startBtnClick"> -->
-            <button class="footer-start-btn" @click="$emit('openStartModal')">
-                <img src="@/assets/windowsIcon/windows.png" alt="windows-icon-img" width="30" height="30">
-                <p class="footer-start-p">시작</p>
-            </button>
-            <button class="footer-time-div">
-                <p class="footer-time-p">{{ampm}}</p>
-                <p class="footer-time-p">{{time}}</p>
-            </button>
+            <div class="footer-left">
+                <button class="footer-start-btn" @click="$emit('openStartModal')">
+                    <img src="@/assets/windowsIcon/windows.png" alt="windows-icon-img" width="30" height="30">
+                    <p class="footer-start-p">시작</p>
+                </button>
+                <div class="footer-icons">
+                    <hr>
+                    <div>
+                        <img src="@/assets/windowsIcon/desktop-1.png" alt="windows-icon-img" width="25" height="25">
+                        <img src="@/assets/windowsIcon/clean_drive-4.png" alt="windows-icon-img" width="25" height="25">
+                        <img src="@/assets/windowsIcon/msie1-2.png" alt="windows-icon-img" width="25" height="25">
+                        <img src="@/assets/windowsIcon/console_prompt-0.png" alt="windows-icon-img" width="25" height="25">
+                        <img src="@/assets/windowsIcon/game_mine_1-0.png" alt="windows-icon-img" width="25" height="25">
+                        <img src="@/assets/windowsIcon/game_freecell-1.png" alt="windows-icon-img" width="25" height="25">
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="footer-icons">
+                    <hr>
+                    <div>
+                        <img src="@/assets/windowsIcon/font_bitmap-0.png" alt="windows-icon-img" width="25" height="25">
+                        <img src="@/assets/windowsIcon/printer_question-4.png" alt="windows-icon-img" width="25" height="25">
+                        <img src="@/assets/windowsIcon/loudspeaker_rays-0.png" alt="windows-icon-img" width="25" height="25">
+                    </div>
+                    <hr>
+                </div>
+                <button class="footer-time-div" @click="$emit('openTimeModal', year, month, day, dayWeek)">
+                    <p class="footer-time-p">{{ampm}}</p>
+                    <p class="footer-time-p">{{time}}</p>
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -26,6 +51,10 @@ export default {
     // },
     data() {
         return {
+            year: '',
+            month: '',
+            day: '',
+            dayWeek: '',
             ampm: '',
             time: '',
             // isSettingVisible: false
@@ -37,6 +66,11 @@ export default {
     methods: {
         getNow() {
             const date = new Date()
+
+            this.year = date.getFullYear()
+            this.month = ('0' + (date.getMonth() + 1)).slice(-2)
+            this.day = ('0' + date.getDate()).slice(-2)
+            this.dayWeek = date.getDay()
 
             // 오전, 오후 표시
             this.ampm = date.getHours() >= 12 ? '오후' : '오전'
@@ -64,6 +98,29 @@ export default {
         align-items: center;
     }
 
+    .footer-left, .footer-right {
+        display: flex;
+    }
+
+    .footer-icons {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .footer-icons > hr {
+        margin: 0 10px;
+        padding: 0 1px;
+    }
+
+    .footer-icons > div {
+        display: flex;
+        align-items: center;
+    }
+
+    .footer-icons img {
+        padding: 0 3px;
+    }
+
     .footer-start-btn, .footer-time-div {
         height: 80%;
         padding: 0 5px;
@@ -72,6 +129,10 @@ export default {
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
+    }
+
+    .footer-time-div {
+        padding: 6px 0;
     }
 
     .footer-start-p {
