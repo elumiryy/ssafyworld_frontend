@@ -58,7 +58,7 @@
           width="50"
           height="50"
         />
-        <p>숨긴 편지함</p>
+        <p>숨긴<br>편지함</p>
       </div>
     </div>
     <HiddenListComponent :showModal="isHiddenOpen" @close-modal="closeHiddenModal"/>
@@ -163,5 +163,6 @@ const closeIntroModal = () => {
   padding: 1px 0;
   color: #f8fcf8;
   font-size: small;
+  text-align: center;
 }
 </style>
