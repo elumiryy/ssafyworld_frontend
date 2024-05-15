@@ -133,4 +133,22 @@ export default {
         position: relative;
         z-index: 1;
     }
+
+    @media (max-width: 1000px) {
+      .logo-img {
+        width: 500px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .logo-img {
+        width: 300px;
+      }
+
+      .google-login-btn {
+        width: 200px;      
+      }
+    }
+
+
 </style>

@@ -36,6 +36,7 @@
                 <label for="mycontent">채팅 입력 &nbsp; : &nbsp; </label>
                 <input id="mycontent" type="text" @keypress.enter = "sendChat" v-model="inputText" />
             </div>
+            <div style="height: 40px"/> <!-- footer와 겹치지않도록 처리 -->
         </div>
     </div>
   </div>
