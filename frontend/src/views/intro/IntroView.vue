@@ -28,19 +28,10 @@ const closeModal = () => {
       </div>
 
       <div class="window-body">
-        <div class="inner-nav">
-          <span>파일(<u>F</u>)</span>
-          <span>편집(<u>E</u>)</span>
-          <span>보기(<u>V</u>) </span>
-          <span>이동(<u>G</u>) </span>
-          <span>도구(<u>T</u>)</span>
-          <span>작성(<u>C</u>)</span>
-          <span>도움말(<u>H</u>)</span>
-        </div>
 
         <div class="main" style="backgroud-color: black">
           <div class="console">
-              <div class="console-body">
+              <div class="console-body" style="padding: 0">
                   <pre>
 
 ██╗   ██╗███████╗███╗   ███╗██╗███╗   ██╗      ██╗██╗██╗     ██╗███╗   ███╗
@@ -57,15 +48,16 @@ const closeModal = () => {
 
 
 !개발자소개
-
-⠀⠀⠀⡠⡮⡯⡯⢯⡳⣄⠀⠀⠀
-⠀⠀⢰         ⡢⠀⠀
-⠀⠀⣯          ⣟
-⠀⠀⣗ 김민종씨 ⣢
-⠀⠀ ⣧       ⣸⡳⠀
-⠀    ⣗⠔⡄⠄⣱⣳
-⡤⡼⡽⣝⣗⠅⢂⠁⣞⣞⣗⢷⢤
-⢯⢯⣟⣞⣞⡾⣔⣖⣗⣗⡯⣯⣳
+⠀⠀⠀⠀⠀⢀⣀⣄⣄⡀⠀⠀⠀⠀⠀
+⠀⠀⠀⢀⣞⣿⠻⢳⢯⣿⣳⡀⠀⠀⠀
+⠀⠀⠀⠸⡾⠂⠐⡀⢻⣿⣻⡇⠀⠀⠀
+⠀⠀⠀⠀⡃⠍⢕⠐⠭⠭⢹⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⡂⠄⠢⡡⡈⡂⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠢⡡⢙⢌⠢⠀⠀⠀⠀⠀
+⠀⡀⣀⣤⣶⠡⢊⠕⡕⢍⣶⣦⣄⣀⠀
+⣾⣿⣿⣿⣿⣿⣦⣵⣼⣾⣿⣿⣿⣿⣿
+⣽⣿⣽⣾⣿⣾⣿⡿⣟⣿⣿⣟⣿⣟⣿
+⣿⡿⣿⣿⣻⣿⣽⣿⣿⣿⡿⣿⣿⣿⣿
 
 1. 팀장 김민종
    Role: Backend Developer
@@ -132,7 +124,11 @@ const closeModal = () => {
    About: Expert in Python and cloud infrastructure.
 
                   </pre>
-                <a href="https://naver.com" style="color: lightblue">자세히보기</a>
+                <span style="padding: 5px; font-size: 15px;">
+                  C:\&gt;
+                  <a href="https://naver.com" style="color: lightblue">자세히보기</a>
+                </span>
+                <div style="height: 10px"/>
               </div>
           </div>
         </div>
@@ -158,7 +154,8 @@ body {
 
 pre {
   background-color: #0f0f0f;
-  box-shadow: inset -1px -1px #000000,inset 1px 1px grey,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a
+  border: none;
+  box-shadow: inset -1px -1px #000000,inset 1px 1px grey,inset -2px -2px #000000,inset 2px 2px #0a0a0a
 }
 
 
@@ -170,29 +167,28 @@ pre {
 
 
 .console {
-    margin-top: 10px;
     width: 100%;
     height: 70vh;
     min-height: 100px;
     background-color: #000;
-    border: 1px solid #c5bf00;
-    border-radius: 5px;
+    /* border: 1px solid #c5bf00; */
+    /* border-radius: 5px; */
     overflow: hidden;
     color: #fff; /* 모든 텍스트를 하얀색으로 설정 */
 }
 
 .console-body {
-    padding: 10px;
-    height: calc(100% - 30px);
+    height: calc(100%);
     overflow-y: auto;
     font-size: 15px;
 }
 
+
 .received {
   position: fixed;
-  width: 1000px;
+  width: 70%;
+  min-width: 400px;
   height: 60%;
-  /* min-height: 500px; */
   top: 35%;            /* 화면의 중앙에 위치 */
   left: 50%;           /* 화면의 중앙에 위치 */
   transform: translate(-50%, -50%); /* 정확한 중앙 */
@@ -200,6 +196,7 @@ pre {
 
 .window-body {
   font-size: 13px;
+  margin: 0
 }
 
 .inner-nav {
