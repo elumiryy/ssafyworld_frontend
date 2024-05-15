@@ -68,6 +68,7 @@
 import axios from "axios";
 import { defineProps, defineEmits, ref, watch } from "vue";
 import {truncate} from '@/components/letter.js'
+import { adjustTime } from '@/components/timezone.js'
 
 const letters = ref([]);
 const selectedLetter = ref({});
@@ -92,7 +93,7 @@ const showList = () => {
       letters.value = res.data;
       letters.value.forEach((letter) => {
         letter.fromUser = "익명";
-        letter.createdAt = letter.createdAt.replace("T", " ");
+        letter.createdAt = adjustTime(letter.createdAt)
       });
     })
     .catch((err) => {

@@ -3,7 +3,7 @@ import ReceivedList from "@/components/rollingpaper/ReceivedListComponent.vue";
 import SentList from "@/components/rollingpaper/SentListComponent.vue";
 import HiddenListComponent from "@/components/rollingpaper/HiddenListComponent.vue";
 import { defineProps, defineEmits, ref } from "vue";
-// import { useRouter } from "vue-router";
+import { adjustTime } from "@/components/timezone.js";
 import axios from "axios";
 
 defineProps({
@@ -33,7 +33,7 @@ const showReceivedList = () => {
     receivedLetters.value = response.data;
     receivedLetters.value.forEach((letter) => {
       letter.fromUser = "익명";
-      letter.createdAt = letter.createdAt.replace("T", " ");
+      letter.createdAt = adjustTime(letter.createdAt)
     });
   }).catch((error) => {
     console.error("Failed to fetch received letters:", error);
@@ -54,7 +54,7 @@ const showSentList = () => {
     sentLetters.value.forEach((letter) => {
       letter.toUserOrdinal += '기'
       letter.toUserBan += '반'
-      letter.createdAt = letter.createdAt.replace("T", " ");
+      letter.createdAt = adjustTime(letter.createdAt)
     });
   }).catch((error) => {
   console.error("Failed to fetch sent letters:", error);
@@ -185,7 +185,7 @@ const closeHiddenModal = () => {
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 800px;
+  width: 850px;
   height: 800px;
 }
 
