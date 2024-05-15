@@ -189,6 +189,12 @@ const closeHiddenModal = () => {
   height: 800px;
 }
 
+@media (max-width: 800px) {
+  .received {
+    width: 500px;
+  }
+}
+
 .window-body {
   font-size: 13px;
 }

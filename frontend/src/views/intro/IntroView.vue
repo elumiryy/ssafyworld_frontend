@@ -187,7 +187,7 @@ pre {
 .received {
   position: fixed;
   width: 70%;
-  min-width: 400px;
+  min-width: 100px;
   height: 60%;
   top: 35%;            /* 화면의 중앙에 위치 */
   left: 50%;           /* 화면의 중앙에 위치 */
