@@ -1,6 +1,6 @@
 <template>
-  <div class="errorModal" style="width:100%; height: 100vh; position: absolute;" @click="handleBackgroundClick">
-    <div class="window" style="width: 300px; min-height: 130px; min-width: 350px;">
+  <div class="errorModal" style="background-color: transparent; width:100%; height: 100vh; position: absolute;" @click="handleBackgroundClick">
+    <div class="window" style="width: 300px; min-height: 130px; min-width: 350px; ">
       <div class="title-bar">
         <div class="title-bar-text">{{ title }}</div>
         <div class="title-bar-controls">
@@ -46,11 +46,16 @@ export default {
 </script>
 
 <style scoped>
+.errorModal {
+  background-color: transparent;
+}
 .window {
   position: fixed;     /* 모달창 위치를 고정 */
   top: 50%;            /* 화면의 중앙에 위치 */
   left: 50%;           /* 화면의 중앙에 위치 */
   transform: translate(-50%, -50%); /* 정확한 중앙 */
+  box-shadow: none;
+  border-style: solid;
 }
 
 h2 {
