@@ -13,7 +13,7 @@
         </div>
 
         <div class="window-body">
-            <div class="sunken-panel">
+            <div class="sunken-panel" style=" overflow-x: hidden; ">
                 <table class="interactive">
                     <thead>
                         <tr>
@@ -33,7 +33,7 @@
             </div>
             <div class="mycontent-div">
                 <label for="mycontent">채팅 입력 &nbsp; : &nbsp; </label>
-                <input id="mycontent" type="text" @keypress.enter = "sendChat" v-model="inputText" />
+                <input id="mycontent" maxlength="200" type="text" @keypress.enter = "sendChat" v-model="inputText" />
             </div>
         </div>
     </div>
@@ -176,6 +176,8 @@ const sendChat = () => {
   .chat-content-td {
     width: 70%;
     white-space: normal; /* 자동 줄바꿈 */
+    word-break: break-all;
+    /* word-wrap: break-word; 글자가 너비를 초과할 때 줄 바뜨 */
   }
   .chat-name-td > span, .chat-time-td > span {
     height: 100%;
