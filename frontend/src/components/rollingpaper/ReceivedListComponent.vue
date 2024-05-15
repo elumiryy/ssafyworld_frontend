@@ -27,22 +27,20 @@
     </table>
   </div>
 
-    <div class="letter-detail">
-      <div class="letter-info" v-if="selectedLetter.fromUser">
-        <div class="letter-info-div-first">
-          <span><b>보낸 사람</b> &nbsp;:&nbsp; {{ selectedLetter.fromUser }} </span>
-          <button v-if="selectedLetter.fromUser != null" @click="hideLetter">숨기기</button>
-        </div>
-        <div class="letter-info-div-second">
-          <span class="letter-info-div-title"><b>제목</b> &nbsp;:&nbsp; {{ selectedLetter.title }}</span>
-          <span class="letter-info-div-createdAt"><b>전송 날짜</b> &nbsp;:&nbsp; {{ selectedLetter.createdAt }}</span>
-        </div>
+  <div class="letter-detail">
+    <div class="letter-info">
+      <div class="letter-info-div-first">
+        <span><b>보낸 사람</b> &nbsp;:&nbsp; {{ selectedLetter.fromUser }} </span>
+        <button v-if="selectedLetter.fromUser != null" @click="hideLetter">숨기기</button>
       </div>
-      <div class="sunken-panel letter-content">
-        <FormattedContent :content="selectedLetter.content" style="width: 100%"/>
+      <div class="letter-info-div-second">
+        <span class="letter-info-div-title"><b>제목</b> &nbsp;:&nbsp; {{ selectedLetter.title }}</span>
+        <span class="letter-info-div-createdAt"><b>전송 날짜</b> &nbsp;:&nbsp; {{ selectedLetter.createdAt }}</span>
       </div>
     </div>
+    <div class="sunken-panel letter-content">{{ selectedLetter.content }}</div>
   </div>
+</div>
 </template>
 
 
