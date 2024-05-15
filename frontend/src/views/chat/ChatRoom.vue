@@ -20,7 +20,7 @@
 
             <!-- 테스트용 코드 -->
             <div class="sunken-panel">
-                <table class="interactive">
+                <table>
                     <thead>
                         <tr>
                             <th>이름</th>
