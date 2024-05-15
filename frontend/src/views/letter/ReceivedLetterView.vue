@@ -110,7 +110,7 @@ const closeHiddenModal = () => {
             @click="goToFolderView"
           >
             <img src="@/assets/windowsIcon/write_wordpad-1.png" alt="" /><br />
-            롤링 페이퍼 작성
+            롤링 페이퍼<br>작성
           </div>
         </div>
 
