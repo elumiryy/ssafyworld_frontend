@@ -17,7 +17,7 @@
           <span>도움말(<u>H</u>)</span>
         </div>
 
-        <div class="main letter-area">
+        <div class="letter-area">
           <div class="sunken-panel letter-list">
             <table>
               <thead>
@@ -56,7 +56,7 @@
                 <span class="letter-info-div-createdAt"><b>전송 날짜</b> &nbsp;:&nbsp; {{ selectedLetter.createdAt }}</span>
               </div>
             </div>
-            <div class="letter-content">{{ selectedLetter.content }}</div>
+            <div class="sunken-panel letter-content">{{ selectedLetter.content }}</div>
           </div>
         </div>
       </div>
@@ -142,12 +142,12 @@ const showLetterDetail = (letter) => {
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
+  width: 700px;
   height: 400px;
 }
 
 .window {
-   height: 100%;
+  height: 100%;
 }
 
 .window-body {
@@ -174,6 +174,10 @@ const showLetterDetail = (letter) => {
   margin-bottom: 10px; */
 }
 
+.letter-list {
+  height: 50%;
+}
+
 ul {
   font-size: 14px;
 }
@@ -182,24 +186,24 @@ table {
   font-size: 14px;
 }
 
-.letter-list {
-  height: 50%;
-}
-
 .letter-detail {  
   /* margin-top: 5px; */
   height: 50%;
   background-color: white;
-  border-style: inset;
+  /* border-style: inset; */
   box-shadow: inset -1px -1px #626262, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
 }
 
 .letter-info {
+  height: 30%;
   padding: 3px;
   font-size: 14px;
   background-color: #bfbfbf;
   /* box-shadow: 1px 1px 1px 1px #8f8f8f; */
   box-shadow: inset -1px -1px #626262, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .letter-info-div-first {
@@ -227,7 +231,8 @@ table {
 }
 
 .letter-content {
-  padding: 1px 10px;
+  height: 70%;
+  padding: 0 10px;
   font-size: 15px;
 }
 

@@ -1,4 +1,5 @@
 <template>
+  <div class="receivedlist">
   <div class="sunken-panel letter-list">
     <table style="width: 100%">
       <thead>
@@ -28,17 +29,18 @@
 
   <div class="letter-detail">
     <div class="letter-info">
-      <span><b>보낸 사람</b> : {{ selectedLetter.fromUser }} </span>
-      <button v-if="selectedLetter.fromUser != null" @click="hideLetter" style="float: right; margin-top: 2px; margin-right: 2px;">숨기기</button>
-      <p>
-        <span><b>제목</b> : {{ selectedLetter.title }}</span>
-        <span style="margin-left: 20%"
-          ><b>전송 날짜</b> : {{ selectedLetter.createdAt }}</span
-        >
-      </p>
+      <div class="letter-info-div-first">
+        <span><b>보낸 사람</b> &nbsp;:&nbsp; {{ selectedLetter.fromUser }} </span>
+        <button v-if="selectedLetter.fromUser != null" @click="hideLetter">숨기기</button>
+      </div>
+      <div class="letter-info-div-second">
+        <span class="letter-info-div-title"><b>제목</b> &nbsp;:&nbsp; {{ selectedLetter.title }}</span>
+        <span class="letter-info-div-createdAt"><b>전송 날짜</b> &nbsp;:&nbsp; {{ selectedLetter.createdAt }}</span>
+      </div>
     </div>
-    <div class="letter-content">{{ selectedLetter.content }}</div>
+    <div class="sunken-panel letter-content">{{ selectedLetter.content }}</div>
   </div>
+</div>
 </template>
 
 <script setup>
@@ -77,6 +79,10 @@ const hideLetter = () => {
 </script>
 
 <style scoped>
+.receivedlist {
+  height: 100%;
+}
+
 .letter-list {
   height: 50%;
 }
@@ -84,25 +90,58 @@ const hideLetter = () => {
 ul {
   font-size: 14px;
 }
+
 table {
   font-size: 14px;
 }
 
-.letter-detail {
-  margin-top: 5px;
+.letter-detail {  
+  /* margin-top: 5px; */
   height: 50%;
   background-color: white;
-  border-style: inset;
+  /* border-style: inset; */
+  box-shadow: inset -1px -1px #626262, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
 }
 
 .letter-info {
+  height: 30%;
+  padding: 3px;
   font-size: 14px;
   background-color: #bfbfbf;
-  box-shadow: 1px 1px 1px 1px #8f8f8f;
+  /* box-shadow: 1px 1px 1px 1px #8f8f8f; */
+  box-shadow: inset -1px -1px #626262, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.letter-info-div-first {
+  display: flex;
+  justify-content: space-between;
+}
+
+.letter-info-div-first > span {
+  display: flex;
+  align-items: center;
+}
+
+.letter-info-div-second {
+  display: flex;
+  justify-content: space-between;
+}
+
+.letter-info-div-second > span {
+  display: flex;
+  align-items: center;
+}
+
+.letter-info-div-createdAt {
+  width: 40%;
 }
 
 .letter-content {
-  padding: 1px 10px;
+  height: 70%;
+  padding: 0 10px;
   font-size: 15px;
 }
 
