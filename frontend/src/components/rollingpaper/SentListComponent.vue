@@ -48,6 +48,7 @@
 
 <script setup>
 import { defineProps, ref } from "vue";
+import {truncate} from '@/components/letter.js'
 
 defineProps({
   letters: Array,
@@ -58,14 +59,6 @@ const selectedLetter = ref({});
 const showLetterDetail = (letter) => {
   selectedLetter.value = letter;
 };
-
-const MAX_LENGTH = 15
-const truncate = (text) => {
-  if (text.length > MAX_LENGTH) {
-    return text.substring(0, MAX_LENGTH) + ' ...'
-  }
-  return text
-}
 </script>
 
 <style scoped>

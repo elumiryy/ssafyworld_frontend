@@ -67,6 +67,7 @@
 <script setup>
 import axios from "axios";
 import { defineProps, defineEmits, ref, watch } from "vue";
+import {truncate} from '@/components/letter.js'
 
 const letters = ref([]);
 const selectedLetter = ref({});
@@ -132,14 +133,6 @@ const HideCancle = () => {
 const showLetterDetail = (letter) => {
   selectedLetter.value = letter;
 };
-
-const MAX_LENGTH = 10
-const truncate = (text) => {
-  if (text.length > MAX_LENGTH) {
-    return text.substring(0, MAX_LENGTH) + ' ...'
-  }
-  return text
-}
 </script>
 
 <style scoped>

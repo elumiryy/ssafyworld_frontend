@@ -43,6 +43,7 @@
 
 <script setup>
 import { defineProps, defineEmits, ref } from "vue";
+import {truncate} from '@/components/letter.js'
 import axios from 'axios'
 
 defineProps({
@@ -72,14 +73,6 @@ const hideLetter = () => {
   }).catch(error => {
     console.error("Failed to hide letter:", error);
   });
-}
-
-const MAX_LENGTH = 15
-const truncate = (text) => {
-  if (text.length > MAX_LENGTH) {
-    return text.substring(0, MAX_LENGTH) + ' ...'
-  }
-  return text
 }
 </script>
 
