@@ -100,9 +100,43 @@ const router = createRouter({
   routes
 });
 
+axios.interceptors.response.use(
+    response => {
+        return response
+    },
+    error => {
+      const httpStatus = error.response.status;
+      const customCode = error.response.data.code;
+        if (httpStatus === 401) {
+
+            if(customCode === 'AUTH-001') {
+              alert('세션이 만료되었습니다. 다시 로그인해주세요.')
+              localStorage.removeItem('accessToken');
+              router.push({name : 'LoginView'});
+            } else {
+              router.push({ name : "BlackView"})
+            }            
+        } else if (httpStatus === 403) {
+
+          alert('접근 권한이 존재하지 않습니다.')
+          router.push({ name : "MainView"})
+
+        } else if(httpStatus === 400) {
+          if(customCode === 'LETTER-007') {
+            alert(`아직 편지를 볼 수 없어요!! : 2024년 5월 24일까지 기다려주세요!!`)
+          }
+        } else if(httpStatus === '404') {
+            alert('페이지를 찾을 수 없어요 ㅠㅠ');
+        } else {
+          console.log("500에러는 개발자의 눈물....")
+        }
+        return Promise.reject(error);
+    }
+);
+
 
 router.beforeEach(async (to, from, next) => {
-  const openRoutes = ["LoginView", "SignupView", "SignupViewQA"];
+  const openRoutes = ["LoginView", "SignupView", "SignupViewQA","BlackView"];
 
   if (!openRoutes.includes(to.name)) {
     let isAuthenticated = false;
@@ -123,7 +157,7 @@ router.beforeEach(async (to, from, next) => {
     }
 
     if (!isAuthenticated) {
-      return next({ name: 'LoginView' });
+      return next({name:'LoginView'});
     }
   }
 

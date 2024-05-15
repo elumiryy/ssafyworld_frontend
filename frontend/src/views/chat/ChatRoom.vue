@@ -52,6 +52,7 @@ import axios from 'axios';
 import {ref, onBeforeMount, onUpdated} from 'vue';
 import {onBeforeRouteLeave, useRouter} from 'vue-router'
 import moment from 'moment';
+import {adjustTime} from '@/components/timezone.js'
 
 const router = useRouter();
 
@@ -62,7 +63,7 @@ function closwMypage() {
 function Chat(sender, content,time) {
     this.sender = sender;
     this.content = content;
-    this.time = time;
+    this.time = adjustTime(time);
 }
 
 const searchParams = new URLSearchParams(window.location.search);
@@ -97,7 +98,10 @@ onBeforeMount(() => {
   getChattingData();
   clientWebSocket = new WebSocket(process.env.VUE_APP_WEB_SOCKET_URL + chatRoomId);
   clientWebSocket.onmessage = function(message) {
-      chatData.value.push(JSON.parse(message.data));
+      const chat = JSON.parse(message.data);
+      chat.time = adjustTime(chat.time);
+      chatData.value.push(chat);
+
       const bottom = document.querySelector('.sunken-panel');
       bottom.scrollTop =  bottom.scrollHeight;
   }

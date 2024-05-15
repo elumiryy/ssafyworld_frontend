@@ -4,7 +4,7 @@
     </div>
 </template>
 <script setup>
-
+localStorage.removeItem('accessToken');
 </script>
 <style scoped>
     .black {
