@@ -42,15 +42,33 @@ const closeModal = () => {
    ╚═╝   ╚══════╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝  ╚═══╝ ╚═╝╚══════╝╚═╝╚═╝     ╚═╝
     :: SSAFY WORLD ::                                              (v1.0.0)
 
-예민지림은 싸피 롤링페이퍼 서비스입니다.
+11기 구미 4반 '예민지림'이 개발한 SSAFY 롤링페이퍼 서비스 '싸피월드'에 오신 것을 환영합니다!
 
-받은 롤링페이퍼는 2024년 5월 24일 (금) 00:00분에 공개됩니다.
-많은 친구들에게 쪽지 참여 부탁드립니다.
+11기라면 누구나, 누구에게나 익명으로 롤링페이퍼를 전달할 수 있습니다
+한 학기동안 감사했던 강사님, 프로님, 친구들에게 진심을 전해보세요💌
 
-서비스를 이용해주셔서 감사합니다.
-(회원가입을 완료한 사용자에게만 편지를 보낼 수 있습니다.)
+받은 편지는 2024년 5월 24일 (금) 00:00시에 공개됩니다🎉
+많은 쪽지 참여 부탁드립니다.
 
-!개발자소개
+📌공지사항
+- 회원가입을 완료한 사용자만 보여집니다.
+- 비방, 욕설, 조롱, 성희롱 등 타인에게 불쾌함을 주는 내용은 금지합니다.🚫
+  (DB 추적 후 DB 혼낼 예정)
+
+✅체크 포인트
+- 반별로 만들어진 채팅방으로 재밌는 이야기를 주고 받아요!
+- 응원을 받고 싶다면 시계를 눌러보세요!
+- 싸피월드 개발자를 찾아 사용 후기를 보내주세요!
+- windows 98이 있던 그때 그 시절로 돌아가보세요!
+
+💻개발 툴 소개
+- Backend: Spring Webflux, Spring Security, MySQL R2DBC
+- Frontend: Vue.js, 98.CSS
+- release: Google Cloud Platform
+- Version Control : GitHub
+- Cooperation: Notion, Figma, Jira
+
+🙋‍♀️개발자소개🙋‍♂️
 ⠀⠀⠀⠀⠀⢀⣀⣄⣄⡀⠀⠀⠀⠀⠀
 ⠀⠀⠀⢀⣞⣿⠻⢳⢯⣿⣳⡀⠀⠀⠀
 ⠀⠀⠀⠸⡾⠂⠐⡀⢻⣿⣻⡇⠀⠀⠀
@@ -65,7 +83,9 @@ const closeModal = () => {
 1. 팀장 김민종
    Role: Backend Developer
    About: 삼성 갈꺼니께~
-
+   etc: 구미 4반 CA, 종바오 가지마
+  
+---------------------------------------------
 
 ⠀⠀⠀⠀⠀⠀⢀⢀⢀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⢀⢔⣞⣞⣞⣞⢮⡢⡄⠀⠀⠀
@@ -81,8 +101,10 @@ const closeModal = () => {
 2. 팀원 이예찬
    Role: Backend Developer
    About: 다이어트 3주차.. 예민지림 
+   etc: 구미 4반 확성기, pinia 닮음, 큰형님, 구미 4반 최강 기요미
 
-   
+---------------------------------------------
+
 ⠀⠀⠀⢀⣴⢾⣿⣿⣽⢷⢦⡀⠀⠀⠀
 ⠀⠀⠀⣾⢽⣻⢳⢯⢟⣿⢽⣖⠀⠀⠀
 ⠀⠀⠀⣽⠻⡢⠣⡣⠫⠾⠿⡽⠀⠀⠀
@@ -96,6 +118,9 @@ const closeModal = () => {
 3. 팀원 이지언
    Role: Backend Developer
    About: https://trillium.tistory.com/
+   etc: 일타싸피 결승 진출, 포항의 자랑
+
+---------------------------------------------
 
 ⠀⠀⠀⠀⠀⠀⡀⣀⢀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⡠⣮⡻⣪⡳⣕⠄⠀⠀⠀⠀
@@ -112,7 +137,9 @@ const closeModal = () => {
 4. 팀원 이예림
    Role: Frontend Developer
    About: 이거 끝나고 저희 손절해요.
-   
+   etc: 구미 4반 반장, 잠 좀 그만 자
+
+---------------------------------------------
 
 ⠀⠀⠀⠀⣠⡲⡽⡽⣽⡳⣄⡀⠀⠀⠀
 ⠀⠀⠀⣞⢮⢫⠹⡸⡐⢝⢜⣖⠄⠀⠀
@@ -126,14 +153,18 @@ const closeModal = () => {
 
 5. 팀원 주효림
    Role: Backend Developer
-   About: Expert in Python and cloud infrastructure.
+   About: 벌써 관통 프로젝트 끝냄 ㅎ
+   etc: 알고리즘 고수, 양배추환 중독자, 강박증 보유
+   
+
+서비스를 이용해주셔서 감사합니다.
 
                   </pre>
                 <span style="padding: 5px; font-size: 15px;">
                   C:\&gt;
-                  <a href="https://naver.com" style="color: lightblue">자세히보기</a>
+                  <a href="https://laced-anger-a26.notion.site/31b7c2774bd842a580718419dcaf3b53?pvs=4" style="color: lightblue" target="_blank">자세히보기</a>
                 </span>
-                <div style="height: 10px"/>
+                <div style="height: 10px"></div>
               </div>
           </div>
         </div>
