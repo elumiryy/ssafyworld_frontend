@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory} from "vue-router";
-// import axios from 'axios';
+import axios from 'axios';
 
 import MainView from '@/views/MainView.vue'
 import SignupView from '@/views/member/SignupView.vue'
@@ -86,7 +86,7 @@ const routes = [
   {
     path: '/:catchAll(.*)', //다른 라우터 전부 catch
     redirect: '/ssafyworld' 
-  },
+  }, 
 ];
 
 const router = createRouter({
@@ -94,35 +94,70 @@ const router = createRouter({
   routes
 });
 
+axios.interceptors.response.use(
+    response => {
+        return response
+    },
+    error => {
+      const httpStatus = error.response.status;
+      const customCode = error.response.data.code;
+        if (httpStatus === 401) {
 
-// router.beforeEach(async (to, from, next) => {
-//   const openRoutes = ["LoginView", "SignupView", "SignupViewQA"];
+            if(customCode === 'AUTH-001') {
+              alert('세션이 만료되었습니다. 다시 로그인해주세요.')
+              localStorage.removeItem('accessToken');
+              router.push({name : 'LoginView'});
+            } else {
+              router.push({ name : "BlackView"})
+            }            
+        } else if (httpStatus === 403) {
 
-//   if (!openRoutes.includes(to.name)) {
-//     let isAuthenticated = false;
+          alert('접근 권한이 존재하지 않습니다.')
+          router.push({ name : "MainView"})
 
-//     const accessToken = localStorage.getItem('accessToken');
+        } else if(httpStatus === 400) {
 
-//     if (accessToken) {
-//       try {
-//         await axios.get('/token', {
-//           headers: {
-//             Authorization: `Bearer ${accessToken}`
-//           }
-//         });
-//         isAuthenticated = true; 
-//       } catch (error) {
-//         isAuthenticated = false; 
-//       }
-//     }
+          if(customCode === 'LETTER-007') {
+            alert(`아직 편지를 볼 수 없어요!! : 2024년 5월 24일까지 기다려주세요!!`)
+          }
+        } else if(httpStatus === '404') {
+            alert('페이지를 찾을 수 없어요 ㅠㅠ');
+        } else {
+          console.log("500에러는 개발자의 눈물....")
+        }
+        return Promise.reject(error);
+    }
+);
 
-//     if (!isAuthenticated) {
-//       return next({ name: 'LoginView' });
-//     }
-//   }
 
-//   next();
-// });
+router.beforeEach(async (to, from, next) => {
+  const openRoutes = ["LoginView", "SignupView", "SignupViewQA","BlackView"];
+
+  if (!openRoutes.includes(to.name)) {
+    let isAuthenticated = false;
+
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (accessToken) {
+      try {
+        await axios.get('/token', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+        isAuthenticated = true; 
+      } catch (error) {
+        isAuthenticated = false; 
+      }
+    }
+
+    if (!isAuthenticated) {
+      return next({name:'LoginView'});
+    }
+  }
+
+  next();
+});
 
 
 export {router}
