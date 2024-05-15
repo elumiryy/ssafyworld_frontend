@@ -128,7 +128,7 @@ axios.interceptors.response.use(
         } else if(httpStatus === '404') {
             alert('페이지를 찾을 수 없어요 ㅠㅠ');
         } else {
-          console.log("500에러는 개발자의 눈물....")
+            alert('error');
         }
         return Promise.reject(error);
     }

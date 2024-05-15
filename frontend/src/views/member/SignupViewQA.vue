@@ -80,11 +80,9 @@ export default {
     })
   },
   created() {
-  console.log("sub from Vuex in SignupViewQA:", this.sub); // 컴포넌트 생성 시 sub 로깅
 },
   methods: {
     logSub() {
-    console.log(this.sub);  // 여기에서 `this.sub`은 계산된 속성의 값을 로그합니다.
   },
     prevStep() {
       this.$router.push('/signup');
@@ -110,7 +108,6 @@ export default {
 
         if (groupInfoResponse.data) {
           this.groupInfoId = groupInfoResponse.data;
-          console.log("Fetched groupInfoId:", this.groupInfoId);
         } 
 
         const now = new Date().toISOString();
@@ -127,8 +124,7 @@ export default {
           updatedAt: now   // updatedAt에 현재 시간 설정
         };
 
-        const registerResponse = await axios.post('/member/register', registrationData);
-        console.log('Registration successful', registerResponse);
+        await axios.post('/member/register', registrationData);
 
         this.login();
       } catch (error) {

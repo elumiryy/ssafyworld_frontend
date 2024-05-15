@@ -9,7 +9,7 @@
         />
         <div class="guide">
             <img src="@/assets/windowsIcon/directory_admin_tools-5.png" alt="windows-icon-img" width="40" height="40">
-            <p>내 정보 수정은 이름만 변경할 수 있습니다. 변경하고자 하는 사용자 이름과 본인 확인용 질문 그리고 답을 입력해 주십시오.</p>
+            <p>내 정보 수정은 이름만 변경할 수 있습니다. 본인 확인용 질문 그리고 답을 정확히 입력해 주십시오. 정확하지 않을 시 변경이 불가합니다.</p>
         </div>
         <div class="field-row">
 

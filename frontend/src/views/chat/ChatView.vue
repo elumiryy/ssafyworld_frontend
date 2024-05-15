@@ -81,7 +81,6 @@ export default {
                 })
                 .catch((error) => {
                     alert("통신 실패: " + error);
-                    console.log(error);
                 });
             } catch (error) {
                 console.error(error);
@@ -116,7 +115,6 @@ export default {
             this.$router.push('/')
         },
         finish() {
-            console.log(this.selectOrdinal, this.selectRegion, this.selectBan);
             this.getChatRoomId();
         },
         async getChatRoomId() {
@@ -145,7 +143,7 @@ export default {
                     console.error("accessToken is null ");
                 }
             } catch(error) {
-                console.log('can not find chatroom : ' + error);
+                console.log(error)
             }
         },
         async getRegion() {
@@ -165,7 +163,6 @@ export default {
                 })
                 .catch((error) => {
                     alert("통신 실패: " + error);
-                    console.log(error);
                 });
             } catch (error) {
                 console.error(error);
@@ -190,7 +187,6 @@ export default {
                 })
                 .catch((error) => {
                     alert("통신 실패: " + error);
-                    console.log(error);
                 });
             } catch (error) {
                 console.error(error);
