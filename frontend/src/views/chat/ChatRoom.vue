@@ -50,12 +50,14 @@
 <script setup>    
 import axios from 'axios';
 import {ref, onBeforeMount, onUpdated} from 'vue';
-import {onBeforeRouteLeave} from 'vue-router'
+import {onBeforeRouteLeave, useRouter} from 'vue-router'
 import moment from 'moment';
 import {adjustTime} from '@/components/timezone.js'
 
+const router = useRouter();
+
 function closwMypage() {
-    window.close()
+   router.push({ name: 'MainView' });
 }
 
 function Chat(sender, content,time) {

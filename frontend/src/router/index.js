@@ -13,6 +13,7 @@ import LetterView from '@/views/letter/LetterView.vue'
 import ReceivedLetterView from '@/views/letter/ReceivedLetterView.vue'
 import LoadingComponent from '@/components/rollingpaper/LoadingComponent.vue'
 import BlackView from '@/views/BlackView.vue'
+import BlueScreenView from '@/views/error/BlueScreen.vue'
 
 const routes = [
   {
@@ -86,7 +87,12 @@ const routes = [
   {
     path: '/:catchAll(.*)', //다른 라우터 전부 catch
     redirect: '/ssafyworld' 
-  }, 
+  },
+  {
+    path: '/blue',
+    name: 'BlueScreen',
+    component: BlueScreenView,
+  },
 ];
 
 const router = createRouter({
@@ -116,7 +122,6 @@ axios.interceptors.response.use(
           router.push({ name : "MainView"})
 
         } else if(httpStatus === 400) {
-
           if(customCode === 'LETTER-007') {
             alert(`아직 편지를 볼 수 없어요!! : 2024년 5월 24일까지 기다려주세요!!`)
           }
@@ -158,6 +163,5 @@ router.beforeEach(async (to, from, next) => {
 
   next();
 });
-
 
 export {router}

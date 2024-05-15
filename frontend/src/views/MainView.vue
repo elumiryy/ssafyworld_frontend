@@ -1,7 +1,14 @@
 <template lang="">
   <div class="main">
-    <div class="windows-icon-div">
-      <router-link to="/login">
+    <!-- ErrorModal을 코드 최상단으로 올려야 전체 화면에 대한 클릭이벤트를 적용할 수 있다 -->
+    <ErrorModal v-if="errorModalState" @close="changeErrorModalState" :success="isSuccess" title="에러가 발생하였습니다" message="에러메시지!!원하는 에러메시지 작성"/>
+
+    <div class="windows-icon-div received">
+      <div
+        @click="openIntroModal"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave"
+        >
         <img
           src="@/assets/windowsIcon/computer_explorer-4.png"
           alt="windows-icon-img"
@@ -9,8 +16,10 @@
           height="50"
         />
         <p>내 컴퓨터</p>
-      </router-link>
+      </div>
     </div>
+    <IntroView :isOpen="introOpen" @close-modal="closeIntroModal" style="position: absolute; top:0; left:0"/>
+
     <div class="windows-icon-div">
       <router-link to="/chat">
         <img
@@ -68,7 +77,6 @@
         <p>에러팝업</p>
       </div>
     </div>
-    <ErrorModal v-if="errorModalState" @close="changeErrorModalState" :success="isSuccess" title="에러가 발생하였습니다" message="에러메시지!!원하는 에러메시지 작성"/>
   
     <!-- 숨겨놓은 컴포넌트 (letter보낼 사용자 선택 디렉토리) -->
     <LetterView v-if="folderOpen" :isOpen="folderOpen" @isColsed="closeFolder"></LetterView>
@@ -78,6 +86,7 @@
 <script setup>
 import { ref } from "vue";
 import ReceivedLetterView from "./letter/ReceivedLetterView.vue";
+import IntroView from "./intro/IntroView.vue";
 import HiddenListComponent from "@/components/rollingpaper/HiddenListComponent.vue";
 import LetterView from "./letter/LetterView.vue";
 import ErrorModal from "./error/ErrorModal.vue";
@@ -125,6 +134,22 @@ const goToFolderView = () => {
 const closeFolder = () => {
   folderOpen.value = false;
 }
+//-------------------------------------------
+
+//개발자 소개 관련----------------------------
+const introOpen = ref(false);
+
+const openIntroModal = () => {
+  introOpen.value = true;
+};
+
+const closeIntroModal = () => {
+  introOpen.value = false;
+};
+
+// const goToIntroView = () => {
+//   introOpen.value = true;
+// }
 //-------------------------------------------
 
 </script>

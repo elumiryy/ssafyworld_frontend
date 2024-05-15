@@ -19,7 +19,7 @@
 
         <div class="main letter-area">
           <div class="sunken-panel letter-list">
-            <table style="width: 100%">
+            <table>
               <thead>
                 <tr>
                   <th style="width: 10%">보낸 사람</th>
@@ -33,6 +33,8 @@
                   v-for="letter in letters"
                   :key="letter.letterId"
                   @click="showLetterDetail(letter)"
+                  tabindex="0"
+                  :class="{ 'selected-row': selectedLetter === letter }"
                 >
                   <td>{{ letter.fromUser }}</td>
                   <td>{{ truncate(letter.title) }}</td>
@@ -44,20 +46,15 @@
           </div>
 
           <div class="letter-detail">
-            <div class="letter-info" v-if="selectedLetter">
-              <span><b>보낸 사람</b> : {{ selectedLetter.fromUser }} </span>
-              <button
-                @click="HideCancle"
-                style="float: right; margin-top: 2px; margin-right: 2px"
-              >
-                숨기기 취소
-              </button>
-              <p>
-                <span><b>제목</b> : {{ selectedLetter.title }}</span>
-                <span style="margin-left: 20%"
-                  ><b>전송 날짜</b> : {{ selectedLetter.createdAt }}</span
-                >
-              </p>
+            <div class="letter-info">
+              <div class="letter-info-div-first">
+                <span><b>보낸 사람</b> &nbsp;:&nbsp; {{ selectedLetter.fromUser }} </span>
+                <button v-if="selectedLetter.fromUser != null" @click="HideCancle">숨기기 취소</button>
+              </div>
+              <div class="letter-info-div-second">
+                <span class="letter-info-div-title"><b>제목</b> &nbsp;:&nbsp; {{ selectedLetter.title }}</span>
+                <span class="letter-info-div-createdAt"><b>전송 날짜</b> &nbsp;:&nbsp; {{ selectedLetter.createdAt }}</span>
+              </div>
             </div>
             <div class="letter-content">{{ selectedLetter.content }}</div>
           </div>
@@ -69,13 +66,14 @@
 
 <script setup>
 import axios from "axios";
-import { defineProps, defineEmits, onMounted, ref } from "vue";
+import { defineProps, defineEmits, ref, watch } from "vue";
+import {truncate} from '@/components/letter.js'
 
 const letters = ref([]);
 const selectedLetter = ref({});
 const emit = defineEmits(["closeModal"]);
 
-defineProps({
+const props = defineProps({
   showModal: Boolean,
 });
 
@@ -102,7 +100,11 @@ const showList = () => {
     });
 };
 
-onMounted(showList)
+watch(() => props.showModal, (value) => {
+  if (value) {
+    showList();
+  }
+});
 
 const HideCancle = () => {
   axios
@@ -131,14 +133,6 @@ const HideCancle = () => {
 const showLetterDetail = (letter) => {
   selectedLetter.value = letter;
 };
-
-const MAX_LENGTH = 10
-const truncate = (text) => {
-  if (text.length > MAX_LENGTH) {
-    return text.substring(0, MAX_LENGTH) + ' ...'
-  }
-  return text
-}
 </script>
 
 <style scoped>
@@ -152,22 +146,38 @@ const truncate = (text) => {
   height: 400px;
 }
 
+.window {
+   height: 100%;
+}
+
 .window-body {
+  height: 90%;
+  margin: 0;
+  padding: 0 8px;
   font-size: 13px;
 }
 
 .inner-nav {
-  margin-top: 0;
-  margin-bottom: 1%;
+  /* margin-top: 0;
+  margin-bottom: 1%; */
+  padding: 8px 0;
 }
 
 .inner-nav > span {
-  margin-right: 1%;
+  /* margin-right: 1%; */
+  padding-right: 8px;
+}
+
+.letter-area {
+  height: 90%;
+  /* margin-left: 5px;
+  margin-bottom: 10px; */
 }
 
 ul {
   font-size: 14px;
 }
+
 table {
   font-size: 14px;
 }
@@ -176,17 +186,44 @@ table {
   height: 50%;
 }
 
-.letter-detail {
-  margin-top: 5px;
+.letter-detail {  
+  /* margin-top: 5px; */
   height: 50%;
   background-color: white;
   border-style: inset;
+  box-shadow: inset -1px -1px #626262, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
 }
 
 .letter-info {
+  padding: 3px;
   font-size: 14px;
   background-color: #bfbfbf;
-  box-shadow: 1px 1px 1px 1px #8f8f8f;
+  /* box-shadow: 1px 1px 1px 1px #8f8f8f; */
+  box-shadow: inset -1px -1px #626262, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+}
+
+.letter-info-div-first {
+  display: flex;
+  justify-content: space-between;
+}
+
+.letter-info-div-first > span {
+  display: flex;
+  align-items: center;
+}
+
+.letter-info-div-second {
+  display: flex;
+  justify-content: space-between;
+}
+
+.letter-info-div-second > span {
+  display: flex;
+  align-items: center;
+}
+
+.letter-info-div-createdAt {
+  width: 40%;
 }
 
 .letter-content {
@@ -194,9 +231,12 @@ table {
   font-size: 15px;
 }
 
-.letter-area {
-  height: 350px;
-  margin-left: 5px;
-  margin-bottom: 10px;
+tr > td {
+  cursor: pointer;
+}
+
+.selected-row {
+  background-color: #BFBFBF;
+  color: white;
 }
 </style>

@@ -65,25 +65,8 @@ const showSentList = () => {
   showSent.value = true;
 };
 
-
-// const router = useRouter();
 const goToFolderView = () => {
-  // router.push("/LetterView");
   emit("goToFolderView");
-};
-
-const handleMouseEnter = () => {
-  document.querySelector(".go-to-write").style.cursor = "pointer"; // 마우스를 올렸을 때 커서 변경
-  document.querySelector(".side-bar-receive").style.cursor = "pointer";
-  document.querySelector(".side-bar-sent").style.cursor = "pointer";
-  document.querySelector(".side-bar-hidden").style.cursor = "pointer";
-};
-
-const handleMouseLeave = () => {
-  document.querySelector(".go-to-write").style.cursor = "default"; // 마우스를 떼었을 때 커서 원래대로 변경
-  document.querySelector(".side-bar-receive").style.cursor = "default";
-  document.querySelector(".side-bar-sent").style.cursor = "default";
-  document.querySelector(".side-bar-hidden").style.cursor = "default";
 };
 
 const isHiddenOpen = ref(false)
@@ -125,8 +108,6 @@ const closeHiddenModal = () => {
             class="go-to-write"
             style="text-align: center"
             @click="goToFolderView"
-            @mouseenter="handleMouseEnter"
-            @mouseleave="handleMouseLeave"
           >
             <img src="@/assets/windowsIcon/write_wordpad-1.png" alt="" /><br />
             롤링 페이퍼 작성
@@ -148,8 +129,6 @@ const closeHiddenModal = () => {
                 <li
                   class="side-bar-receive"
                   @click="showReceivedList"
-                  @mouseenter="handleMouseEnter"
-                  @mouseleave="handleMouseLeave"
                 >
                   <div style="display: flex; align-items: center">
                     <img
@@ -163,8 +142,6 @@ const closeHiddenModal = () => {
                 <li
                   class="side-bar-sent"
                   @click="showSentList"
-                  @mouseenter="handleMouseEnter"
-                  @mouseleave="handleMouseLeave"
                 >
                   <div style="display: flex; align-items: center">
                     <img
@@ -178,8 +155,6 @@ const closeHiddenModal = () => {
                 <li
                   class="side-bar-hidden"
                   @click="openHideModal"
-                  @mouseenter="handleMouseEnter"
-                  @mouseleave="handleMouseLeave"
                 >
                   <div style="display: flex; align-items: center">
                     <img
@@ -252,4 +227,19 @@ const closeHiddenModal = () => {
   margin-left: 5px;
   margin-bottom: 10px;
 }
+
+.go-to-write:hover {
+  cursor: pointer;
+}
+
+.side-bar-receive:hover {
+  cursor: pointer;
+} 
+.side-bar-sent:hover {
+  cursor: pointer;
+}
+.side-bar-hidden:hover {
+  cursor: pointer;
+}
+
 </style>
