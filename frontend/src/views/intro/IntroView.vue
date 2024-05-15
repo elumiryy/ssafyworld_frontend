@@ -76,8 +76,8 @@ const closeModal = () => {
 
 
 2. 팀원 이예찬
-   Role: Frontend Developer
-   About: Loves crafting beautiful and responsive web interfaces.
+   Role: Backend Developer
+   About: 다이어트 3주차.. 예민지림 79KG를 향해
 
 ⠀⠀⠀⢀⣴⢾⣿⣿⣽⢷⢦⡀⠀⠀⠀
 ⠀⠀⠀⣾⢽⣻⢳⢯⢟⣿⢽⣖⠀⠀⠀
@@ -90,8 +90,8 @@ const closeModal = () => {
 ⣻⣽⣿⣽⣾⠄⠀⠀⠀⢀⣿⢷⡿⣟⣿
 
 3. 팀원 이지언
-   Role: Backend Developer``
-   About: Specializes in API design and microservices.
+   Role: Backend Developer
+   About: 나는 신이 될 사나이.
 
 ⠀⠀⠀⠀⠀⠀⡀⣀⢀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⡠⣮⡻⣪⡳⣕⠄⠀⠀⠀⠀
