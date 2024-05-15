@@ -14,10 +14,12 @@
           v-for="letter in letters"
           :key="letter.letterId"
           @click="showLetterDetail(letter)"
+          tabindex="0"
+          :class="{ 'selected-row': selectedLetter === letter }"
         >
           <td>{{ letter.toUserName }}</td>
-          <td>{{ letter.title }}</td>
-          <td>{{ letter.content }}</td>
+          <td>{{ truncate(letter.title) }}</td>
+          <td>{{ truncate(letter.content) }}</td>
           <td>{{ letter.createdAt }}</td>
         </tr>
       </tbody>
@@ -46,6 +48,7 @@
 
 <script setup>
 import { defineProps, ref } from "vue";
+import {truncate} from '@/components/letter.js'
 
 defineProps({
   letters: Array,
@@ -88,5 +91,14 @@ table {
 .letter-content {
   padding: 1px 10px;
   font-size: 15px;
+}
+
+tr > td {
+  cursor: pointer;
+}
+
+.selected-row {
+  background-color: #BFBFBF;
+  color: white;
 }
 </style>

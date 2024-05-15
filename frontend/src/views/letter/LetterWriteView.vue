@@ -56,6 +56,11 @@ export default{
     const contentField = ref(''); // textarea 내용을 담을 변수
 
     const send = () => {
+      if(titleField.value.length == 0 || contentField.value.length == 0){
+        alert("제목과 내용은 필수값입니다!");
+        return;
+      }
+      
       axios.post('/letter', {
 
         toUser: toUser.value,
@@ -68,15 +73,10 @@ export default{
           withCredentials: true, // default
           Accept: "application/json",
         }
-       }).then(response => {
-        console.log(response.data);
-        alert("메시지 전송 성공!");
-        
+       }).then(() => {
         window.close();
-        // window.open으로 "LoadingComponent"를 정중앙에 띄우고 파라미터로 ordinal, region, ban, names 전달
-
         window.open(`/loading?ordinal=${ordinal.value}&region=${region.value}&ban=${ban.value}&names=${names.value}`, 
-        "LoadingComponent", "width=600, height=280");
+        "LoadingComponent", "width=600, height=300");
 
       }).catch(error => {
         console.error(error);

@@ -39,7 +39,7 @@
             </div>
 
             <div class="mycontent-div">
-                <label for="mycontent">채팅 입력 : </label>
+                <label for="mycontent">채팅 입력 &nbsp; : &nbsp; </label>
                 <input id="mycontent" type="text" @keypress.enter = "sendChat" v-model="inputText" />
             </div>
         </div>
@@ -50,17 +50,20 @@
 <script setup>    
 import axios from 'axios';
 import {ref, onBeforeMount, onUpdated} from 'vue';
-import {onBeforeRouteLeave} from 'vue-router'
+import {onBeforeRouteLeave, useRouter} from 'vue-router'
 import moment from 'moment';
+import {adjustTime} from '@/components/timezone.js'
+
+const router = useRouter();
 
 function closwMypage() {
-    window.close()
+   router.push({ name: 'MainView' });
 }
 
 function Chat(sender, content,time) {
     this.sender = sender;
     this.content = content;
-    this.time = time;
+    this.time = adjustTime(time);
 }
 
 const searchParams = new URLSearchParams(window.location.search);
@@ -95,7 +98,10 @@ onBeforeMount(() => {
   getChattingData();
   clientWebSocket = new WebSocket(process.env.VUE_APP_WEB_SOCKET_URL + chatRoomId);
   clientWebSocket.onmessage = function(message) {
-      chatData.value.push(JSON.parse(message.data));
+      const chat = JSON.parse(message.data);
+      chat.time = adjustTime(chat.time);
+      chatData.value.push(chat);
+
       const bottom = document.querySelector('.sunken-panel');
       bottom.scrollTop =  bottom.scrollHeight;
   }
@@ -135,8 +141,6 @@ const sendChat = () => {
 <style scoped>
   .chatroom {
     height: 100vh;
-    position: relative;
-    z-index: 1;
   }
 
   .window {
@@ -200,17 +204,17 @@ const sendChat = () => {
   }
 
   .mycontent-div {
-    padding: 10px 0;
+    padding: 10px;
     display: flex;
   }
 
   label {
     color: #E6F5FF;
-    font-size: small;
+    font-size: large;
   }
 
   input {
     width: 95%;
-    font-size: small;
+    font-size: large;
   }
 </style>
