@@ -11,13 +11,25 @@
                 </button>
                 <div class="footer-icons">
                     <hr>
-                    <div>
-                        <img src="@/assets/windowsIcon/desktop-1.png" alt="windows-icon-img" width="25" height="25">
-                        <img src="@/assets/windowsIcon/clean_drive-4.png" alt="windows-icon-img" width="25" height="25">
-                        <img src="@/assets/windowsIcon/msie1-2.png" alt="windows-icon-img" width="25" height="25">
-                        <img src="@/assets/windowsIcon/console_prompt-0.png" alt="windows-icon-img" width="25" height="25">
-                        <img src="@/assets/windowsIcon/game_mine_1-0.png" alt="windows-icon-img" width="25" height="25">
-                        <img src="@/assets/windowsIcon/game_freecell-1.png" alt="windows-icon-img" width="25" height="25">
+                    <div style="display: flex; align-items: center;">
+                        <button class="footerBtn" @click="$emit('open-not-complete-modal')">
+                            <img src="@/assets/windowsIcon/desktop-1.png" alt="windows-icon-img" width="25" height="25" style="padding: 0">
+                        </button>
+                        <button class="footerBtn" @click="$emit('open-not-complete-modal')">
+                            <img src="@/assets/windowsIcon/clean_drive-4.png" alt="windows-icon-img" width="25" height="25">
+                        </button>
+                        <button class="footerBtn" @click="$emit('open-not-complete-modal')">
+                            <img src="@/assets/windowsIcon/msie1-2.png" alt="windows-icon-img" width="25" height="25">
+                        </button>
+                        <button class="footerBtn" @click="$emit('open-not-complete-modal')">
+                            <img src="@/assets/windowsIcon/console_prompt-0.png" alt="windows-icon-img" width="25" height="25">
+                        </button>
+                        <button class="footerBtn" @click="$emit('open-not-complete-modal')">
+                            <img src="@/assets/windowsIcon/game_mine_1-0.png" alt="windows-icon-img" width="25" height="25">
+                        </button>
+                        <button class="footerBtn" @click="$emit('open-not-complete-modal')">
+                            <img src="@/assets/windowsIcon/game_freecell-1.png" alt="windows-icon-img" width="25" height="25">
+                        </button>
                     </div>
                     <hr>
                 </div>
@@ -26,9 +38,15 @@
                 <div class="footer-icons">
                     <hr>
                     <div>
-                        <img src="@/assets/windowsIcon/font_bitmap-0.png" alt="windows-icon-img" width="25" height="25">
-                        <img src="@/assets/windowsIcon/printer_question-4.png" alt="windows-icon-img" width="25" height="25">
-                        <img src="@/assets/windowsIcon/loudspeaker_rays-0.png" alt="windows-icon-img" width="25" height="25">
+                        <button class="footerBtn" @click="$emit('open-not-complete-modal')">
+                            <img src="@/assets/windowsIcon/font_bitmap-0.png" alt="windows-icon-img" width="25" height="25">
+                        </button>
+                        <button class="footerBtn" @click="$emit('open-not-complete-modal')">
+                            <img src="@/assets/windowsIcon/printer_question-4.png" alt="windows-icon-img" width="25" height="25">
+                        </button>
+                        <button class="footerBtn" @click="$emit('open-not-complete-modal')">
+                            <img src="@/assets/windowsIcon/loudspeaker_rays-0.png" alt="windows-icon-img" width="25" height="25">
+                        </button>
                     </div>
                     <hr>
                 </div>
@@ -85,8 +103,13 @@ export default {
 </script>
 
 <style scoped>
-
     @import "https://unpkg.com/98.css";
+
+    .footerBtn {
+        all: unset; /* 외부 스타일시트 다 무시 */
+        padding:0; margin: 0; min-width: 25px; max-height: 25px; height: 25; width: 25;
+        text-shadow: none;
+    }
 
     #footer {
         width: 100%;

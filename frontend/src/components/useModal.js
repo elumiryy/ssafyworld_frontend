@@ -411,7 +411,10 @@ export const Modal = defineComponent({
                                         },
                                     }, "앞으로"),
                                     h('button', {
-                                        style: "width: 50px;padding: 10px; height: 15px; display: flex;align-items: center;padding: 5px; min-width: 50px; justify-content: center; box-shadow:none"
+                                        style: "width: 50px;padding: 10px; height: 15px; display: flex;align-items: center;padding: 5px; min-width: 50px; justify-content: center; box-shadow:none",
+                                        onclick: () => {
+                                            goBack();
+                                        },
                                     }, "위로"),
                                 ])
                             ]),
@@ -486,7 +489,7 @@ export const Modal = defineComponent({
                                 // ])
                             // ]
                             // ) : null,
-                        ]
+                            ]
                         ),
                     ])
                 ]) : null;

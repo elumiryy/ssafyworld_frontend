@@ -17,12 +17,17 @@
 
     <!-- time -->
     <div class="time">
-      <TimeView v-if="isTimeVisible" :date="date" />
+      <TimeView v-if="isTimeVisible" :date="date"/>
+    </div>
+
+    <!-- notComplete.. sorry -->
+    <div class="notComplete">
+      <NotCompleteView v-if="isNotCompleteVisible"/>
     </div>
     
     <!-- Footer -->
     <footer>
-      <FooterView @open-start-modal="callOpenStartModal" @open-time-modal="callOpenTimeModal" />
+      <FooterView @open-start-modal="callOpenStartModal" @open-time-modal="callOpenTimeModal" @open-not-complete-modal="callOpenNotCompleteModal"/>
     </footer>
 
   </div>
@@ -32,6 +37,7 @@
 import FooterView from '@/components/common/FooterView.vue'
 import SettingView from '@/components/common/SettingView.vue';
 import TimeView from '@/components/common/TimeView.vue';
+import NotCompleteView from '@/components/common/NotCompleteView.vue';
 import MypageView from '@/views/member/MypageView.vue';
 
 export default {
@@ -40,6 +46,7 @@ export default {
     return {
       isSettingVisible: false,
       isTimeVisible: false,
+      isNotCompleteVisible: false,
       isOpenMypage: false,
       date: {
         year: '',
@@ -53,8 +60,16 @@ export default {
     SettingView,
     TimeView,
     MypageView,
+    NotCompleteView
   },
   methods: {
+
+    //not complete view 관련----------
+    callOpenNotCompleteModal() {
+      this.isNotCompleteVisible = !this.isNotCompleteVisible
+    },
+    //--------------------------------
+
     callOpenStartModal() {
       this.isSettingVisible = !this.isSettingVisible
     },
@@ -71,6 +86,9 @@ export default {
       }
       if (this.isTimeVisible == true) {
         this.isTimeVisible = !this.isTimeVisible
+      }
+      if (this.isNotCompleteVisible == true) {
+        this.isNotCompleteVisible = false
       }
     },
     openMypage() {
@@ -107,6 +125,12 @@ export default {
   }
 
   .time {
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+  }
+
+  .notComplete {
     position: absolute;
     bottom: 20px;
     right: 0;
