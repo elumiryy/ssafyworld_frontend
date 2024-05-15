@@ -33,6 +33,8 @@
                   v-for="letter in letters"
                   :key="letter.letterId"
                   @click="showLetterDetail(letter)"
+                  tabindex="0"
+                  :class="{ 'selected-row': selectedLetter === letter }"
                 >
                   <td>{{ letter.fromUser }}</td>
                   <td>{{ truncate(letter.title) }}</td>
@@ -44,10 +46,10 @@
           </div>
 
           <div class="letter-detail">
-            <div class="letter-info" v-if="selectedLetter">
+            <div class="letter-info">
               <div class="letter-info-div-first">
                 <span><b>보낸 사람</b> &nbsp;:&nbsp; {{ selectedLetter.fromUser }} </span>
-                <button @click="HideCancle">숨기기 취소</button>
+                <button v-if="selectedLetter.fromUser != null" @click="HideCancle">숨기기 취소</button>
               </div>
               <div class="letter-info-div-second">
                 <span class="letter-info-div-title"><b>제목</b> &nbsp;:&nbsp; {{ selectedLetter.title }}</span>
@@ -64,13 +66,13 @@
 
 <script setup>
 import axios from "axios";
-import { defineProps, defineEmits, onMounted, ref } from "vue";
+import { defineProps, defineEmits, ref, watch } from "vue";
 
 const letters = ref([]);
 const selectedLetter = ref({});
 const emit = defineEmits(["closeModal"]);
 
-defineProps({
+const props = defineProps({
   showModal: Boolean,
 });
 
@@ -97,7 +99,11 @@ const showList = () => {
     });
 };
 
-onMounted(showList)
+watch(() => props.showModal, (value) => {
+  if (value) {
+    showList();
+  }
+});
 
 const HideCancle = () => {
   axios
@@ -224,11 +230,20 @@ table {
 }
 
 .letter-info-div-createdAt {
-  width: 30%;
+  width: 40%;
 }
 
 .letter-content {
   padding: 1px 10px;
   font-size: 15px;
+}
+
+tr > td {
+  cursor: pointer;
+}
+
+.selected-row {
+  background-color: #BFBFBF;
+  color: white;
 }
 </style>
