@@ -61,7 +61,7 @@ const closeModal = () => {
 
 1. 팀장 김민종
    Role: Backend Developer
-   About: Passionate about building scalable server architectures.
+   About: 삼성 갈꺼니께~
 
 ⠀⠀⠀⠀⠀⠀⢀⢀⢀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⢀⢔⣞⣞⣞⣞⢮⡢⡄⠀⠀⠀
@@ -76,8 +76,8 @@ const closeModal = () => {
 
 
 2. 팀원 이예찬
-   Role: Frontend Developer
-   About: Loves crafting beautiful and responsive web interfaces.
+   Role: Backend Developer
+   About: 다이어트 3주차.. 예민지림 
 
 ⠀⠀⠀⢀⣴⢾⣿⣿⣽⢷⢦⡀⠀⠀⠀
 ⠀⠀⠀⣾⢽⣻⢳⢯⢟⣿⢽⣖⠀⠀⠀
@@ -90,8 +90,8 @@ const closeModal = () => {
 ⣻⣽⣿⣽⣾⠄⠀⠀⠀⢀⣿⢷⡿⣟⣿
 
 3. 팀원 이지언
-   Role: Backend Developer``
-   About: Specializes in API design and microservices.
+   Role: Backend Developer
+   About: https://trillium.tistory.com/
 
 ⠀⠀⠀⠀⠀⠀⡀⣀⢀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⡠⣮⡻⣪⡳⣕⠄⠀⠀⠀⠀
@@ -107,7 +107,7 @@ const closeModal = () => {
 
 4. 팀원 이예림
    Role: Frontend Developer
-   About: Focused on JavaScript and progressive web apps.
+   About: 
 
 ⠀⠀⠀⠀⣠⡲⡽⡽⣽⡳⣄⡀⠀⠀⠀
 ⠀⠀⠀⣞⢮⢫⠹⡸⡐⢝⢜⣖⠄⠀⠀

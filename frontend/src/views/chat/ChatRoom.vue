@@ -14,7 +14,7 @@
 
         <div class="window-body">
             <div class="sunken-panel">
-                <table class="interactive">
+                <table>
                     <thead>
                         <tr>
                           <th class="th-name">이름</th>

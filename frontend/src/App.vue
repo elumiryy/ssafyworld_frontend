@@ -57,12 +57,9 @@ export default {
   methods: {
     callOpenStartModal() {
       this.isSettingVisible = !this.isSettingVisible
-      console.log("상태 ", this.isSettingVisible)
     },
     callOpenTimeModal(year, month, day, dayWeek) {
       this.isTimeVisible = !this.isTimeVisible
-      console.log("시간 모달 상태 ", this.isTimeVisible)
-      console.log(year, month, day, dayWeek)
       this.date.year = year
       this.date.month = month
       this.date.day = day
@@ -71,21 +68,17 @@ export default {
     closeModal() {
       if (this.isSettingVisible == true) {
         this.isSettingVisible = !this.isSettingVisible
-        console.log("호출 ", this.isSettingVisible)
       }
       if (this.isTimeVisible == true) {
         this.isTimeVisible = !this.isTimeVisible
-        console.log("호출 ", this.isTimeVisible)
       }
     },
     openMypage() {
         this.isOpenMypage = true;
-        console.log("open : " + this.isOpenMypage)
         // window.open("/mypage", "_blank", "width=550, height=400, left=550, top=250");
     },
     closeMypage() {
         this.isOpenMypage = false;
-        console.log("close : " + this.isOpenMypage)
     }
   }
 }
