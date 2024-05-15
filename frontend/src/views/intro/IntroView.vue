@@ -186,12 +186,25 @@ pre {
 
 .received {
   position: fixed;
-  width: 70%;
+  width: 800px;
   min-width: 100px;
   height: 60%;
   top: 35%;            /* 화면의 중앙에 위치 */
   left: 50%;           /* 화면의 중앙에 위치 */
   transform: translate(-50%, -50%); /* 정확한 중앙 */
+}
+
+/* 반응형 레이아웃 설정 */
+@media (max-width: 800px) {
+  .received {
+    width: 500px;
+  }
+}
+
+@media (max-width: 500px) {
+  .received {
+    width: 300px;
+  }
 }
 
 .window-body {
