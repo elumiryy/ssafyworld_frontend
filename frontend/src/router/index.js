@@ -125,11 +125,8 @@ axios.interceptors.response.use(
           if(customCode === 'LETTER-007') {
             alert(`아직 편지를 볼 수 없어요!! : 2024년 5월 24일까지 기다려주세요!!`)
           }
-        } else if(httpStatus === '404') {
-            alert('페이지를 찾을 수 없어요 ㅠㅠ');
-        } else {
-            alert('error');
         }
+        
         return Promise.reject(error);
     }
 );
