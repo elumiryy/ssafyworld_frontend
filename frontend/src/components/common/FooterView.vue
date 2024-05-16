@@ -38,13 +38,13 @@
                 <div class="footer-icons">
                     <hr>
                     <div>
-                        <button class="footerBtn" @click="$emit('open-not-complete-modal')">
+                        <button class="footerBtn" @click="$emit('open-not-complete2-modal')">
                             <img src="@/assets/windowsIcon/font_bitmap-0.png" alt="windows-icon-img" width="25" height="25">
                         </button>
-                        <button class="footerBtn" @click="$emit('open-not-complete-modal')">
+                        <button class="footerBtn" @click="$emit('open-not-complete2-modal')">
                             <img src="@/assets/windowsIcon/printer_question-4.png" alt="windows-icon-img" width="25" height="25">
                         </button>
-                        <button class="footerBtn" @click="$emit('open-not-complete-modal')">
+                        <button class="footerBtn" @click="$emit('open-not-complete2-modal')">
                             <img src="@/assets/windowsIcon/loudspeaker_rays-0.png" alt="windows-icon-img" width="25" height="25">
                         </button>
                     </div>

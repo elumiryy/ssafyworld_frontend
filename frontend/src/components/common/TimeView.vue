@@ -7,6 +7,8 @@
         <br>
         \\\ {{ weekString[date.dayWeek] }} 
         {{ week[date.dayWeek] }}요일입니다 ///
+        <br>
+        {{ week[date.dayWeek] }}요팅!!
     </div>
 </template>
 <script setup>
@@ -23,7 +25,7 @@ const weekString = ['즐거운', '새로운', '활기찬', '힘나는', '화창�
 <style scoped>
     .time {
         width: 200px;
-        height: 50px;
+        height: 60px;
         background-color: #B8BCB8;
         border: 2px outset #DADADA;
         box-shadow: 1px 1px 0 black;

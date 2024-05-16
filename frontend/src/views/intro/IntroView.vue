@@ -52,18 +52,19 @@ const closeModal = () => {
 
 📌공지사항
 - 회원가입을 완료한 사용자만 보여집니다.
+- 회원가입은 로그인 후 최초 1회만 보여집니다.
 - 비방, 욕설, 조롱, 성희롱 등 타인에게 불쾌함을 주는 내용은 금지합니다.🚫
-  (DB 추적 후 DB 혼낼 예정)
 
 ✅체크 포인트
 - 반별로 만들어진 채팅방으로 재밌는 이야기를 주고 받아요!
 - 응원을 받고 싶다면 시계를 눌러보세요!
 - 싸피월드 개발자를 찾아 사용 후기를 보내주세요!
 - windows 98이 있던 그때 그 시절로 돌아가보세요!
+- 숨어있는 이스터 에그를 찾아보세요!
 
 💻개발 툴 소개
 - Backend: Spring Webflux, Spring Security, MySQL R2DBC
-- Frontend: Vue.js, 98.CSS
+- Frontend: Vue.js
 - release: Google Cloud Platform
 - Version Control : GitHub
 - Cooperation: Notion, Figma, Jira

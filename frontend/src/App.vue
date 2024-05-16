@@ -24,10 +24,14 @@
     <div class="notComplete">
       <NotCompleteView v-if="isNotCompleteVisible"/>
     </div>
+
+    <div class="notComplete2">
+      <NotCompleteView v-if="isNotComplete2Visible"/>
+    </div>
     
     <!-- Footer -->
     <footer>
-      <FooterView @open-start-modal="callOpenStartModal" @open-time-modal="callOpenTimeModal" @open-not-complete-modal="callOpenNotCompleteModal"/>
+      <FooterView @open-start-modal="callOpenStartModal" @open-time-modal="callOpenTimeModal" @open-not-complete-modal="callOpenNotCompleteModal" @open-not-complete2-modal="callOpenNotComplete2Modal"/>
     </footer>
 
   </div>
@@ -47,6 +51,7 @@ export default {
       isSettingVisible: false,
       isTimeVisible: false,
       isNotCompleteVisible: false,
+      isNotComplete2Visible: false,
       isOpenMypage: false,
       date: {
         year: '',
@@ -67,6 +72,9 @@ export default {
     //not complete view 관련----------
     callOpenNotCompleteModal() {
       this.isNotCompleteVisible = !this.isNotCompleteVisible
+    },
+    callOpenNotComplete2Modal() {
+      this.isNotComplete2Visible = !this.isNotComplete2Visible
     },
     //--------------------------------
 
@@ -89,6 +97,9 @@ export default {
       }
       if (this.isNotCompleteVisible == true) {
         this.isNotCompleteVisible = false
+      }
+      if (this.isNotComplete2Visible == true) {
+        this.isNotComplete2Visible = false
       }
     },
     openMypage() {
@@ -131,6 +142,13 @@ export default {
   }
 
   .notComplete {
+    position: absolute;
+    bottom: 20px;
+    left: 45px;
+  }
+
+  .notComplete2 {
+    margin-right: 95px;
     position: absolute;
     bottom: 20px;
     right: 0;
